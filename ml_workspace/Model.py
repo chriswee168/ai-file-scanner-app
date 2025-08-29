@@ -21,3 +21,6 @@ class Model(nn.Module):
 
         mlp_dense_layer_dims: list[int] = hyper_params["mlp_dense_layer_dims"]
 
+        # There are 256 bytes in total.
+        vocab_size: int = 256
+        self.embedding_layer = nn.Embedding(vocab_size, embedding_len)
