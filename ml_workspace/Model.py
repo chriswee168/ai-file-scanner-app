@@ -1,5 +1,6 @@
 import torch.nn as nn
 import json
+from torch import Tensor
 from ml_workspace.custom_layers.FeedForward import FeedForward
 from ml_workspace.custom_layers.LinearAttention import LinearAttention
 from ml_workspace.custom_layers.PositionalEncoding import LearnablePosEncoding, SinusoidalPosEncoding
@@ -88,3 +89,28 @@ class Model(nn.Module):
         # Output binary layer.
         self.output_dense = nn.Linear(current_dim, 1)
         self.output_sigmoid = nn.Sigmoid()
+    
+    def forward(self, tokens: Tensor) -> Tensor:
+        # Get embeddings.
+        embeddings = self.embedding_layer(tokens)
+
+        # Apply positional encodings.
+        embeddings = self.pos_encoding(embeddings)
+
+        # Pass embeddings through transformer blocks.
+        for layer in self.blocks:
+            embeddings = layer(embeddings)
+        
+        # Get CLS embedding vector for classification, first
+        # token is assumed to be CLS.
+        cls_embedding = embeddings[:, 0, :]
+
+        # Pass CLS through dense classification layers.
+        for layer in self.mlp:
+            cls_embedding = layer(cls_embedding)
+        
+        # Obtain output value between 0 and 1
+        output = self.output_dense(cls_embedding)
+        output = self.output_sigmoid(output)
+
+        return output        
