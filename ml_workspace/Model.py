@@ -7,7 +7,7 @@ from ml_workspace.custom_layers.PositionalEncoding import LearnablePosEncoding, 
 
 # Main class for AI models.
 class Model(nn.Module):
-    def __init__(self, hyper_params_path: str, dropout: float):
+    def __init__(self, hyper_params_path: str, output_classes: int, dropout: float):
         super().__init__()
 
         # Load the hyperparameter setting parameters from JSON.
@@ -86,9 +86,8 @@ class Model(nn.Module):
 
             current_dim = dim
         
-        # Output binary layer.
-        self.output_dense = nn.Linear(current_dim, 1)
-        self.output_sigmoid = nn.Sigmoid()
+        # Output logit layer.
+        self.output_logits = nn.Linear(current_dim, output_classes)
     
     def forward(self, tokens: Tensor) -> Tensor:
         # Get embeddings.
@@ -109,8 +108,7 @@ class Model(nn.Module):
         for layer in self.mlp:
             cls_embedding = layer(cls_embedding)
         
-        # Obtain output value between 0 and 1
-        output = self.output_dense(cls_embedding)
-        output = self.output_sigmoid(output)
+        # Obtain output logits.
+        output = self.output_logits(cls_embedding)
 
         return output        
