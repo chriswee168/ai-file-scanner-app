@@ -1,12 +1,13 @@
 import torch.nn as nn
 import json
+from torch import Tensor
 from ml_workspace.custom_layers.FeedForward import FeedForward
 from ml_workspace.custom_layers.LinearAttention import LinearAttention
 from ml_workspace.custom_layers.PositionalEncoding import LearnablePosEncoding, SinusoidalPosEncoding
 
 # Main class for AI models.
 class Model(nn.Module):
-    def __init__(self, hyper_params_path: str, dropout: float):
+    def __init__(self, hyper_params_path: str, output_classes: int, dropout: float):
         super().__init__()
 
         # Load the hyperparameter setting parameters from JSON.
@@ -85,6 +86,29 @@ class Model(nn.Module):
 
             current_dim = dim
         
-        # Output binary layer.
-        self.output_dense = nn.Linear(current_dim, 1)
-        self.output_sigmoid = nn.Sigmoid()
+        # Output logit layer.
+        self.output_logits = nn.Linear(current_dim, output_classes)
+    
+    def forward(self, tokens: Tensor) -> Tensor:
+        # Get embeddings.
+        embeddings = self.embedding_layer(tokens)
+
+        # Apply positional encodings.
+        embeddings = self.pos_encoding(embeddings)
+
+        # Pass embeddings through transformer blocks.
+        for layer in self.blocks:
+            embeddings = layer(embeddings)
+        
+        # Get CLS embedding vector for classification, first
+        # token is assumed to be CLS.
+        cls_embedding = embeddings[:, 0, :]
+
+        # Pass CLS through dense classification layers.
+        for layer in self.mlp:
+            cls_embedding = layer(cls_embedding)
+        
+        # Obtain output logits.
+        output = self.output_logits(cls_embedding)
+
+        return output        
