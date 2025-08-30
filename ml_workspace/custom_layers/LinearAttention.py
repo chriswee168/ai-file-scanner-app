@@ -1,8 +1,9 @@
+import torch
 import torch.nn as nn
 from torch import Tensor
 from torch.nn.functional import scaled_dot_product_attention
 from ml_workspace.custom_torch_funcs.gen_rand_tensor_param import gen_rand_tensor_param
-
+from ml_workspace.custom_torch_funcs.head_ops import head_concat, head_partition
 
 class LinearAttention(nn.Module):
     """
@@ -44,3 +45,36 @@ class LinearAttention(nn.Module):
 
         # Output layer normalization.
         self.output_layernorm = nn.LayerNorm(embedding_len)
+    
+    def forward(self, embeddings: Tensor) -> Tensor:
+        # Generate K, Q and V embeddings.
+        kqv = self.kqv(embeddings)
+
+        # Parition K, Q and V embeddings from single matrix, and parition
+        # each one for multi headed matrix multiplication.
+        kqv = head_partition(kqv, 3)
+        k_embeddings = head_partition(kqv[:, 0], self.heads)
+        q_embeddings = head_partition(kqv[:, 1], self.heads)
+        v_embeddings = head_partition(kqv[:, 2], self.heads)
+
+        # Project K and V to low rank matrices.
+        k_embeddings_low = torch.matmul(self.k_proj_mat, k_embeddings)
+        v_embeddings_low = torch.matmul(self.v_proj_mat, v_embeddings)
+
+        # Multi-headed attention.
+        head_outputs = scaled_dot_product_attention(
+            q_embeddings, k_embeddings_low, v_embeddings_low, 
+            dropout_p=self.dropout, is_causal=False
+        )
+
+        # Concatenate head outputs and combine them via output layer.
+        concatenated_heads = head_concat(head_outputs)
+        output = self.output(concatenated_heads)
+
+        # Add back to original embeddings as residual connection.
+        embeddings = embeddings + output
+
+        # Layer normalize the updated embeddings.
+        embeddings = self.output_layernorm(embeddings)
+
+        return embeddings
