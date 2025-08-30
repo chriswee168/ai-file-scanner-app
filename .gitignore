@@ -207,3 +207,4 @@ marimo/_lsp/
 __marimo__/
 ml_workspace/train.py
 ml_workspace/models/
+ml_workspace/dataset
