@@ -2,14 +2,14 @@ import os
 import torch
 from torch import Tensor
 import numpy as np
+from copy import deepcopy
 
 def load_byte_data(
     dir_path: str, chunk_size: int, stride: int, 
-    max_samples_per_class: int) -> tuple[Tensor, Tensor]:
+    max_samples_per_class: int) -> list[tuple[Tensor, Tensor]]:
 
     # Contains the number of training examples for each class.
-    chunk_list: list[np.ndarray] = []
-    class_list: list[int] = []
+    dataset: list[tuple[Tensor, Tensor]] = []
     
     # Expects folder structure:
     # dir_path/
@@ -29,7 +29,7 @@ def load_byte_data(
             filepath = os.path.join(classpath, file)
             with open(filepath, "rb") as f:
                 file_bytes = f.read()
-            full_byte_seq = np.frombuffer(file_bytes, dtype=np.uint8)
+            full_byte_seq = torch.tensor(bytearray(file_bytes), dtype=torch.long)
 
             # Slice the byte sequences and add to chunk list.
             chunk_count = int(len(full_byte_seq) / stride)
@@ -43,8 +43,9 @@ def load_byte_data(
                     # Only add chunks that are the same length of chunk size.
                     # (Usually the last chunk is almost always shorter.)
                     if len(byte_seq_chunk) == chunk_size:
-                        chunk_list.append(byte_seq_chunk)
-                        class_list.append(c)
+                        dataset.append(
+                            (byte_seq_chunk, torch.LongTensor([c]))
+                        )
                         
                         chunk_counter += 1
                         class_count += 1
@@ -54,20 +55,6 @@ def load_byte_data(
             if class_count < max_samples_per_class:
                 print("\n", end="")
     
-    print("\nRemoving any duplicate token chunks...")
-    print(f"Current dataset size: {len(chunk_list)}")
-    
-    # Remove duplicate chunks to avoid bias during training.
-    chunk_list = np.stack(chunk_list, axis=0)
-    class_list = torch.LongTensor(class_list)
-    
-    _, idxs = np.unique(chunk_list, axis=0, return_index=True)
-    sorted_idxs = np.sort(idxs)
-    
-    byte_chunks = torch.LongTensor(chunk_list[sorted_idxs])
-    classes = class_list[sorted_idxs]
-    
-    print("Duplicate token chunks removed.")
-    print(f"Current dataset size: {len(byte_chunks)}")
-    
-    return byte_chunks, classes
+    print(f"\nCurrent dataset size: {len(dataset)}")
+
+    return dataset
