@@ -1,0 +1,13 @@
+
+/* Main title of page. */
+#page-title
+{
+    color: rgb(37, 37, 37);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10vh;
+    font-weight: 100;
+    text-align: center;
+    top: 5vh;
+    position: relative;
+}
+
