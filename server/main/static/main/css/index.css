@@ -134,6 +134,17 @@
     border-color: rgb(86, 86, 86);
 }
 
+/* File metadata textbox. */
+#metadata-textbox
+{
+    bottom: 7%;
+    left: 3%;
+    width: 94%;
+    height: 77%;
+    background-color: rgb(151, 151, 151);
+    position: relative;
+}
+
 /* CSS rules for classes. */
 
 /* Title for div boxes. */
