@@ -1,13 +1,20 @@
+/* Main wrapper div. */
+#main-wrapper
+{
+    border-style: solid;
+    width: 1510px;
+    height: 700px;
+}
 
 /* Main title of page. */
 #page-title
 {
     color: rgb(37, 37, 37);
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10vh;
+    font-size: 400%;
     font-weight: 100;
     text-align: center;
-    top: 5vh;
+    top: -1%;
     position: relative;
 }
 
@@ -16,12 +23,12 @@
 #model-list
 {
     background-color: rgb(37, 37, 37);
-    width: 15vw;
-    height: 20vh;
+    width: 15%;
+    height: 20%;
     overflow: scroll;
-    bottom: 8vh;
-    left: 1vw;
-    position: absolute;
+    top: 49%;
+    left: 1%;
+    position: relative;
     scrollbar-color: rgb(92, 92, 92) transparent;
     scrollbar-width: thin;
     border-style: solid;
@@ -34,9 +41,9 @@
 {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
-    font-size: 2.5vh;
+    font-size: 110%;
     position: relative;
-    bottom: 1.5vh;
+    bottom: 30%;
     color: white;
 }
 
@@ -44,15 +51,15 @@
 #model-select-button
 {
     background-color: rgb(37, 37, 37);
-    width: 15vw;
-    height: 5vh;
+    width: 15%;
+    height: 5%;
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
     text-align: center;
-    position: absolute;
-    left: 1vw;
-    bottom: 2vh;
+    position: relative;
+    left: 1%;
+    top: 50%;
     user-select: none;
 }
 
@@ -60,10 +67,10 @@
 #file-selection
 {
     background-color: rgb(206, 206, 206);
-    width: 450px;
-    height: 200px;
-    left: 300px;
-    top: 10px;
+    width: 29%;
+    height: 30%;
+    left: 20%;
+    bottom: 30%;
     text-align: center;
     position: relative;
     border-style: solid;
@@ -75,9 +82,9 @@
 #file-selection-title
 {
     font-family: monospace;
-    bottom: 0.5vw;
+    bottom: 3%;
     position: relative;
-    font-size: large;
+    font-size: 120%;
 }
 
 /* CSS rules for classes. */
@@ -86,14 +93,14 @@
 .model-entry
 {
     background-color: rgb(37, 37, 37);
-    height: 4vh;
+    height: 20%;
     text-align: center;
     font-family: monospace;
-    font-size: 2.5vh;
+    font-size: 130%;
     color: white;
     border-bottom-style: solid;
     border-width: 0.1vw;
     border-color: rgb(89, 89, 89);
-    line-height: 4vh;
+    line-height: 150%;
     user-select: none;
 }
