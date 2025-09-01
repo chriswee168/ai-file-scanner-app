@@ -119,6 +119,21 @@
     position: relative;
 }
 
+/* Box to display metadata of file. */
+#file-metadata
+{
+    background-color: rgb(206, 206, 206);
+    width: 29%;
+    height: 30%;
+    left: 50%;
+    bottom: 60.5%;
+    text-align: center;
+    position: relative;
+    border-style: solid;
+    border-width: 0.25vh;
+    border-color: rgb(86, 86, 86);
+}
+
 /* CSS rules for classes. */
 
 /* Title for div boxes. */
