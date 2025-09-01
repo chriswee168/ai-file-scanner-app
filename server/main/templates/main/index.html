@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <!-- Tab title. -->
+    <title>AI Antimalware</title>
+
+    <!-- Link to CSS. -->
+    <header>
+        <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    </header>
+
+    <body>
+
+        <h1 id="page-title">AI AntiMalware</h1>
+        
+        <!-- Create the list of AI models selectable from the Django AIModelsTable. -->
+        <div id="model-list">
+            {% for entry in model_db %}
+                <div class="model-entry" id="{{entry.model_name}}">{{entry.model_name}}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Div element to act as button to display dropdown model list. -->
+        <div id="model-select-button">
+            <h3 id="model-select-name">Select Model</h3>
+        </div>
+
+    </body>
+</html>

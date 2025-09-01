@@ -1,0 +1,75 @@
+
+/* Main title of page. */
+#page-title
+{
+    color: rgb(37, 37, 37);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10vh;
+    font-weight: 100;
+    text-align: center;
+    top: 5vh;
+    position: relative;
+}
+
+/* Contains sub divs each displaying the name of an AI
+   model available for selection. */
+#model-list
+{
+    background-color: rgb(37, 37, 37);
+    width: 15vw;
+    height: 20vh;
+    overflow: scroll;
+    bottom: 8vh;
+    left: 1vw;
+    position: absolute;
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
+    border-style: solid;
+    border-width: 0.25vh;
+    border-color: rgb(86, 86, 86);
+}
+
+/* Name for model selection button. */
+#model-select-name
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    font-size: 2.5vh;
+    position: relative;
+    bottom: 1.5vh;
+    color: white;
+}
+
+/* Add div box for model selection button. */
+#model-select-button
+{
+    background-color: rgb(37, 37, 37);
+    width: 15vw;
+    height: 5vh;
+    border-style: solid;
+    border-width: 0.25vh;
+    border-color: rgb(86, 86, 86);
+    text-align: center;
+    position: absolute;
+    left: 1vw;
+    bottom: 2vh;
+    user-select: none;
+}
+
+/* CSS rules for classes. */
+
+/* Div to display the name of an available AI model. */
+.model-entry
+{
+    background-color: rgb(37, 37, 37);
+    height: 4vh;
+    text-align: center;
+    font-family: monospace;
+    font-size: 2.5vh;
+    color: white;
+    border-bottom-style: solid;
+    border-width: 0.1vw;
+    border-color: rgb(89, 89, 89);
+    line-height: 4vh;
+    user-select: none;
+}
