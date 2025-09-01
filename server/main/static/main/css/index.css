@@ -11,3 +11,38 @@
     position: relative;
 }
 
+/* Contains sub divs each displaying the name of an AI
+   model available for selection. */
+#model-list
+{
+    background-color: rgb(37, 37, 37);
+    width: 15vw;
+    height: 20vh;
+    overflow: scroll;
+    bottom: 8vh;
+    left: 1vw;
+    position: absolute;
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
+    border-style: solid;
+    border-width: 0.25vh;
+    border-color: rgb(86, 86, 86);
+}
+
+/* CSS rules for classes. */
+
+/* Div to display the name of an available AI model. */
+.model-entry
+{
+    background-color: rgb(37, 37, 37);
+    height: 4vh;
+    text-align: center;
+    font-family: monospace;
+    font-size: 2.5vh;
+    color: white;
+    border-bottom-style: solid;
+    border-width: 0.1vw;
+    border-color: rgb(89, 89, 89);
+    line-height: 4vh;
+    user-select: none;
+}
