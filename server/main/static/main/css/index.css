@@ -116,6 +116,17 @@
     position: relative;
 }
 
+/* File list box. */
+#file-list
+{
+    bottom: 7%;
+    left: 3%;
+    width: 94%;
+    height: 57%;
+    background-color: rgb(151, 151, 151);
+    position: relative;
+}
+
 /* CSS rules for classes. */
 
 /* Div to display the name of an available AI model. */
