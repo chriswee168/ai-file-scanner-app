@@ -78,15 +78,6 @@
     border-color: rgb(86, 86, 86);
 }
 
-/* File selection title */
-#file-selection-title
-{
-    font-family: monospace;
-    bottom: 3%;
-    position: relative;
-    font-size: 120%;
-}
-
 /* Textbox for entering path to directory that contains files. */
 #path-textbox
 {
@@ -129,6 +120,15 @@
 }
 
 /* CSS rules for classes. */
+
+/* Title for div boxes. */
+.div-title
+{
+    font-family: monospace;
+    bottom: 3%;
+    position: relative;
+    font-size: 120%;
+}
 
 /* Div to display the name of an available AI model. */
 .model-entry
