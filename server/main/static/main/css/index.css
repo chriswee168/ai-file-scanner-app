@@ -87,6 +87,35 @@
     font-size: 120%;
 }
 
+/* Textbox for entering path to directory that contains files. */
+#path-textbox
+{
+    background-color: rgb(151, 151, 151);
+    width: 70%;
+    height: 10%;
+    left: 12%;
+    bottom: 14%;
+    text-align: left;
+    position: relative;
+    border-color: black;
+    border-style: none;
+    font-family: monospace;
+    overflow-x: scroll;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
+}
+
+/* Path textbox label. */
+#path-textbox-label
+{
+    font-family: monospace;
+    right: 43%;
+    bottom: 6%;
+    font-size: 110%;
+    position: relative;
+}
+
 /* CSS rules for classes. */
 
 /* Div to display the name of an available AI model. */
@@ -103,4 +132,11 @@
     border-color: rgb(89, 89, 89);
     line-height: 150%;
     user-select: none;
+}
+
+/* Misc */
+
+/* Remove the border around inner textbox when entering text. */
+[contenteditable] {
+  outline: 0px solid transparent;
 }
