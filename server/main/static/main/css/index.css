@@ -66,25 +66,10 @@
 /* Parent div for file selection. */
 #file-selection
 {
-    background-color: rgb(206, 206, 206);
     width: 29%;
     height: 30%;
     left: 20%;
     bottom: 30%;
-    text-align: center;
-    position: relative;
-    border-style: solid;
-    border-width: 0.25vh;
-    border-color: rgb(86, 86, 86);
-}
-
-/* File selection title */
-#file-selection-title
-{
-    font-family: monospace;
-    bottom: 3%;
-    position: relative;
-    font-size: 120%;
 }
 
 /* Textbox for entering path to directory that contains files. */
@@ -128,7 +113,83 @@
     position: relative;
 }
 
+/* Box to display metadata of file. */
+#file-metadata
+{
+    width: 29%;
+    height: 30%;
+    left: 50%;
+    bottom: 60.5%;
+}
+
+/* File metadata textbox. */
+#metadata-textbox
+{
+    bottom: 7%;
+    left: 3%;
+    width: 94%;
+    height: 77%;
+    background-color: rgb(151, 151, 151);
+    position: relative;
+}
+
+/* Box to display metadata of file. */
+#scan-results
+{
+    width: 39%;
+    height: 30%;
+    left: 30%;
+    bottom: 59%;
+}
+
+/* Progress bar displays number of file byte chunks scanned for AI model
+   prediction. */
+#chunk-prog-bar
+{
+    width: 40%;
+    background-color: rgb(143, 143, 143);
+    height: 5%;
+}
+/* For chrome. */
+#chunk-prog-bar::-webkit-progress-value
+{
+    background-color: rgb(87, 87, 87);
+}
+/* For firefox. */
+#chunk-prog-bar::-moz-progress-bar
+{
+    background-color: rgb(87, 87, 87);
+}
+
+/* Div to display progress bars for classifications. */
+#class-prog-bars-list
+{
+    width: 98%;
+    height: 35%;
+    background-color: gray;
+}
+
 /* CSS rules for classes. */
+
+/* Title for div boxes. */
+.div-title
+{
+    font-family: monospace;
+    bottom: 3%;
+    position: relative;
+    font-size: 120%;
+}
+
+/* Class for all boxes. */
+.div-box
+{
+    background-color: rgb(206, 206, 206);
+    text-align: center;
+    position: relative;
+    border-style: solid;
+    border-width: 0.25vh;
+    border-color: rgb(86, 86, 86);
+}
 
 /* Div to display the name of an available AI model. */
 .model-entry

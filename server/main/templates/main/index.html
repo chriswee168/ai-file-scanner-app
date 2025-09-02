@@ -27,13 +27,29 @@
             </div>
 
             <!-- File selection div. -->
-            <div id="file-selection">
-                <h3 id="file-selection-title">File Selection</h3>
+            <div id="file-selection" class="div-box">
+                <h3 class="div-title">File Selection</h3>
 
                 <!-- Textbox to enter directory path. -->
                 <div id="path-textbox-label">Path:</div>
                 <div id="path-textbox" contenteditable="true"></div>
                 <div id="file-list"></div>
+            </div>
+
+            <!-- Box for displaying file metadata. -->
+            <div id="file-metadata" class="div-box">
+                <h3 class="div-title">File Metadata</h3>
+                <div id="metadata-textbox"></div>
+            </div>
+
+            <!-- Display scan results of selected file. -->
+            <div id="scan-results" class="div-box">
+                <h3 class="div-title">Scan Results</h3>
+                <label for="chunk-prog-bar">Chunks: 0/0 </label>
+                <progress id="chunk-prog-bar"></progress>
+
+                <!-- Bars to display classification predictions. -->
+                <div id="class-prog-bars-list" style="text-align: right;"></div>
             </div>
         </div>
 
