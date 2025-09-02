@@ -1,6 +1,7 @@
 label
 {
     font-family: monospace;
+    font-size: 110%;
 }
 
 /* Main wrapper div. */
@@ -197,6 +198,8 @@ label
     text-align: right;
     right: 11%;
     position: relative;
+    height: 10%;
+    line-height: 170%;
 }
 
 /* CSS rules for classes. */
@@ -241,6 +244,18 @@ label
 .class-bar
 {
     width: 60%;
+    background-color: rgb(143, 143, 143);
+    height: 80%;
+}
+/* For chrome. */
+.class-bar::-webkit-progress-value
+{
+    background-color: rgb(87, 87, 87);
+}
+/* For firefox. */
+.class-bar::-moz-progress-bar
+{
+    background-color: rgb(87, 87, 87);
 }
 
 /* Misc */
