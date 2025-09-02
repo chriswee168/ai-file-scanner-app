@@ -32,6 +32,10 @@
 
                 <!-- Textbox to enter directory path. -->
                 <div id="path-textbox-label">Path:</div>
+                
+                <!-- CSRF Token. -->
+                {% csrf_token %}
+                
                 <div id="path-textbox" contenteditable="true"></div>
                 <div id="refresh-button"><b>REFRESH</b></div>
                 <div id="file-list"></div>
