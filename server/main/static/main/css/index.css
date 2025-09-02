@@ -164,13 +164,21 @@ label
     bottom: 59%;
 }
 
+/* Wrapper div for chunk scanning bar. */
+#chunk-prog-wrapper
+{
+    bottom: 5%;
+    height: 10%;
+    position: relative;
+}
+
 /* Progress bar displays number of file byte chunks scanned for AI model
    prediction. */
 #chunk-prog-bar
 {
     width: 40%;
     background-color: rgb(143, 143, 143);
-    height: 5%;
+    height: 60%;
 }
 /* For chrome. */
 #chunk-prog-bar::-webkit-progress-value
