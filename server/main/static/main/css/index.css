@@ -151,9 +151,26 @@ label
     bottom: 7%;
     left: 3%;
     width: 94%;
-    height: 77%;
+    height: 60%;
     background-color: rgb(151, 151, 151);
     position: relative;
+}
+
+/* File byte chunk scan button. */
+#scan-button
+{
+    color: white;
+    background-color: rgb(98, 0, 0);
+    font-family: monospace;
+    font-size: 120%;
+    width: 94%;
+    height: 15%;
+    left: 3%;
+    bottom: 5%;
+    line-height: 200%;
+    text-align: center;
+    position: relative;
+    user-select: none;
 }
 
 /* Box to display metadata of file. */
