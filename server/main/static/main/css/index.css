@@ -105,12 +105,29 @@
 /* File list box. */
 #file-list
 {
-    bottom: 7%;
+    bottom: 21%;
     left: 3%;
     width: 94%;
     height: 57%;
     background-color: rgb(151, 151, 151);
     position: relative;
+}
+
+/* Button responsible for refreshing file list. */
+#refresh-button
+{
+    width: 15%;
+    height: 13%;
+    bottom: 27%;
+    left: 83%;
+    position: relative;
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(86, 86, 86);
+    line-height: 270%;
+    font-size: 10px;
+    user-select: none;
 }
 
 /* Box to display metadata of file. */
