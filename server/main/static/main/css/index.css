@@ -183,12 +183,12 @@ label
     background-color: rgb(87, 87, 87);
 }
 
-/* Div to display progress bars for classifications. */
-#class-prog-bars-list
+/* Wrapper div to contain all class bars. */
+#class-prog-bars-wrapper
 {
-    width: 98%;
-    height: 35%;
-    background-color: gray;
+    text-align: right;
+    right: 11%;
+    position: relative;
 }
 
 /* CSS rules for classes. */
@@ -227,6 +227,12 @@ label
     border-color: rgb(89, 89, 89);
     line-height: 150%;
     user-select: none;
+}
+
+/* Display percentage of file byte chunks belong to class/category. */
+.class-bar
+{
+    width: 60%;
 }
 
 /* Misc */
