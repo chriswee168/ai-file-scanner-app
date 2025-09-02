@@ -129,7 +129,7 @@ label
     position: relative;
     color: white;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: monospace;
     background-color: rgb(86, 86, 86);
     line-height: 170%;
     font-size: 120%;
