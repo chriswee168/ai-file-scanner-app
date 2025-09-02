@@ -1,5 +1,6 @@
 import os
-from django.http import HttpRequest
+import json
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
 
 from server.main.models import AIModelsTable
@@ -44,3 +45,22 @@ def index(request: HttpRequest):
         template_name="index.html", 
         context={"model_db": AIModelsTable.objects.all()}
     )
+
+# View to return a list of filepaths for each file
+# in a local path directory.
+def get_filepaths(request: HttpRequest):
+
+    if request.method == "POST":
+
+        # List of filepaths to return.
+        filepaths: list[str] = []
+
+        # Search for every file in the specified path.
+        path = json.loads(request.body)["dir_path"]
+        for root, _, files in os.walk(path):
+            for file in files:
+                filepaths.append(os.path.join(root, file))
+        
+        paths_json = {"filepaths": filepaths}
+    
+        return JsonResponse(paths_json)

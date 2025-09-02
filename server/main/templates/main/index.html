@@ -32,7 +32,12 @@
 
                 <!-- Textbox to enter directory path. -->
                 <div id="path-textbox-label">Path:</div>
+                
+                <!-- CSRF Token. -->
+                {% csrf_token %}
+                
                 <div id="path-textbox" contenteditable="true"></div>
+                <div id="refresh-button"><b>REFRESH</b></div>
                 <div id="file-list"></div>
             </div>
 
@@ -40,18 +45,31 @@
             <div id="file-metadata" class="div-box">
                 <h3 class="div-title">File Metadata</h3>
                 <div id="metadata-textbox"></div>
+                <div id="scan-button"><b>SCAN FILE BYTES</b></div>
             </div>
 
             <!-- Display scan results of selected file. -->
             <div id="scan-results" class="div-box">
                 <h3 class="div-title">Scan Results</h3>
-                <label for="chunk-prog-bar">Chunks: 0/0 </label>
-                <progress id="chunk-prog-bar"></progress>
+                <div id="chunk-prog-wrapper">
+                    <label for="chunk-prog-bar">Byte Chunks: 0/0 </label>
+                    <progress id="chunk-prog-bar" value="50" max="100"></progress>
+                </div>
 
                 <!-- Bars to display classification predictions. -->
-                <div id="class-prog-bars-list" style="text-align: right;"></div>
+                <div id="class-prog-bars-wrapper">
+                    <label for="clean-class-bar">Clean: 000% </label>
+                    <progress id="clean-class-bar" class="class-bar" value="25" max="100"></progress><br>
+                    <label for="warning-class-bar">Warning: 000% </label>
+                    <progress id="warning-class-bar" class="class-bar" value="50" max="100"></progress><br>
+                    <label for="malicious-class-bar">Malicious: 000% </label>
+                    <progress id="malicious-class-bar" class="class-bar" value="75" max="100"></progress><br>
+                </div>
             </div>
         </div>
+    
+    <!-- Load main JS file for page behaviour. -->
+    <script type="module" src="{% static 'main/js/main.js' %}"></script>
 
     </body>
 </html>

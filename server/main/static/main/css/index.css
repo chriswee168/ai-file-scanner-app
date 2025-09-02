@@ -1,3 +1,9 @@
+label
+{
+    font-family: monospace;
+    font-size: 110%;
+}
+
 /* Main wrapper div. */
 #main-wrapper
 {
@@ -105,12 +111,29 @@
 /* File list box. */
 #file-list
 {
-    bottom: 7%;
+    bottom: 21%;
     left: 3%;
     width: 94%;
     height: 57%;
     background-color: rgb(151, 151, 151);
     position: relative;
+}
+
+/* Button responsible for refreshing file list. */
+#refresh-button
+{
+    width: 15%;
+    height: 13%;
+    bottom: 27%;
+    left: 83%;
+    position: relative;
+    color: white;
+    text-align: center;
+    font-family: monospace;
+    background-color: rgb(86, 86, 86);
+    line-height: 170%;
+    font-size: 120%;
+    user-select: none;
 }
 
 /* Box to display metadata of file. */
@@ -128,9 +151,26 @@
     bottom: 7%;
     left: 3%;
     width: 94%;
-    height: 77%;
+    height: 60%;
     background-color: rgb(151, 151, 151);
     position: relative;
+}
+
+/* File byte chunk scan button. */
+#scan-button
+{
+    color: white;
+    background-color: rgb(98, 0, 0);
+    font-family: monospace;
+    font-size: 120%;
+    width: 94%;
+    height: 15%;
+    left: 3%;
+    bottom: 5%;
+    line-height: 200%;
+    text-align: center;
+    position: relative;
+    user-select: none;
 }
 
 /* Box to display metadata of file. */
@@ -142,31 +182,67 @@
     bottom: 59%;
 }
 
+/* Wrapper div for chunk scanning bar. */
+#chunk-prog-wrapper
+{
+    bottom: 5%;
+    height: 10%;
+    position: relative;
+}
+
 /* Progress bar displays number of file byte chunks scanned for AI model
    prediction. */
 #chunk-prog-bar
 {
     width: 40%;
     background-color: rgb(143, 143, 143);
-    height: 5%;
+    height: 60%;
 }
 /* For chrome. */
 #chunk-prog-bar::-webkit-progress-value
 {
-    background-color: rgb(87, 87, 87);
+    background-color: rgb(32, 32, 32);
 }
 /* For firefox. */
 #chunk-prog-bar::-moz-progress-bar
 {
-    background-color: rgb(87, 87, 87);
+    background-color: rgb(32, 32, 32);
 }
 
-/* Div to display progress bars for classifications. */
-#class-prog-bars-list
+/* Wrapper div to contain all class bars. */
+#class-prog-bars-wrapper
 {
-    width: 98%;
-    height: 35%;
-    background-color: gray;
+    text-align: right;
+    right: 11%;
+    position: relative;
+    height: 10%;
+    line-height: 170%;
+}
+
+/* Colour customization for classification bars. */
+#clean-class-bar::-webkit-progress-value
+{
+    background-color: rgb(0, 226, 0);
+}
+#clean-class-bar::-moz-progress-bar
+{
+    background-color: rgb(0, 226, 0);
+}
+#warning-class-bar::-webkit-progress-value
+{
+    background-color: rgb(244, 240, 0);
+}
+#warning-class-bar::-moz-progress-bar
+{
+    background-color: rgb(244, 240, 0);
+}
+#malicious-class-bar::-webkit-progress-value
+{
+    background-color: rgb(226, 0, 0);
+}
+#malicious-class-bar::-moz-progress-bar
+{
+    background-color: rgb(226, 0, 0);
 }
 
 /* CSS rules for classes. */
@@ -205,6 +281,24 @@
     border-color: rgb(89, 89, 89);
     line-height: 150%;
     user-select: none;
+}
+
+/* Display percentage of file byte chunks belong to class/category. */
+.class-bar
+{
+    width: 60%;
+    background-color: rgb(143, 143, 143);
+    height: 80%;
+}
+/* For chrome. */
+.class-bar::-webkit-progress-value
+{
+    background-color: rgb(87, 87, 87);
+}
+/* For firefox. */
+.class-bar::-moz-progress-bar
+{
+    background-color: rgb(87, 87, 87);
 }
 
 /* Misc */
