@@ -133,6 +133,42 @@
     position: relative;
 }
 
+/* Box to display metadata of file. */
+#scan-results
+{
+    width: 39%;
+    height: 30%;
+    left: 30%;
+    bottom: 59%;
+}
+
+/* Progress bar displays number of file byte chunks scanned for AI model
+   prediction. */
+#chunk-prog-bar
+{
+    width: 40%;
+    background-color: rgb(143, 143, 143);
+    height: 5%;
+}
+/* For chrome. */
+#chunk-prog-bar::-webkit-progress-value
+{
+    background-color: rgb(87, 87, 87);
+}
+/* For firefox. */
+#chunk-prog-bar::-moz-progress-bar
+{
+    background-color: rgb(87, 87, 87);
+}
+
+/* Div to display progress bars for classifications. */
+#class-prog-bars-list
+{
+    width: 98%;
+    height: 35%;
+    background-color: gray;
+}
+
 /* CSS rules for classes. */
 
 /* Title for div boxes. */
