@@ -33,6 +33,26 @@ export class RefreshButton extends ActionButton
      */
     async actionOnClick()
     {
-        
+        // Get CSRF token.
+        let csrftoken = document.cookie.split("=")[1];
+
+        console.log(document.cookie);
+
+        // Pass directory path to server.
+        let dir_path = this.pathElement.innerText;
+        let filepaths = await fetch(
+            "/main/file-list/",
+            {
+                body: JSON.stringify({"dir_path": dir_path}),
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'X-CSRFToken': csrftoken
+                }
+            }
+        );
+
+        let data = await filepaths.json();
+        console.log(data);
     }
 }
