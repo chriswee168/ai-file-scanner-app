@@ -117,6 +117,10 @@ label
     height: 57%;
     background-color: rgb(151, 151, 151);
     position: relative;
+    overflow: scroll;
+    font-family: monospace;
+    text-align: left;
+    white-space: nowrap;
 }
 
 /* Button responsible for refreshing file list. */
