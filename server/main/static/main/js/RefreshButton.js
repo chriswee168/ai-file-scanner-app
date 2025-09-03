@@ -40,7 +40,7 @@ export class RefreshButton extends ActionButton
 
         // Pass directory path to server.
         let dir_path = this.pathElement.innerText;
-        let filepaths = await fetch(
+        let response = await fetch(
             "/main/file-list/",
             {
                 body: JSON.stringify({"dir_path": dir_path}),
@@ -52,7 +52,15 @@ export class RefreshButton extends ActionButton
             }
         );
 
-        let data = await filepaths.json();
-        console.log(data);
+        if (!response.ok)
+        {
+            console.log(response.statusText, response.status);
+        }
+
+        // Send filepaths to file list.
+        let data = await response.json();
+        let filepaths = data.filepaths;
+        let metadatas = data.metadatas;
+        this.fileList.refreshFileEntries(filepaths, metadatas);
     }
 }

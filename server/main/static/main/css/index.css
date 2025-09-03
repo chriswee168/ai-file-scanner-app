@@ -92,7 +92,7 @@ label
     border-style: none;
     font-family: monospace;
     overflow-x: scroll;
-    overflow-wrap: normal;
+    white-space: nowrap;
 
     scrollbar-color: rgb(92, 92, 92) transparent;
     scrollbar-width: thin;
@@ -117,6 +117,10 @@ label
     height: 57%;
     background-color: rgb(151, 151, 151);
     position: relative;
+    overflow: scroll;
+    font-family: monospace;
+    text-align: left;
+    white-space: nowrap;
 }
 
 /* Button responsible for refreshing file list. */
@@ -154,6 +158,10 @@ label
     height: 60%;
     background-color: rgb(151, 151, 151);
     position: relative;
+    text-align: left;
+    white-space: nowrap;
+    overflow-x: scroll;
+    font-family: monospace;
 }
 
 /* File byte chunk scan button. */

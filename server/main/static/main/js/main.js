@@ -9,9 +9,12 @@ function main()
     // Get directory path element.
     let pathElement = document.getElementById("path-textbox");
 
+    // File metadata textbox element.
+    let metadataTextElement = document.getElementById("metadata-textbox");
+
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
-    let fileListObj = new FileList(fileListElement);
+    let fileListObj = new FileList(fileListElement, metadataTextElement);
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");

@@ -1,5 +1,6 @@
 import os
 import json
+from time import ctime
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
 
@@ -54,13 +55,23 @@ def get_filepaths(request: HttpRequest):
 
         # List of filepaths to return.
         filepaths: list[str] = []
+        metadatas: list[dict] = []
 
         # Search for every file in the specified path.
         path = json.loads(request.body)["dir_path"]
         for root, _, files in os.walk(path):
             for file in files:
-                filepaths.append(os.path.join(root, file))
+                filepath = os.path.join(root, file)
+                metadata = {
+                    "name": os.path.basename(filepath),
+                    "size": os.path.getsize(filepath),
+                    "last_created": ctime(os.path.getctime(filepath)),
+                    "last_accessed": ctime(os.path.getatime(filepath)),
+                    "last_modified": ctime(os.path.getmtime(filepath))
+                }
+                filepaths.append(filepath)
+                metadatas.append(metadata)
         
-        paths_json = {"filepaths": filepaths}
+        json_data = {"filepaths": filepaths, "metadatas": metadatas}
     
-        return JsonResponse(paths_json)
+        return JsonResponse(json_data)
