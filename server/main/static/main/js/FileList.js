@@ -9,14 +9,17 @@ export class FileList
      * Constructor.
      * 
      * @param {HTMLElement} fileListElement HTML element of file list.
+     * @param {HTMLElement} metadataTextElement HTML element of metadata text box.
      */
-    constructor(fileListElement)
+    constructor(fileListElement, metadataTextElement)
     {
         this.fileListElement = fileListElement;
         this.fileEntries = []; // Contains the list of FileEntry objects.
 
         // Reference to the entry object selected by the user.
         this.selectedEntry = null;
+
+        this.metadataTextElement = metadataTextElement;
     }
 
     /**
@@ -52,6 +55,7 @@ export class FileList
                     this,
                     element,
                     metadata_list[i],
+                    this.metadataTextElement,
                     {
                         "color": "rgba(115, 255, 21, 1)"
                     },
@@ -77,10 +81,11 @@ class FileEntry
      * @param {FileList} fileList Reference to the parent file list object. 
      * @param {HTMLElement} element Div element of file entry.
      * @param {Object<string, any>} metadata Metadata of the file at filepath.
+     * @param {HTMLElement} metadataTextElement HTML element to metadata textbox.
      * @param {Record<string, string>} selectedStyle CSS styles if file entry is selected by user.
      * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
      */
-    constructor(fileList, element, metadata, selectedStyle, unselectedStyle)
+    constructor(fileList, element, metadata, metadataTextElement, selectedStyle, unselectedStyle)
     {
         this.fileList = fileList;
         this.element = element;
@@ -88,6 +93,8 @@ class FileEntry
         this.selected = false;
         this.selectedStyle = selectedStyle;
         this.unselectedStyle = unselectedStyle;
+
+        this.metadataTextElement = metadataTextElement;
 
         // File entry is not selected by default.
         this.element.style.color = this.unselectedStyle["color"];
@@ -120,6 +127,14 @@ class FileEntry
 
             // Set current entry as true.
             this.selected = true;
+
+            // Display metadata of file selected.
+            this.metadataTextElement.innerText = `
+                Name: ${this.metadata.name}
+                Size (bytes): ${this.metadata.size}
+                Last created: ${this.metadata.last_created}
+                Last accessed: ${this.metadata.last_accessed}
+                Last modified: ${this.metadata.last_modified}`
         }
         else
         {
