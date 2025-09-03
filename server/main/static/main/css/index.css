@@ -158,6 +158,10 @@ label
     height: 60%;
     background-color: rgb(151, 151, 151);
     position: relative;
+    text-align: left;
+    white-space: nowrap;
+    overflow-x: scroll;
+    font-family: monospace;
 }
 
 /* File byte chunk scan button. */
