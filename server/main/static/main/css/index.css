@@ -92,7 +92,7 @@ label
     border-style: none;
     font-family: monospace;
     overflow-x: scroll;
-    overflow-wrap: normal;
+    white-space: nowrap;
 
     scrollbar-color: rgb(92, 92, 92) transparent;
     scrollbar-width: thin;
