@@ -60,6 +60,7 @@ export class RefreshButton extends ActionButton
         // Send filepaths to file list.
         let data = await response.json();
         let filepaths = data.filepaths;
-        this.fileList.refreshFileEntries(filepaths);
+        let metadatas = data.metadatas;
+        this.fileList.refreshFileEntries(filepaths, metadatas);
     }
 }
