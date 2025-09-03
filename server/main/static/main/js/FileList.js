@@ -21,21 +21,25 @@ export class FileList
 
     /**
      * Create file entry objects when refresh button is clicked.
-     * @param {Object<string, Array<string>>} json_list 
+     * @param {Array<string>} string_list 
      */
-    refreshFileEntries(json_list)
+    refreshFileEntries(string_list)
     {
+        console.log(string_list);
         // Remove entries if they exist.
-        this.fileEntries.forEach(element => element.remove());
+        this.fileEntries.forEach(entry => entry.element.remove());
         this.fileEntries.length = 0;
 
         // Create file entries objects for the child divs in file list
         // HTML element.
-        for (let filepath of json_list.filepaths)
+        for (let filepath of string_list)
         {
             // Create new div element for filepath.
             let element = document.createElement("div");
             element.innerHTML = filepath;
+
+            // Disable highlighting for file entries.
+            element.style.userSelect = "none";
 
             // Add file element to file list element.
             this.fileListElement.appendChild(element);
