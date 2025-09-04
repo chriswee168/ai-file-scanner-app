@@ -1,5 +1,6 @@
 import { RefreshButton } from "./RefreshButton.js";
 import { FileList } from "./FileList.js";
+import { ModelList } from "./ModelList.js";
 
 /**
  * Main function to call for overall HTML page area.
@@ -19,6 +20,10 @@ function main()
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
     let refreshButtonObj = new RefreshButton(refreshButtonElement, fileListObj, pathElement);
+
+    // Create AI model list object.
+    let modelListElement = document.getElementById("model-list");
+    let modelListObj = new ModelList(modelListElement);
 }
 
 /**
