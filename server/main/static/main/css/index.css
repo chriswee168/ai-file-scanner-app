@@ -40,6 +40,7 @@ label
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
+    display: none;
 }
 
 /* Name for model selection button. */
