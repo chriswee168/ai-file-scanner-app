@@ -33,10 +33,12 @@ export class ModelList extends List
                     this,
                     element,
                     {
-                        "backgroundColor": "rgb(89, 89, 89)"
+                        "color": "white",
+                        "backgroundColor": "rgb(89, 89, 89)",
                     },
                     {
-                        "backgroundColor": "rgb(34, 34, 34)"
+                        "color": "black",
+                        "backgroundColor": "rgb(206, 206, 206)"
                     }
 
                 )

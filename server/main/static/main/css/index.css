@@ -28,7 +28,7 @@ label
    model available for selection. */
 #model-list
 {
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(206, 206, 206);
     width: 15%;
     height: 20%;
     overflow: scroll;
@@ -51,13 +51,13 @@ label
     font-size: 110%;
     position: relative;
     bottom: 30%;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 /* Add div box for model selection button. */
 #model-select-button
 {
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(206, 206, 206);
     width: 15%;
     height: 5%;
     border-style: solid;
@@ -283,7 +283,7 @@ label
 /* Div to display the name of an available AI model. */
 .model-entry
 {
-    background-color: rgb(37, 37, 37);
+    background-color: rgb(206, 206, 206);
     height: 20%;
     text-align: center;
     font-family: monospace;
