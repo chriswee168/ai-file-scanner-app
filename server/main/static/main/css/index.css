@@ -32,9 +32,9 @@ label
     width: 15%;
     height: 20%;
     overflow: scroll;
-    bottom: 10%;
-    left: 1.5%;
-    position: absolute;
+    top: 49%;
+    left: 1%;
+    position: relative;
     scrollbar-color: rgb(92, 92, 92) transparent;
     scrollbar-width: thin;
     border-style: solid;
@@ -63,9 +63,9 @@ label
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
     text-align: center;
-    position: absolute;
-    left: 1.5%;
-    bottom: 4%;
+    position: relative;
+    left: 1%;
+    top: 50%;
     user-select: none;
 }
 
@@ -75,8 +75,7 @@ label
     width: 29%;
     height: 30%;
     left: 20%;
-    top: 20%;
-    position: absolute;
+    bottom: 30%;
 }
 
 /* Textbox for entering path to directory that contains files. */
@@ -148,8 +147,6 @@ label
     height: 30%;
     left: 50%;
     bottom: 60.5%;
-    top: 20%;
-    position: absolute;
 }
 
 /* File metadata textbox. */
@@ -190,8 +187,7 @@ label
     width: 39%;
     height: 30%;
     left: 30%;
-    top: 52%;
-    position: absolute;
+    bottom: 59%;
 }
 
 /* Wrapper div for chunk scanning bar. */
