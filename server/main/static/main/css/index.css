@@ -10,6 +10,7 @@ label
     border-style: solid;
     width: 1510px;
     height: 700px;
+    position: absolute;
 }
 
 /* Main title of page. */
