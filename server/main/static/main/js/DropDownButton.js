@@ -17,6 +17,8 @@ export class DropDownButton extends ActionButton
     {
         super(buttonElement)
         this.elementToDisplay = elementToDisplay;
+        this.elementDisplayed = false;
+
         this.htmlElement.addEventListener("click", () => this.actionOnClick());
     }
 
@@ -26,13 +28,15 @@ export class DropDownButton extends ActionButton
      */
     actionOnClick()
     {
-        if (this.elementToDisplay.style.display === "none")
+        if (!this.elementDisplayed)
         {
             this.elementToDisplay.style.display = "block";
+            this.elementDisplayed = true;
         }
         else
         {
             this.elementToDisplay.style.display = "none";
+            this.elementDisplayed = false;
         }
     }
 }
