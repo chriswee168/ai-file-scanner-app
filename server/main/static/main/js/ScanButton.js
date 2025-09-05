@@ -1,4 +1,6 @@
 import {ActionButton} from "./ActionButton.js";
+import { FileList } from "./FileList.js";
+import { ModelList } from "./ModelList.js";
 
 /**
  * Class to define behaviour of scan button responsible for
@@ -17,6 +19,26 @@ export class ScanButton extends ActionButton
 
         // Add event listener for mouse click.
         this.htmlElement.addEventListener("click", () => this.actionOnClick());
+    }
+
+    /**
+     * Setter to add model list object.
+     * 
+     * @param {ModelList} modelList Model list object.
+     */
+    linkModelList(modelList)
+    {
+        this.modelList = modelList;
+    }
+
+    /**
+     * Setter to add file list object.
+     * 
+     * @param {FileList} fileList File list object.
+     */
+    linkFileList(fileList)
+    {
+        this.fileList = fileList;
     }
 
     /**

@@ -35,9 +35,13 @@ function main()
     let modelSelectButton = document.getElementById("model-select-button");
     let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
 
-    // Link objects.
+    // Link model list and scan button objects to file list.
     fileListObj.linkModelList(modelListObj);
     fileListObj.linkScanButton(scanButtonObj);
+
+    // Link model list and file list to scan button.
+    scanButtonObj.linkModelList(modelListObj);
+    scanButtonObj.linkFileList(fileListObj);
 }
 
 /**
