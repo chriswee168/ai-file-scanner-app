@@ -2,6 +2,7 @@ import { RefreshButton } from "./RefreshButton.js";
 import { FileList } from "./FileList.js";
 import { ModelList } from "./ModelList.js";
 import { DropDownButton } from "./DropDownButton.js";
+import { ScanButton } from "./ScanButton.js";
 
 /**
  * Main function to call for overall HTML page area.
@@ -14,17 +15,21 @@ function main()
     // File metadata textbox element.
     let metadataTextElement = document.getElementById("metadata-textbox");
 
+    // Create AI model list object.
+    let modelListElement = document.getElementById("model-list");
+    let modelListObj = new ModelList(modelListElement);
+
+    // Create scan button object.
+    let scanButtonElement = document.getElementById("scan-button");
+    let scanButtonObj = new ScanButton(scanButtonElement);
+
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
-    let fileListObj = new FileList(fileListElement, metadataTextElement);
+    let fileListObj = new FileList(fileListElement, metadataTextElement, scanButtonObj, modelListObj);
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
     let refreshButtonObj = new RefreshButton(refreshButtonElement, fileListObj, pathElement);
-
-    // Create AI model list object.
-    let modelListElement = document.getElementById("model-list");
-    let modelListObj = new ModelList(modelListElement);
 
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
