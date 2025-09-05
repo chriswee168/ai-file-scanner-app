@@ -64,12 +64,13 @@ def get_filepaths(request: HttpRequest):
                 filepath = os.path.join(root, file)
                 metadata = {
                     "name": os.path.basename(filepath),
+                    "absolute_path": filepath,
                     "size": os.path.getsize(filepath),
                     "last_created": ctime(os.path.getctime(filepath)),
                     "last_accessed": ctime(os.path.getatime(filepath)),
                     "last_modified": ctime(os.path.getmtime(filepath))
-                }
-                filepaths.append(filepath)
+                }                    
+                filepaths.append(file)
                 metadatas.append(metadata)
         
         json_data = {"filepaths": filepaths, "metadatas": metadatas}

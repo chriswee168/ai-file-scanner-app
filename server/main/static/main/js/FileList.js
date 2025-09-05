@@ -131,6 +131,7 @@ class FileEntry extends Entry
         // Display metadata of file selected.
         this.metadataTextElement.innerText = `
             Name: ${this.metadata.name}
+            Absolute path: ${this.metadata.absolute_path}
             Size (bytes): ${this.metadata.size}
             Last created: ${this.metadata.last_created}
             Last accessed: ${this.metadata.last_accessed}
