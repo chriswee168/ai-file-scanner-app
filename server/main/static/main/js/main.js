@@ -15,17 +15,17 @@ function main()
     // File metadata textbox element.
     let metadataTextElement = document.getElementById("metadata-textbox");
 
-    // Create AI model list object.
-    let modelListElement = document.getElementById("model-list");
-    let modelListObj = new ModelList(modelListElement);
-
     // Create scan button object.
     let scanButtonElement = document.getElementById("scan-button");
     let scanButtonObj = new ScanButton(scanButtonElement);
 
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
-    let fileListObj = new FileList(fileListElement, metadataTextElement, scanButtonObj, modelListObj);
+    let fileListObj = new FileList(fileListElement, metadataTextElement);
+
+    // Create AI model list object.
+    let modelListElement = document.getElementById("model-list");
+    let modelListObj = new ModelList(modelListElement, scanButtonObj, fileListObj);
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
@@ -34,6 +34,10 @@ function main()
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
     let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
+
+    // Link objects.
+    fileListObj.linkModelList(modelListObj);
+    fileListObj.linkScanButton(scanButtonObj);
 }
 
 /**

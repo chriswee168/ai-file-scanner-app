@@ -14,15 +14,31 @@ export class FileList extends List
      * 
      * @param {HTMLElement} listElement HTML element of file list.
      * @param {HTMLElement} metadataTextElement HTML element of metadata text box.
-     * @param {ScanButton} scanButtonObj Scan button object.
-     * @param {ModelList} modelListObj Model list object.
      */
-    constructor(listElement, metadataTextElement, scanButtonObj, modelListObj)
+    constructor(listElement, metadataTextElement)
     {
         super(listElement);
 
         this.metadataTextElement = metadataTextElement;
+    }
+
+    /**
+     * Set scan button attribute.
+     * 
+     * @param {ScanButton} scanButtonObj Scan button object.
+     */
+    linkScanButton(scanButtonObj)
+    {
         this.scanButtonObj = scanButtonObj;
+    }
+
+    /**
+     * Set model list attribute.
+     * 
+     * @param {ModelList} modelListObj Model list object.
+     */
+    linkModelList(modelListObj)
+    {
         this.modelListObj = modelListObj;
     }
 
