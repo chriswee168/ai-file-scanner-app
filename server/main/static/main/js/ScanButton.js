@@ -1,6 +1,7 @@
 import {ActionButton} from "./ActionButton.js";
 import { FileList } from "./FileList.js";
 import { ModelList } from "./ModelList.js";
+import { ResultReceiver } from "./ResultReceiver.js";
 
 /**
  * Class to define behaviour of scan button responsible for
@@ -42,6 +43,16 @@ export class ScanButton extends ActionButton
     }
 
     /**
+     * Setter to add result receiver object.
+     * 
+     * @param {ResultReceiver} resultReceiver Result receiver object.
+     */
+    linkResultReceiver(resultReceiver)
+    {
+        this.resultReceiver = resultReceiver;
+    }
+
+    /**
      * Method to execute when scan button is clicked by the user.
      */
     async actionOnClick()
@@ -53,6 +64,10 @@ export class ScanButton extends ActionButton
             let modelName = this.modelList.selectedEntry.element.innerText;
 
             let data = {"filePath": filePath, "modelName": modelName};
+
+            // Start server side event to continuously receive
+            // byte chunk predictions.
+            this.resultReceiver.startStream(data);
 
         }
         else // Ignore click event if button not available
