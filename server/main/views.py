@@ -1,7 +1,7 @@
 import os
 import json
 from time import ctime
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from server.main.models import AIModelsTable
@@ -76,3 +76,13 @@ def get_filepaths(request: HttpRequest):
         json_data = {"filepaths": filepaths, "metadatas": metadatas}
     
         return JsonResponse(json_data)
+
+# View to set the path of file and name of AI model selected
+# by user before starting the byte chunk prediction process.
+def prediction_conf(request: HttpRequest):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        request.session["file_path"] = data["filePath"]
+        request.session["model_name"] = data["modelName"]
+
+        return HttpResponse(status=200)
