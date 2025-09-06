@@ -1,4 +1,6 @@
 import {ActionButton} from "./ActionButton.js";
+import { FileList } from "./FileList.js";
+import { ModelList } from "./ModelList.js";
 
 /**
  * Class to define behaviour of scan button responsible for
@@ -20,10 +22,42 @@ export class ScanButton extends ActionButton
     }
 
     /**
+     * Setter to add model list object.
+     * 
+     * @param {ModelList} modelList Model list object.
+     */
+    linkModelList(modelList)
+    {
+        this.modelList = modelList;
+    }
+
+    /**
+     * Setter to add file list object.
+     * 
+     * @param {FileList} fileList File list object.
+     */
+    linkFileList(fileList)
+    {
+        this.fileList = fileList;
+    }
+
+    /**
      * Method to execute when scan button is clicked by the user.
      */
     async actionOnClick()
     {
-        
+        if (this.available)
+        {
+            // Get filepath of selected file and name of selected AI model.
+            let filePath = this.fileList.selectedEntry.metadata.absolute_path;
+            let modelName = this.modelList.selectedEntry.element.innerText;
+
+            let data = {"filePath": filePath, "modelName": modelName};
+
+        }
+        else // Ignore click event if button not available
+        {
+            // pass.
+        }
     }
 }

@@ -2,6 +2,8 @@ import { RefreshButton } from "./RefreshButton.js";
 import { FileList } from "./FileList.js";
 import { ModelList } from "./ModelList.js";
 import { DropDownButton } from "./DropDownButton.js";
+import { ScanButton } from "./ScanButton.js";
+import { ResultReceiver } from "./ResultReceiver.js";
 
 /**
  * Main function to call for overall HTML page area.
@@ -14,21 +16,38 @@ function main()
     // File metadata textbox element.
     let metadataTextElement = document.getElementById("metadata-textbox");
 
+    // Create scan button object.
+    let scanButtonElement = document.getElementById("scan-button");
+    let scanButtonObj = new ScanButton(scanButtonElement);
+
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
     let fileListObj = new FileList(fileListElement, metadataTextElement);
+
+    // Create AI model list object.
+    let modelListElement = document.getElementById("model-list");
+    let modelListObj = new ModelList(modelListElement, scanButtonObj, fileListObj);
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
     let refreshButtonObj = new RefreshButton(refreshButtonElement, fileListObj, pathElement);
 
-    // Create AI model list object.
-    let modelListElement = document.getElementById("model-list");
-    let modelListObj = new ModelList(modelListElement);
-
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
     let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
+
+    // Get progress bar elements and create result receiver object.
+    let chunkProgBarElement = document.getElementById("chunk-prog-bar");
+    let classBarElements = document.querySelectorAll(".class-bar");
+    let resultReceiver = new ResultReceiver(chunkProgBarElement, classBarElements);
+
+    // Link model list and scan button objects to file list.
+    fileListObj.linkModelList(modelListObj);
+    fileListObj.linkScanButton(scanButtonObj);
+
+    // Link model list and file list to scan button.
+    scanButtonObj.linkModelList(modelListObj);
+    scanButtonObj.linkFileList(fileListObj);
 }
 
 /**

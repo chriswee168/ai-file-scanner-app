@@ -1,4 +1,6 @@
 import { Entry, List } from "./List.js";
+import { ModelList } from "./ModelList.js";
+import { ScanButton } from "./ScanButton.js";
 
 /**
  * FileList contains a series of FileEntry classes, displaying
@@ -18,6 +20,26 @@ export class FileList extends List
         super(listElement);
 
         this.metadataTextElement = metadataTextElement;
+    }
+
+    /**
+     * Set scan button attribute.
+     * 
+     * @param {ScanButton} scanButtonObj Scan button object.
+     */
+    linkScanButton(scanButtonObj)
+    {
+        this.scanButtonObj = scanButtonObj;
+    }
+
+    /**
+     * Set model list attribute.
+     * 
+     * @param {ModelList} modelListObj Model list object.
+     */
+    linkModelList(modelListObj)
+    {
+        this.modelListObj = modelListObj;
     }
 
     /**
@@ -59,8 +81,9 @@ export class FileList extends List
                     },
                     {
                         "color": "rgba(255, 255, 255, 1)"
-                    }
-
+                    },
+                    this.scanButtonObj,
+                    this.modelListObj
                 )
             )
         }
@@ -82,14 +105,22 @@ class FileEntry extends Entry
      * @param {HTMLElement} metadataTextElement HTML element to metadata textbox.
      * @param {Record<string, string>} selectedStyle CSS styles if file entry is selected by user.
      * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {ScanButton} scanButtonObj Scan button object.
+     * @param {ModelList} modelListObj Model list object.
      */
-    constructor(list, element, metadata, metadataTextElement, selectedStyle, unselectedStyle)
+    constructor(
+        list, element, metadata, metadataTextElement, selectedStyle, unselectedStyle,
+        scanButtonObj, modelListObj
+    )
     {
         super(list, element, selectedStyle, unselectedStyle);
         this.metadata = metadata;
         this.metadataTextElement = metadataTextElement;
+        this.scanButtonObj = scanButtonObj;
+        this.modelListObj = modelListObj;
 
         this.element.addEventListener("click", () => this.setMetadata());
+        this.element.addEventListener("click", () => this.setScanButtonStatus());
     }
 
     /**
@@ -100,9 +131,39 @@ class FileEntry extends Entry
         // Display metadata of file selected.
         this.metadataTextElement.innerText = `
             Name: ${this.metadata.name}
+            Absolute path: ${this.metadata.absolute_path}
             Size (bytes): ${this.metadata.size}
             Last created: ${this.metadata.last_created}
             Last accessed: ${this.metadata.last_accessed}
             Last modified: ${this.metadata.last_modified}`
+    }
+
+    /**
+     * Set scan button availability when clicked.
+     */
+    setScanButtonStatus()
+    {
+        // If user has selected an AI model.
+        if (this.modelListObj.selectedEntry != null)
+        {
+            // Obtain the context length of the model (last string separated by underscore).
+            let modelName = this.modelListObj.selectedEntry.element.innerText;
+            let contextLen = parseInt(modelName.split("_").at(-1));
+            
+            // Scanning is only allowed if number of bytes in the file
+            // is at least the context length of the model selected.
+            if (this.metadata.size >= contextLen)
+            {
+                this.scanButtonObj.setAvailability(true);
+            }
+            else
+            {
+                this.scanButtonObj.setAvailability(false);
+            }
+        }
+        else // If no AI model selected yet.
+        {
+            // pass.
+        }
     }
 }
