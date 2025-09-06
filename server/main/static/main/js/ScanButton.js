@@ -46,6 +46,18 @@ export class ScanButton extends ActionButton
      */
     async actionOnClick()
     {
-        
+        if (this.available)
+        {
+            // Get filepath of selected file and name of selected AI model.
+            let filePath = this.fileList.selectedEntry.metadata.absolute_path;
+            let modelName = this.modelList.selectedEntry.element.innerText;
+
+            let data = {"filePath": filePath, "modelName": modelName};
+
+        }
+        else // Ignore click event if button not available
+        {
+            // pass.
+        }
     }
 }
