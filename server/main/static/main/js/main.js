@@ -3,6 +3,7 @@ import { FileList } from "./FileList.js";
 import { ModelList } from "./ModelList.js";
 import { DropDownButton } from "./DropDownButton.js";
 import { ScanButton } from "./ScanButton.js";
+import { ResultReceiver } from "./ResultReceiver.js";
 
 /**
  * Main function to call for overall HTML page area.
@@ -34,6 +35,11 @@ function main()
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
     let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
+
+    // Get progress bar elements and create result receiver object.
+    let chunkProgBarElement = document.getElementById("chunk-prog-bar");
+    let classBarElements = document.querySelectorAll(".class-bar");
+    let resultReceiver = new ResultReceiver(chunkProgBarElement, classBarElements);
 
     // Link model list and scan button objects to file list.
     fileListObj.linkModelList(modelListObj);
