@@ -3,7 +3,9 @@ import json
 from time import ctime
 from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.shortcuts import render
+import torch
 
+from ml_workspace.Model import Model
 from server.main.models import AIModelsTable
 
 # Create your views here.
@@ -86,3 +88,15 @@ def prediction_conf(request: HttpRequest):
         request.session["model_name"] = data["modelName"]
 
         return HttpResponse(status=200)
+# Function to load PyTorch model.
+def load_model(hyper_param_path: str, weights_path: str) -> Model:
+    
+    # Initialize model.
+    model = Model(
+        hyper_params_path=hyper_param_path
+    )
+
+    # Load the weights.
+    model.load_state_dict(torch.load(weights_path))
+
+    return model
