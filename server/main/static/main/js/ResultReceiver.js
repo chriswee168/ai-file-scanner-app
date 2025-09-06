@@ -26,8 +26,22 @@ export class ResultReceiver
      * @param {Object<string, string>} data Contains the filepath of selected file
      * and the name of the AI model.
      */
-    startStream(data)
+    async startStream(data)
     {
-        
+         // Get CSRF token.
+        let csrftoken = document.cookie.split("=")[1];
+
+        let response = await fetch(
+            "/main/prediction-conf/",
+            {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "ContentType": "application/json",
+                    "X-CSRFToken": csrftoken
+                }
+
+            }
+        )
     }
 }
