@@ -159,16 +159,10 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
                 output_softmaxed = torch.softmax(output_logits, dim=0)
 
                 # Get classification of byte chunk.
-                if output_softmaxed[0] < 0.25:
-                    chunk_class = 0 # Clean.
-                elif 0.25 <= output_softmaxed[1] and output_softmaxed[1] < 0.75:
-                    chunk_class = 1 # Warning.
-                elif output_softmaxed[1] >= 0.75:
-                    chunk_class = 2 # Malicious.
-
-                data = json.dumps({"chunkClass": chunk_class})
+                chunk_class = torch.argmax(output_softmaxed, dim=0)
 
                 # Send the chunk class predicted to client.
+                data = json.dumps({"chunkClass": chunk_class})
                 yield f"data: {data}\n\n"
         
         else: # Chunk is smaller than chunk_size.
