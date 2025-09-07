@@ -86,8 +86,9 @@ class Model(nn.Module):
 
             current_dim = dim
         
-        # Output logit layer.
-        self.output_logits = nn.Linear(current_dim, output_classes)
+        # Output layers.
+        self.output_layer = nn.Linear(current_dim, 1)
+        self.output_sigmoid = nn.Sigmoid()
     
     def forward(self, tokens: Tensor) -> Tensor:
         # Get embeddings.
@@ -108,7 +109,8 @@ class Model(nn.Module):
         for layer in self.mlp:
             cls_embedding = layer(cls_embedding)
         
-        # Obtain output logits.
-        output = self.output_logits(cls_embedding)
+        # Obtain output classification.
+        output = self.output_layer(cls_embedding)
+        output = self.output_sigmoid(output)
 
         return output        
