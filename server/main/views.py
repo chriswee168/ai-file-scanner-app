@@ -111,7 +111,7 @@ def predict_chunks(request: HttpRequest):
         file_bytes = f.read()
     
     # Get chunk size (context length of model).
-    chunk_size = int(model_name.split("_"))[-1]
+    chunk_size = int(model_name.split("_")[-1])
 
     # Stride to slide chunk window across whole file byte sequence.
     stride = chunk_size
