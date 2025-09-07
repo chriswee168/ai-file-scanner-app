@@ -43,5 +43,28 @@ export class ResultReceiver
 
             }
         )
+        if (!response.ok)
+        {
+            console.log(response.statusText, response.status);
+        }
+
+        // Start the server side event to begin the file byte chunk
+        // scanning process.
+        let eventSource = new EventSource("/main/chunk-scanner/");
+
+        let value_array = [];
+        for (let i = 0; i < this.classProgBarElements.length; i++)
+        {
+            value_array.push(0)
+        }
+
+        let limit = 0;
+        let maxLimit = data;
+        eventSource.onmessage = (event) => {
+            let data = JSON.parse(event.data);
+            let classIdx = data.chunkClass;
+            value_array[classIdx] += 1;
+            console.log(value_array);
+        }
     }
 }
