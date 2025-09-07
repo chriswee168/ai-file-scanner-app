@@ -99,7 +99,7 @@ def predict_chunks(request: HttpRequest):
     model_name: str = request.session["model_name"]
 
     # Query AI model database to get the path to model's weights.
-    model_path = AIModelsTable.objects.get(model_name).model_path
+    model_path = AIModelsTable.objects.get(model_name=model_name).model_path
 
     # Load the AI model.
     hyper_param_path = os.path.join(model_path, "hparams.json")
