@@ -99,7 +99,7 @@ def predict_chunks(request: HttpRequest):
     model_name: str = request.session["model_name"]
 
     # Query AI model database to get the path to model's weights.
-    model_path = AIModelsTable.objects.get(model_name).model_path
+    model_path = AIModelsTable.objects.get(model_name=model_name).model_path
 
     # Load the AI model.
     hyper_param_path = os.path.join(model_path, "hparams.json")
@@ -111,7 +111,7 @@ def predict_chunks(request: HttpRequest):
         file_bytes = f.read()
     
     # Get chunk size (context length of model).
-    chunk_size = int(model_name.split("_"))[-1]
+    chunk_size = int(model_name.split("_")[-1])
 
     # Stride to slide chunk window across whole file byte sequence.
     stride = chunk_size
@@ -131,7 +131,9 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     
     # Initialize model.
     model = Model(
-        hyper_params_path=hyper_param_path
+        hyper_params_path=hyper_param_path,
+        output_classes=2,
+        dropout=0.0
     )
 
     # Load the weights.
@@ -159,16 +161,10 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
                 output_softmaxed = torch.softmax(output_logits, dim=0)
 
                 # Get classification of byte chunk.
-                if output_softmaxed[0] < 0.25:
-                    chunk_class = 0 # Clean.
-                elif 0.25 <= output_softmaxed[1] and output_softmaxed[1] < 0.75:
-                    chunk_class = 1 # Warning.
-                elif output_softmaxed[1] >= 0.75:
-                    chunk_class = 2 # Malicious.
-
-                data = json.dumps({"chunkClass": chunk_class})
+                chunk_class = torch.argmax(output_softmaxed, dim=0)
 
                 # Send the chunk class predicted to client.
+                data = json.dumps({"chunkClass": chunk_class})
                 yield f"data: {data}\n\n"
         
         else: # Chunk is smaller than chunk_size.
