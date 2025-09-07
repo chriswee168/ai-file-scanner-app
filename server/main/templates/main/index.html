@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Main HTML page for AI antimalware.">
+    </head>
+
+    <!-- Tab title. -->
+    <title>AI Antimalware</title>
+
+    <!-- Link to CSS. -->
+    <header>
+        <link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+    </header>
+
+    <body>
+        <div id="main-wrapper">
+            <h1 id="page-title">AI AntiMalware</h1>
+            
+            <!-- Create the list of AI models selectable from the Django AIModelsTable. -->
+            <div id="model-list">
+                {% for entry in model_db %}
+                    <div class="model-entry" id="{{entry.model_name}}">{{entry.model_name}}</div>
+                {% endfor %}
+            </div>
+
+            <!-- Div element to act as button to display dropdown model list. -->
+            <div id="model-select-button">
+                <h3 id="model-select-name">Select Model</h3>
+            </div>
+
+            <!-- File selection div. -->
+            <div id="file-selection" class="div-box">
+                <h3 class="div-title">File Selection</h3>
+
+                <!-- Textbox to enter directory path. -->
+                <div id="path-textbox-label">Path:</div>
+                
+                <!-- CSRF Token. -->
+                {% csrf_token %}
+                
+                <div id="path-textbox" contenteditable="true"></div>
+                <div id="refresh-button"><b>REFRESH</b></div>
+                <div id="file-list"></div>
+            </div>
+
+            <!-- Box for displaying file metadata. -->
+            <div id="file-metadata" class="div-box">
+                <h3 class="div-title">File Metadata</h3>
+                <div id="metadata-textbox"></div>
+                <div id="scan-button"><b>SCAN FILE BYTES</b></div>
+            </div>
+
+            <!-- Display scan results of selected file. -->
+            <div id="scan-results" class="div-box">
+                <h3 class="div-title">Scan Results</h3>
+                <div id="chunk-prog-wrapper">
+                    <label for="chunk-prog-bar">Byte Chunks: 0/0 </label>
+                    <progress id="chunk-prog-bar" value="50" max="100"></progress>
+                </div>
+
+                <!-- Bars to display classification predictions. -->
+                <div id="class-prog-bars-wrapper">
+                    <label for="clean-class-bar">Clean: 000% </label>
+                    <progress id="clean-class-bar" class="class-bar" value="25" max="100"></progress><br>
+                    <label for="warning-class-bar">Warning: 000% </label>
+                    <progress id="warning-class-bar" class="class-bar" value="50" max="100"></progress><br>
+                    <label for="malicious-class-bar">Malicious: 000% </label>
+                    <progress id="malicious-class-bar" class="class-bar" value="75" max="100"></progress><br>
+                </div>
+            </div>
+        </div>
+    
+    <!-- Load main JS file for page behaviour. -->
+    <script type="module" src="{% static 'main/js/main.js' %}"></script>
+
+    </body>
+</html>
