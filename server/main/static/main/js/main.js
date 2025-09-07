@@ -48,6 +48,7 @@ function main()
     // Link model list and file list to scan button.
     scanButtonObj.linkModelList(modelListObj);
     scanButtonObj.linkFileList(fileListObj);
+    scanButtonObj.linkResultReceiver(resultReceiver);
 }
 
 /**
