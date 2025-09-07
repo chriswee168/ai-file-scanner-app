@@ -37,7 +37,7 @@ def load_byte_data(
                     # (Usually the last chunk is almost always shorter.)
                     if len(byte_seq_chunk) == chunk_size:
                         dataset.append(
-                            (byte_seq_chunk, torch.FloatTensor([c]))
+                            (byte_seq_chunk, torch.FloatTensor([[c]]))
                         )
                         
                         chunk_counter += 1
