@@ -4,6 +4,7 @@ from time import ctime
 from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.shortcuts import render
 import torch
+from torch import Tensor
 
 from ml_workspace.Model import Model
 from server.main.models import AIModelsTable
@@ -100,3 +101,41 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     model.load_state_dict(torch.load(weights_path))
 
     return model
+
+# Function to yield chunk prediction probability.
+def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
+    for i in range(0, len(file_bytes), stride):
+
+        # Only consider chunks that are the same length as chunk_size.
+        byte_chunk = file_bytes[i: i + chunk_size]
+        if len(byte_chunk) == chunk_size:
+            byte_chunk = torch.tensor(
+                [bytearray(byte_chunk)], 
+                dtype=torch.long
+            )
+
+            # Obtain model prediction of byte chunk.
+            with torch.inference_mode():
+                output_logits = model(byte_chunk)[0]
+                    
+                # Softmax the logits.
+                output_softmaxed = torch.softmax(output_logits, dim=0)
+
+                # Get classification of byte chunk.
+                if output_softmaxed[0] < 0.25:
+                    chunk_class = 0 # Clean.
+                elif 0.25 <= output_softmaxed[1] and output_softmaxed[1] < 0.75:
+                    chunk_class = 1 # Warning.
+                elif output_softmaxed[1] >= 0.75:
+                    chunk_class = 2 # Malicious.
+
+                data = json.dumps({"chunkClass": chunk_class})
+
+                # Send the chunk class predicted to client.
+                yield f"data: {data}\n\n"
+        
+        else: # Chunk is smaller than chunk_size.
+            pass
+            
+    # Finished scanning.
+    print("Byte chunk scanning completed.")
