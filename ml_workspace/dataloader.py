@@ -1,8 +1,6 @@
 import os
 import torch
 from torch import Tensor
-import numpy as np
-from copy import deepcopy
 
 def load_byte_data(
     dir_path: str, chunk_size: int, stride: int, 
@@ -11,16 +9,11 @@ def load_byte_data(
     # Contains the number of training examples for each class.
     dataset: list[tuple[Tensor, Tensor]] = []
     
-    # Expects folder structure:
-    # dir_path/
-    #   class_folder1/
-    #       binary_file1
-    #       binary_file2
-    #        ...
-    #   class_folder2/
-    #   ...
-    for c, folder in enumerate(os.listdir(dir_path)):
-        classpath = os.path.join(dir_path, folder)
+    # The directory names in dataset.
+    classes = ["clean", "malicious"]
+
+    for c, cat in enumerate(classes):
+        classpath = os.path.join(dir_path, cat)
 
         class_count = 0
 
@@ -44,7 +37,7 @@ def load_byte_data(
                     # (Usually the last chunk is almost always shorter.)
                     if len(byte_seq_chunk) == chunk_size:
                         dataset.append(
-                            (byte_seq_chunk, torch.LongTensor([c]))
+                            (byte_seq_chunk, torch.FloatTensor([c]))
                         )
                         
                         chunk_counter += 1
