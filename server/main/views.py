@@ -131,7 +131,9 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     
     # Initialize model.
     model = Model(
-        hyper_params_path=hyper_param_path
+        hyper_params_path=hyper_param_path,
+        output_classes=2,
+        dropout=0.0
     )
 
     # Load the weights.
