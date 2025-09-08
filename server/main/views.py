@@ -139,6 +139,13 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     # Load the weights.
     model.load_state_dict(torch.load(weights_path))
 
+    # Move to CUDA if available, otherwise use CPU.
+    if torch.cuda.is_available():
+        print(f"CUDA is available, using {torch.cuda.get_device_name(0)}.")
+        model.cuda()
+    else:
+        print("CUDA is not available, using CPU.")
+
     return model
 
 # Function to yield chunk prediction probability.
@@ -153,6 +160,9 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
                 dtype=torch.long
             )
             
+            # Move to CUDA if available, otherwise use CPU.
+            if torch.cuda.is_available():
+                byte_chunk = byte_chunk.cuda()
 
             # Obtain model prediction of byte chunk.
             with torch.inference_mode():
