@@ -1,22 +1,33 @@
+import { ProgressBar } from "./ProgressBar.js";
+
 /**
  * ResultReceiver is responsible for receiving the byte chunk predictions made
  * by the AI model on server.
  */
 export class ResultReceiver
 {
+    // Constructor.
+    constructor() {}
+
     /**
-     * Constructor.
+     * Setter method for chunk scanning progress bar object.
      * 
-     * @param {HTMLELement} chunkProgBarElement HTML progress bar that indicates how many
-     *  byte chunks have been scanned by AI model on server.
-     * @param {NodeListOf<Element>} classProgBarElements Collection of HTML progress bars
-     * to indicate the number of byte chunks belonging to each class.
-     * [cleanBar, warningBar, maliciousBar]
+     * @param {ProgressBar} chunkScanBar Chunk scanning progress bar object.
      */
-    constructor(chunkProgBarElement, classProgBarElements)
+    setChunkScanBar(chunkScanBar)
     {
-        this.chunkProgBarElement = chunkProgBarElement;
-        this.classProgBarElements = classProgBarElements;
+        this.chunkScanBar = chunkScanBar;
+    }
+
+    /**
+     * Setter method for array of category/class progress bar objects.
+     * 
+     * @param {Array<ProgressBar>} categoryBars Array of progress bar objects for each
+     * class/category [clean, warning, malicious].
+     */
+    setCategoryBars(categoryBars)
+    {
+        this.categoryBars = categoryBars;
     }
 
     /**
