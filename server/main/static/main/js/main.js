@@ -81,7 +81,7 @@ function createProgBarObjs()
     for (let i = 0; i < classBarElements.length; i++)
     {
         classBarObjs.push(
-            new ProgressBar(classBarElements[i], classBarLabels[i], labelMsgs[i])
+            new ProgressBar(classBarLabels[i], classBarElements[i], labelMsgs[i])
         );
     }
 
