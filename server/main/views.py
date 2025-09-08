@@ -150,6 +150,8 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
 
 # Function to yield chunk prediction probability.
 def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
+    max_chunks = int(len(file_bytes) / chunk_size)
+    chunks_scanned = 0
     for i in range(0, len(file_bytes), stride):
 
         # Only consider chunks that are the same length as chunk_size.
@@ -175,8 +177,15 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
                 elif prob >= 0.75:
                     chunk_class = 2 # malicious.
 
+                chunks_scanned += 1
+
                 # Send the chunk class predicted to client.
-                data = json.dumps({"chunkClass": chunk_class})
+                data = json.dumps({
+                    "chunkClass": chunk_class, 
+                    "nChunksScanned": chunks_scanned,
+                    "maxChunksScannable": max_chunks
+                })
+                
                 yield f"data: {data}\n\n"
         
         else: # Chunk is smaller than chunk_size.
