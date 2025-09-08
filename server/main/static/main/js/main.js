@@ -37,8 +37,8 @@ function main()
     let modelSelectButton = document.getElementById("model-select-button");
     let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
 
-    let [chunkScanBarObj, classBarObjs] = createProgBarObjs();
-    let resultReceiver = new ResultReceiver(chunkProgBarElement, classBarElements, chunkProgBarLabel, classBarLabels);
+    // Create result receiver object.
+    let resultReceiver = new ResultReceiver();
 
     // Link model list and scan button objects to file list.
     fileListObj.linkModelList(modelListObj);
@@ -48,6 +48,11 @@ function main()
     scanButtonObj.linkModelList(modelListObj);
     scanButtonObj.linkFileList(fileListObj);
     scanButtonObj.linkResultReceiver(resultReceiver);
+
+    // Link chunk scanning and class/category progress bars to result receiver.
+    let [chunkScanBarObj, classBarObjs] = createProgBarObjs();
+    resultReceiver.setChunkScanBar(chunkScanBarObj);
+    resultReceiver.setCategoryBars(classBarObjs)
 }
 
 /**
