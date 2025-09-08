@@ -4,6 +4,7 @@ import { ModelList } from "./ModelList.js";
 import { DropDownButton } from "./DropDownButton.js";
 import { ScanButton } from "./ScanButton.js";
 import { ResultReceiver } from "./ResultReceiver.js";
+import { ProgressBar } from "./ProgressBar.js";
 
 /**
  * Main function to call for overall HTML page area.
@@ -36,10 +37,8 @@ function main()
     let modelSelectButton = document.getElementById("model-select-button");
     let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
 
-    // Get progress bar elements and create result receiver object.
-    let chunkProgBarElement = document.getElementById("chunk-prog-bar");
-    let classBarElements = document.querySelectorAll(".class-bar");
-    let resultReceiver = new ResultReceiver(chunkProgBarElement, classBarElements);
+    let [chunkScanBarObj, classBarObjs] = createProgBarObjs();
+    let resultReceiver = new ResultReceiver(chunkProgBarElement, classBarElements, chunkProgBarLabel, classBarLabels);
 
     // Link model list and scan button objects to file list.
     fileListObj.linkModelList(modelListObj);
@@ -49,6 +48,38 @@ function main()
     scanButtonObj.linkModelList(modelListObj);
     scanButtonObj.linkFileList(fileListObj);
     scanButtonObj.linkResultReceiver(resultReceiver);
+}
+
+/**
+ * Function to create the progress bars for chunk scanning and
+ * the byte chunk categories.
+ * 
+ * @returns Progress bar objects for chunk scanning and categories.
+ */
+function createProgBarObjs()
+{
+    // Get progress bar elements and create result receiver object.
+    let chunkProgBarElement = document.getElementById("chunk-prog-bar");
+    let chunkProgBarLabel = document.getElementById("chunk-prog-bar-label");
+    let classBarElements = document.querySelectorAll(".class-bar");
+    let classBarLabels = document.querySelectorAll(".class-bar-label");
+
+    // Create the chunk scanning progress bar object.
+    let chunkScanBarObj = new ProgressBar(
+        chunkProgBarLabel, chunkProgBarElement, "Chunk scan progress"
+    );
+
+    // Create progress bar object for each category.
+    let labelMsgs = ["Clean", "Warning", "Malicious"];
+    let classBarObjs = [];
+    for (let i = 0; i < classBarElements.length; i++)
+    {
+        classBarObjs.push(
+            new ProgressBar(classBarElements[i], classBarLabels[i], labelMsgs[i])
+        );
+    }
+
+    return [chunkScanBarObj, classBarObjs];
 }
 
 /**
