@@ -52,7 +52,8 @@ function main()
     // Link chunk scanning and class/category progress bars to result receiver.
     let [chunkScanBarObj, classBarObjs] = createProgBarObjs();
     resultReceiver.setChunkScanBar(chunkScanBarObj);
-    resultReceiver.setCategoryBars(classBarObjs)
+    resultReceiver.setCategoryBars(classBarObjs);
+    resultReceiver.setScanButton(scanButtonObj);
 }
 
 /**

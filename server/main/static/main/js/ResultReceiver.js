@@ -1,4 +1,5 @@
 import { ProgressBar } from "./ProgressBar.js";
+import { ScanButton } from "./ScanButton.js";
 
 /**
  * ResultReceiver is responsible for receiving the byte chunk predictions made
@@ -28,6 +29,17 @@ export class ResultReceiver
     setCategoryBars(categoryBars)
     {
         this.categoryBars = categoryBars;
+    }
+
+    /**
+     * Setter method for scan button, required so scan button is made
+     * unavailable during the chunk scanning process.
+     * 
+     * @param {ScanButton} scanButton Scan button object.
+     */
+    setScanButton(scanButton)
+    {
+        this.scanButton = scanButton;
     }
 
     /**
