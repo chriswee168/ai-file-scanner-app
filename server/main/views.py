@@ -152,16 +152,18 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
                 [bytearray(byte_chunk)], 
                 dtype=torch.long
             )
+            
 
             # Obtain model prediction of byte chunk.
             with torch.inference_mode():
-                output_logits = model(byte_chunk)[0]
-                    
-                # Softmax the logits.
-                output_softmaxed = torch.softmax(output_logits, dim=0)
-
-                # Get classification of byte chunk.
-                chunk_class = torch.argmax(output_softmaxed, dim=0)
+                prob = model(byte_chunk)[0][0]
+                
+                if prob < 0.25:
+                    chunk_class = 0 # clean.
+                elif prob >= 0.25 and prob < 0.75:
+                    chunk_class = 1 # warning.
+                elif prob >= 0.75:
+                    chunk_class = 2 # malicious.
 
                 # Send the chunk class predicted to client.
                 data = json.dumps({"chunkClass": chunk_class})
