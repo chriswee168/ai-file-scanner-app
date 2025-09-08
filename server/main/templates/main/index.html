@@ -57,17 +57,17 @@
             <div id="scan-results" class="div-box">
                 <h3 class="div-title">Scan Results</h3>
                 <div id="chunk-prog-wrapper">
-                    <label for="chunk-prog-bar">Byte Chunks: 0/0 </label>
+                    <label id="chunk-prog-bar-label" for="chunk-prog-bar">Byte Chunks: 0/0 </label>
                     <progress id="chunk-prog-bar" value="50" max="100"></progress>
                 </div>
 
                 <!-- Bars to display classification predictions. -->
                 <div id="class-prog-bars-wrapper">
-                    <label for="clean-class-bar">Clean: 000% </label>
+                    <label class="class-bar-label" id="clean-class-bar-label" for="clean-class-bar">Clean: 000% </label>
                     <progress id="clean-class-bar" class="class-bar" value="25" max="100"></progress><br>
-                    <label for="warning-class-bar">Warning: 000% </label>
+                    <label class="class-bar-label" id="warning-class-bar-label" for="warning-class-bar">Warning: 000% </label>
                     <progress id="warning-class-bar" class="class-bar" value="50" max="100"></progress><br>
-                    <label for="malicious-class-bar">Malicious: 000% </label>
+                    <label class="class-bar-label" id="malicious-class-bar-label" for="malicious-class-bar">Malicious: 000% </label>
                     <progress id="malicious-class-bar" class="class-bar" value="75" max="100"></progress><br>
                 </div>
             </div>
