@@ -86,8 +86,9 @@ export class ResultReceiver
             this.categoryBars[i].setValue(0, 1);
         }
 
-        let limit = 0;
-        let maxLimit = data;
+        // Disable scan button availability.
+        this.scanButton.setAvailability(false);
+
         eventSource.onmessage = (event) => {
             let data = JSON.parse(event.data);
             let classIdx = data.chunkClass;
