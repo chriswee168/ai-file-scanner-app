@@ -75,10 +75,15 @@ export class ResultReceiver
         // scanning process.
         let eventSource = new EventSource("/main/chunk-scanner/");
 
-        let value_array = [];
-        for (let i = 0; i < this.classProgBarElements.length; i++)
+        // Initialize chunk scanning progress bar to zero.
+        this.chunkScanBar.setValue(0, 1);
+
+        // Initialize all class/category progress bars to zero.
+        let valueArray = [];
+        for (let i = 0; i < this.categoryBars.length; i++)
         {
-            value_array.push(0)
+            valueArray.push(0)
+            this.categoryBars[i].setValue(0, 1);
         }
 
         let limit = 0;
