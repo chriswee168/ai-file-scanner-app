@@ -104,6 +104,14 @@ export class ResultReceiver
             
             // Update class/category progress bars on selected index.
             this.categoryBars[classIdx].setValue(valueArray[classIdx], maxChunks);
+            
+            // Close connection if all byte chunks have been scanned
+            // and make scan button available again.
+            if (nChunksScanned == maxChunks)
+            {
+                eventSource.close();
+                this.scanButton.setAvailability(true);
+            }
         }
     }
 }
