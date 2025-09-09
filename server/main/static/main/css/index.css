@@ -124,6 +124,9 @@ label
     font-family: monospace;
     text-align: left;
     white-space: nowrap;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* Button responsible for refreshing file list. */
@@ -167,6 +170,9 @@ label
     white-space: nowrap;
     overflow-x: scroll;
     font-family: monospace;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* File byte chunk scan button. */
