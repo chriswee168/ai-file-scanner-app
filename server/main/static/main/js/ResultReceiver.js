@@ -1,22 +1,45 @@
+import { ProgressBar } from "./ProgressBar.js";
+import { ScanButton } from "./ScanButton.js";
+
 /**
  * ResultReceiver is responsible for receiving the byte chunk predictions made
  * by the AI model on server.
  */
 export class ResultReceiver
 {
+    // Constructor.
+    constructor() {}
+
     /**
-     * Constructor.
+     * Setter method for chunk scanning progress bar object.
      * 
-     * @param {HTMLELement} chunkProgBarElement HTML progress bar that indicates how many
-     *  byte chunks have been scanned by AI model on server.
-     * @param {NodeListOf<Element>} classProgBarElements Collection of HTML progress bars
-     * to indicate the number of byte chunks belonging to each class.
-     * [cleanBar, warningBar, maliciousBar]
+     * @param {ProgressBar} chunkScanBar Chunk scanning progress bar object.
      */
-    constructor(chunkProgBarElement, classProgBarElements)
+    setChunkScanBar(chunkScanBar)
     {
-        this.chunkProgBarElement = chunkProgBarElement;
-        this.classProgBarElements = classProgBarElements;
+        this.chunkScanBar = chunkScanBar;
+    }
+
+    /**
+     * Setter method for array of category/class progress bar objects.
+     * 
+     * @param {Array<ProgressBar>} categoryBars Array of progress bar objects for each
+     * class/category [clean, warning, malicious].
+     */
+    setCategoryBars(categoryBars)
+    {
+        this.categoryBars = categoryBars;
+    }
+
+    /**
+     * Setter method for scan button, required so scan button is made
+     * unavailable during the chunk scanning process.
+     * 
+     * @param {ScanButton} scanButton Scan button object.
+     */
+    setScanButton(scanButton)
+    {
+        this.scanButton = scanButton;
     }
 
     /**
@@ -52,19 +75,43 @@ export class ResultReceiver
         // scanning process.
         let eventSource = new EventSource("/main/chunk-scanner/");
 
-        let value_array = [];
-        for (let i = 0; i < this.classProgBarElements.length; i++)
+        // Initialize chunk scanning progress bar to zero.
+        this.chunkScanBar.setValue(0, 1);
+
+        // Initialize all class/category progress bars to zero.
+        let valueArray = [];
+        for (let i = 0; i < this.categoryBars.length; i++)
         {
-            value_array.push(0)
+            valueArray.push(0)
+            this.categoryBars[i].setValue(0, 1);
         }
 
-        let limit = 0;
-        let maxLimit = data;
+        // Disable scan button availability.
+        this.scanButton.setAvailability(false);
+
         eventSource.onmessage = (event) => {
             let data = JSON.parse(event.data);
+
             let classIdx = data.chunkClass;
-            value_array[classIdx] += 1;
-            console.log(value_array);
+            let nChunksScanned = data.nChunksScanned;
+            let maxChunks = data.maxChunksScannable;
+
+            // Accumulate class/category predicted.
+            valueArray[classIdx] += 1;
+
+            // Update the chunk scanning progress bar value.
+            this.chunkScanBar.setValue(nChunksScanned, maxChunks);
+            
+            // Update class/category progress bars on selected index.
+            this.categoryBars[classIdx].setValue(valueArray[classIdx], maxChunks);
+            
+            // Close connection if all byte chunks have been scanned
+            // and make scan button available again.
+            if (nChunksScanned == maxChunks)
+            {
+                eventSource.close();
+                this.scanButton.setAvailability(true);
+            }
         }
     }
 }
