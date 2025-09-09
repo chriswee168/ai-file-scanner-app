@@ -75,7 +75,7 @@ label
 #file-selection
 {
     width: 29%;
-    height: 30%;
+    height: 62%;
     left: 20%;
     top: 20%;
     position: absolute;
@@ -86,9 +86,9 @@ label
 {
     background-color: rgb(151, 151, 151);
     width: 70%;
-    height: 13%;
+    height: 6%;
     left: 12%;
-    bottom: 14%;
+    bottom: 8%;
     text-align: left;
     position: relative;
     border-color: black;
@@ -106,32 +106,35 @@ label
 {
     font-family: monospace;
     right: 43%;
-    bottom: 6%;
-    font-size: 110%;
+    bottom: 4.5%;
+    font-size: 100%;
     position: relative;
 }
 
 /* File list box. */
 #file-list
 {
-    bottom: 21%;
+    bottom: 10%;
     left: 3%;
     width: 94%;
-    height: 57%;
+    height: 80%;
     background-color: rgb(151, 151, 151);
     position: relative;
     overflow: scroll;
     font-family: monospace;
     text-align: left;
     white-space: nowrap;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* Button responsible for refreshing file list. */
 #refresh-button
 {
     width: 15%;
-    height: 13%;
-    bottom: 27%;
+    height: 6%;
+    bottom: 14%;
     left: 83%;
     position: relative;
     color: white;
@@ -167,6 +170,9 @@ label
     white-space: nowrap;
     overflow-x: scroll;
     font-family: monospace;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* File byte chunk scan button. */
@@ -189,9 +195,9 @@ label
 /* Box to display metadata of file. */
 #scan-results
 {
-    width: 39%;
+    width: 29%;
     height: 30%;
-    left: 30%;
+    left: 50%;
     top: 52%;
     position: absolute;
 }
@@ -227,9 +233,10 @@ label
 #class-prog-bars-wrapper
 {
     text-align: right;
-    right: 11%;
+    right: 6.6%;
     position: relative;
     height: 10%;
+    top: 5%;
     line-height: 170%;
 }
 
