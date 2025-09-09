@@ -149,7 +149,7 @@ label
 /* Box to display metadata of file. */
 #file-metadata
 {
-    width: 39%;
+    width: 29%;
     height: 30%;
     left: 50%;
     bottom: 60.5%;
@@ -195,7 +195,7 @@ label
 /* Box to display metadata of file. */
 #scan-results
 {
-    width: 39%;
+    width: 29%;
     height: 30%;
     left: 50%;
     top: 52%;
@@ -233,9 +233,10 @@ label
 #class-prog-bars-wrapper
 {
     text-align: right;
-    right: 11%;
+    right: 6.6%;
     position: relative;
     height: 10%;
+    top: 5%;
     line-height: 170%;
 }
 
