@@ -91,9 +91,19 @@ export class ResultReceiver
 
         eventSource.onmessage = (event) => {
             let data = JSON.parse(event.data);
+
             let classIdx = data.chunkClass;
-            value_array[classIdx] += 1;
-            console.log(value_array);
+            let nChunksScanned = data.nChunksScanned;
+            let maxChunks = data.maxChunksScannable;
+
+            // Accumulate class/category predicted.
+            valueArray[classIdx] += 1;
+
+            // Update the chunk scanning progress bar value.
+            this.chunkScanBar.setValue(nChunksScanned, maxChunks);
+            
+            // Update class/category progress bars on selected index.
+            this.categoryBars[classIdx].setValue(valueArray[classIdx], maxChunks);
         }
     }
 }
