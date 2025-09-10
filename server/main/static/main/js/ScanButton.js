@@ -18,8 +18,6 @@ export class ScanButton extends ActionButton
     {
         super(htmlElement);
 
-        this.allowCancel = false;
-
         // Add event listener for mouse click.
         this.htmlElement.addEventListener("click", () => this.actionOnClick());
     }
@@ -72,13 +70,9 @@ export class ScanButton extends ActionButton
             this.resultReceiver.startStream(data);
 
         }
-        else
+        else // Ignore click event if button not available
         {
-            // Allow scan button to cancel scanning process.
-            if (this.resultReceiver.scanInProgress)
-            {
-                this.allowCancel = true;
-            }
+            // pass.
         }
     }
 }
