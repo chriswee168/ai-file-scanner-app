@@ -8,7 +8,11 @@ import { ScanButton } from "./ScanButton.js";
 export class ResultReceiver
 {
     // Constructor.
-    constructor() {}
+    constructor() 
+    {
+        // Required so that scan button can interrupt scanning process.
+        this.scanInProgress = false;
+    }
 
     /**
      * Setter method for chunk scanning progress bar object.
@@ -89,6 +93,9 @@ export class ResultReceiver
         // Disable scan button availability.
         this.scanButton.setAvailability(false);
 
+        // Set scan in progress.
+        this.scanInProgress = true;
+
         eventSource.onmessage = (event) => {
             let data = JSON.parse(event.data);
 
@@ -107,10 +114,15 @@ export class ResultReceiver
             
             // Close connection if all byte chunks have been scanned
             // and make scan button available again.
-            if (nChunksScanned == maxChunks)
+            if (
+                nChunksScanned == maxChunks || 
+                (this.scanButton.allowCancel && !this.scanButton.getAvailability())
+            )
             {
                 eventSource.close();
                 this.scanButton.setAvailability(true);
+                this.scanButton.allowCancel = false;
+                this.scanInProgress = false;
             }
         }
     }
