@@ -8,6 +8,7 @@ from torch import Tensor
 
 from ml_workspace.Model import Model
 from server.main.models import AIModelsTable
+from server.main.custom_funcs.recursive_dir_search import search_dir
 
 # Create your views here.
 
@@ -60,21 +61,9 @@ def get_filepaths(request: HttpRequest):
         filepaths: list[str] = []
         metadatas: list[dict] = []
 
-        # Search for every file in the specified path.
+        # Recursively search for every file in the specified path.
         path = json.loads(request.body)["dir_path"]
-        for root, _, files in os.walk(path):
-            for file in files:
-                filepath = os.path.join(root, file)
-                metadata = {
-                    "name": os.path.basename(filepath),
-                    "absolute_path": filepath,
-                    "size": os.path.getsize(filepath),
-                    "last_created": ctime(os.path.getctime(filepath)),
-                    "last_accessed": ctime(os.path.getatime(filepath)),
-                    "last_modified": ctime(os.path.getmtime(filepath))
-                }                    
-                filepaths.append(file)
-                metadatas.append(metadata)
+        filepaths, metadatas = search_dir(path)
         
         json_data = {"filepaths": filepaths, "metadatas": metadatas}
     
