@@ -109,5 +109,8 @@ class ModelEntry extends Entry
         {
             // pass.
         }
+
+        // Change scan button to remove the "(SELECT MODEL FIRST)" message.
+        this.scanButtonObj.htmlElement.innerText = "SCAN FILE BYTES";
     }
 }

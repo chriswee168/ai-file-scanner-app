@@ -93,6 +93,9 @@ export class ResultReceiver
         // Disable scan button availability.
         this.scanButton.setAvailability(false);
 
+        // Change scan button message.
+        this.scanButton.htmlElement.innerText = "CANCEL SCANNING";
+
         // Set scan in progress.
         this.scanInProgress = true;
 
@@ -123,6 +126,9 @@ export class ResultReceiver
                 this.scanButton.setAvailability(true);
                 this.scanButton.allowCancel = false;
                 this.scanInProgress = false;
+
+                // Reset scan button message.
+                this.scanButton.htmlElement.innerText = "SCAN FILE BYTES";
             }
         }
     }
