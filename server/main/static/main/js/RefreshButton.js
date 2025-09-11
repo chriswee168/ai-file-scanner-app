@@ -38,6 +38,9 @@ export class RefreshButton extends ActionButton
 
         console.log(document.cookie);
 
+        // Indicate refreshing in progress.
+        this.htmlElement.innerText = "REFRESHING...";
+
         // Pass directory path to server.
         let dir_path = this.pathElement.innerText;
         let response = await fetch(
@@ -62,5 +65,9 @@ export class RefreshButton extends ActionButton
         let filepaths = data.filepaths;
         let metadatas = data.metadatas;
         this.fileList.refreshFileEntries(filepaths, metadatas);
+
+        // Restore original message.
+        this.htmlElement.innerText = "REFRESH";
+
     }
 }
