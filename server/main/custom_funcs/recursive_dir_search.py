@@ -27,7 +27,7 @@ def recurse_dir(path: str, indent_text: str, filepaths: list[str], metadatas: li
         metadatas.append(metadata)
         
         if os.path.isdir(abs_path):
-            recurse_dir(abs_path, indent_text + "| ", filepaths, metadatas)
+            recurse_dir(abs_path, indent_text + "\xa0\xa0", filepaths, metadatas)
         elif os.path.isfile(abs_path):
             pass
 
