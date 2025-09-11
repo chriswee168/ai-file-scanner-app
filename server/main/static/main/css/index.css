@@ -114,10 +114,10 @@ label
 /* File list box. */
 #file-list
 {
-    bottom: 10%;
+    bottom: 5%;
     left: 3%;
     width: 94%;
-    height: 80%;
+    height: 75%;
     background-color: rgb(151, 151, 151);
     position: relative;
     overflow: scroll;
@@ -132,10 +132,10 @@ label
 /* Button responsible for refreshing file list. */
 #refresh-button
 {
-    width: 15%;
+    width: 30%;
     height: 6%;
-    bottom: 14%;
-    left: 83%;
+    bottom: 6.5%;
+    left: 36%;
     position: relative;
     color: white;
     text-align: center;
