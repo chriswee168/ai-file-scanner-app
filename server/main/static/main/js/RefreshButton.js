@@ -18,6 +18,9 @@ export class RefreshButton extends ActionButton
     {
         super(htmlElement);
 
+        // Refresh button is enabled by default.
+        this.setAvailability(true);
+
         // File list element to send filepaths to.
         this.fileList = fileList;
 
@@ -33,41 +36,53 @@ export class RefreshButton extends ActionButton
      */
     async actionOnClick()
     {
-        // Get CSRF token.
-        let csrftoken = document.cookie.split("=")[1];
-
-        console.log(document.cookie);
-
-        // Indicate refreshing in progress.
-        this.htmlElement.innerText = "REFRESHING...";
-
-        // Pass directory path to server.
-        let dir_path = this.pathElement.innerText;
-        let response = await fetch(
-            "/main/file-list/",
-            {
-                body: JSON.stringify({"dir_path": dir_path}),
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'X-CSRFToken': csrftoken
-                }
-            }
-        );
-
-        if (!response.ok)
+        if (this.available)
         {
-            console.log(response.statusText, response.status);
+            // Disable refresh button.
+            this.setAvailability(false);
+
+            // Get CSRF token.
+            let csrftoken = document.cookie.split("=")[1];
+
+            console.log(document.cookie);
+
+            // Indicate refreshing in progress.
+            this.htmlElement.innerText = "REFRESHING...";
+
+            // Pass directory path to server.
+            let dir_path = this.pathElement.innerText;
+            let response = await fetch(
+                "/main/file-list/",
+                {
+                    body: JSON.stringify({"dir_path": dir_path}),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRFToken': csrftoken
+                    }
+                }
+            );
+
+            if (!response.ok)
+            {
+                console.log(response.statusText, response.status);
+            }
+
+            // Send filepaths to file list.
+            let data = await response.json();
+            let filepaths = data.filepaths;
+            let metadatas = data.metadatas;
+            this.fileList.refreshFileEntries(filepaths, metadatas);
+
+            // Restore original message.
+            this.htmlElement.innerText = "REFRESH";
+
+            // Reset availability to true.
+            this.setAvailability(true);
         }
-
-        // Send filepaths to file list.
-        let data = await response.json();
-        let filepaths = data.filepaths;
-        let metadatas = data.metadatas;
-        this.fileList.refreshFileEntries(filepaths, metadatas);
-
-        // Restore original message.
-        this.htmlElement.innerText = "REFRESH";
-
+        else
+        {
+            // pass.
+        }
     }
 }
