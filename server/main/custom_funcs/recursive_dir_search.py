@@ -36,9 +36,14 @@ def search_dir(root_path: str) -> tuple[list[str], list[dict]]:
     # List of filepaths to return.
     filepaths: list[str] = []
     metadatas: list[dict] = []
+
+    # Check if the path is a valid directory.
+    if os.path.isdir(root_path):
+        # Recursively search directory.
+        indent_text = ""
+        recurse_dir(root_path, indent_text, filepaths, metadatas)
     
-    # Recursively search directory.
-    indent_text = ""
-    recurse_dir(root_path, indent_text, filepaths, metadatas)
+    else:
+        pass
 
     return filepaths, metadatas
