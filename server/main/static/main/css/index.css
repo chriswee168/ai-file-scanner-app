@@ -85,9 +85,9 @@ label
 #path-textbox
 {
     background-color: rgb(151, 151, 151);
-    width: 60%;
+    width: 73.5%;
     height: 6%;
-    left: 22%;
+    left: 23.5%;
     bottom: 8%;
     text-align: left;
     position: relative;
@@ -105,7 +105,7 @@ label
 #path-textbox-label
 {
     font-family: monospace;
-    right: 38.5%;
+    right: 37%;
     bottom: 4.5%;
     font-size: 100%;
     position: relative;
