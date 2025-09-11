@@ -10,14 +10,16 @@ def recurse_dir(path: str, indent_text: str, filepaths: list[str], metadatas: li
         if os.path.isdir(abs_path):
             name = f"[{name}]"
             entry_type = "folder"
+            size = 0
         elif os.path.isfile(abs_path):
             entry_type = "file"
+            size = os.path.getsize(abs_path),
 
         metadata = {
             "name": os.path.basename(abs_path),
             "type": entry_type,
             "absolute_path": abs_path,
-            "size": os.path.getsize(abs_path),
+            "size": size,
             "last_created": ctime(os.path.getctime(abs_path)),
             "last_accessed": ctime(os.path.getatime(abs_path)),
             "last_modified": ctime(os.path.getmtime(abs_path))
