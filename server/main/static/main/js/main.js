@@ -50,7 +50,11 @@ function main()
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
-    let refreshButtonObj = new RefreshButton(refreshButtonElement, fileListObj, pathElement,buttonStyleAvailable, buttonStyleUnavailable);
+    let refreshButtonObj = new RefreshButton(
+        refreshButtonElement, fileListObj, pathElement, 
+        buttonStyleAvailable, buttonStyleUnavailable,
+        {"original": "REFRESH", "onRefresh": "REFRESHING..."}
+    );
 
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
