@@ -15,10 +15,12 @@ export class ScanButton extends ActionButton
      * @param {HTMLElement} htmlElement HTML element of scan button.
      * @param {Object<string, string>} availableStyle Styles to apply to button when available.
      * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
+     * @param {Object<string, string>} buttonTexts Button text to use when refresh button is pressed 
+     * and original text message.
      */
-    constructor(htmlElement, availableStyle, unavailableStyle)
+    constructor(htmlElement, availableStyle, unavailableStyle, buttonTexts)
     {
-        super(htmlElement, availableStyle, unavailableStyle);
+        super(htmlElement, availableStyle, unavailableStyle, buttonTexts);
 
         this.allowCancel = false;
 

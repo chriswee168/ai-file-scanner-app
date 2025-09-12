@@ -14,10 +14,12 @@ export class DropDownButton extends ActionButton
      * @param {HTMLElement} elementToDisplay HTML element to display/remove if button pressed.
      * @param {Object<string, string>} availableStyle Styles to apply to button when available.
      * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
+     * @param {Object<string, string>} buttonTexts Button text to use when refresh button is pressed 
+     * and original text message.
      */
-    constructor(buttonElement, elementToDisplay, availableStyle, unavailableStyle)
+    constructor(buttonElement, elementToDisplay, availableStyle, unavailableStyle, buttonTexts)
     {
-        super(buttonElement, availableStyle, unavailableStyle);
+        super(buttonElement, availableStyle, unavailableStyle, buttonTexts);
         this.elementToDisplay = elementToDisplay;
         this.elementDisplayed = false;
 
