@@ -27,7 +27,7 @@
             </div>
 
             <!-- Div element to act as button to display dropdown model list. -->
-            <div id="model-select-button">Select Model</div>
+            <div id="model-select-button" class="action-button">Select Model</div>
 
             <!-- File selection div. -->
             <div id="file-selection" class="div-box">
@@ -40,7 +40,7 @@
                 {% csrf_token %}
                 
                 <div id="path-textbox" contenteditable="true"></div>
-                <div id="refresh-button"><b>REFRESH</b></div>
+                <div id="refresh-button" class="action-button"><b>REFRESH</b></div>
                 <div id="file-list"></div>
             </div>
 
@@ -48,7 +48,7 @@
             <div id="file-metadata" class="div-box">
                 <h3 class="div-title">File Metadata</h3>
                 <div id="metadata-textbox"></div>
-                <div id="scan-button"><b>SCAN FILE BYTES</b></div>
+                <div id="scan-button" class="action-button"><b>SCAN FILE BYTES</b></div>
             </div>
 
             <!-- Display scan results of selected file. -->

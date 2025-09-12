@@ -281,6 +281,12 @@ label
     border-color: rgb(86, 86, 86);
 }
 
+/* Class for all action buttons. */
+.action-button
+{
+    border-radius: 5px;
+}
+
 /* Div to display the name of an available AI model. */
 .model-entry
 {
