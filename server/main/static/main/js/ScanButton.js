@@ -13,10 +13,12 @@ export class ScanButton extends ActionButton
      * Constructor.
      * 
      * @param {HTMLElement} htmlElement HTML element of scan button.
+     * @param {Object<string, string>} availableStyle Styles to apply to button when available.
+     * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
      */
-    constructor(htmlElement)
+    constructor(htmlElement, availableStyle, unavailableStyle)
     {
-        super(htmlElement);
+        super(htmlElement, availableStyle, unavailableStyle);
 
         this.allowCancel = false;
 

@@ -12,19 +12,14 @@ export class DropDownButton extends ActionButton
      * 
      * @param {HTMLElement} htmlElement HTML element for button element.
      * @param {HTMLElement} elementToDisplay HTML element to display/remove if button pressed.
+     * @param {Object<string, string>} availableStyle Styles to apply to button when available.
+     * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
      */
-    constructor(buttonElement, elementToDisplay)
+    constructor(buttonElement, elementToDisplay, availableStyle, unavailableStyle)
     {
-        super(buttonElement)
+        super(buttonElement, availableStyle, unavailableStyle);
         this.elementToDisplay = elementToDisplay;
         this.elementDisplayed = false;
-
-        this.availableStyle = [
-            "rgb(206, 206, 206)", "rgb(255, 255, 255)", "rgb(132, 132, 132)"
-        ];
-        this.unavailableStyle = [
-            "rgb(206, 206, 206)", "rgb(255, 255, 255)", "rgb(132, 132, 132)"
-        ];
 
         this.setAvailability(true);
 

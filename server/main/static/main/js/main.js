@@ -17,9 +17,28 @@ function main()
     // File metadata textbox element.
     let metadataTextElement = document.getElementById("metadata-textbox");
 
+    // Customizations for button elements.
+    let buttonStyleAvailable = {
+        "backgroundColor": "rgb(8, 98, 0)", 
+        "color": "rgb(255, 255, 255)", 
+        "mouseOverBackgroundColor": "rgb(5, 60, 0)"
+    };
+
+    let buttonStyleUnavailable = {
+        "backgroundColor": "rgb(98, 0, 0)", 
+        "color": "rgb(255, 255, 255)", 
+        "mouseOverBackgroundColor": "rgb(63, 0, 0)"
+    };
+
+    let dropDownButtonStyle = {
+        "backgroundColor": "rgb(206, 206, 206)", 
+        "color": "rgb(255, 255, 255)", 
+        "mouseOverBackgroundColor": "rgb(132, 132, 132)"
+    }
+
     // Create scan button object.
     let scanButtonElement = document.getElementById("scan-button");
-    let scanButtonObj = new ScanButton(scanButtonElement);
+    let scanButtonObj = new ScanButton(scanButtonElement, buttonStyleAvailable, buttonStyleUnavailable);
 
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
@@ -31,11 +50,15 @@ function main()
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
-    let refreshButtonObj = new RefreshButton(refreshButtonElement, fileListObj, pathElement);
+    let refreshButtonObj = new RefreshButton(
+        refreshButtonElement, fileListObj, pathElement, 
+        buttonStyleAvailable, buttonStyleUnavailable,
+        {"original": "REFRESH", "onRefresh": "REFRESHING..."}
+    );
 
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
-    let dropDownObj = new DropDownButton(modelSelectButton, modelListElement);
+    let dropDownObj = new DropDownButton(modelSelectButton, modelListElement, dropDownButtonStyle, dropDownButtonStyle);
 
     // Create result receiver object.
     let resultReceiver = new ResultReceiver();
