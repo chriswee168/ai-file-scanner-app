@@ -13,10 +13,16 @@ export class RefreshButton extends ActionButton
      * @param {HTMLElement} htmlElement HTML element of refresh button.
      * @param {FileList} fileList FileList object.
      * @param {HTMLElement} pathElement HTML element of directory path.
+     * @param {Object<string, string>} availableStyle Styles to apply to button when available.
+     * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
+     * @param {Object<string, string>} buttonTexts Button text to use when refresh button is pressed 
+     * and original text message.
      */
-    constructor(htmlElement, fileList, pathElement)
+    constructor(
+        htmlElement, fileList, pathElement, availableStyle, unavailableStyle, buttonTexts 
+    )
     {
-        super(htmlElement);
+        super(htmlElement, availableStyle, unavailableStyle);
 
         // Refresh button is enabled by default.
         this.setAvailability(true);
@@ -26,6 +32,9 @@ export class RefreshButton extends ActionButton
 
         // Directory to path.
         this.pathElement = pathElement;
+
+        // Texts for refresh button.
+        this.buttonTexts = buttonTexts;
 
         // Add event listener for mouse click.
         this.htmlElement.addEventListener("click", () => this.actionOnClick());
@@ -47,7 +56,7 @@ export class RefreshButton extends ActionButton
             console.log(document.cookie);
 
             // Indicate refreshing in progress.
-            this.htmlElement.innerText = "REFRESHING...";
+            this.htmlElement.innerText = this.buttonTexts.onRefresh;
 
             // Pass directory path to server.
             let dir_path = this.pathElement.innerText;
@@ -75,7 +84,7 @@ export class RefreshButton extends ActionButton
             this.fileList.refreshFileEntries(filepaths, metadatas);
 
             // Restore original message.
-            this.htmlElement.innerText = "REFRESH";
+            this.htmlElement.innerText = this.buttonTexts.original;
 
             // Reset availability to true.
             this.setAvailability(true);
