@@ -19,6 +19,15 @@ export class DropDownButton extends ActionButton
         this.elementToDisplay = elementToDisplay;
         this.elementDisplayed = false;
 
+        this.availableStyle = [
+            "rgb(206, 206, 206)", "rgb(255, 255, 255)", "rgb(132, 132, 132)"
+        ];
+        this.unavailableStyle = [
+            "rgb(206, 206, 206)", "rgb(255, 255, 255)", "rgb(132, 132, 132)"
+        ];
+
+        this.setAvailability(true);
+
         this.htmlElement.addEventListener("click", () => this.actionOnClick());
     }
 
