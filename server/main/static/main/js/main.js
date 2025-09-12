@@ -32,13 +32,16 @@ function main()
 
     let dropDownButtonStyle = {
         "backgroundColor": "rgb(206, 206, 206)", 
-        "color": "rgb(255, 255, 255)", 
+        "color": "rgb(0, 0, 0)", 
         "mouseOverBackgroundColor": "rgb(132, 132, 132)"
     }
 
     // Create scan button object.
     let scanButtonElement = document.getElementById("scan-button");
-    let scanButtonObj = new ScanButton(scanButtonElement, buttonStyleAvailable, buttonStyleUnavailable);
+    let scanButtonObj = new ScanButton(
+        scanButtonElement, buttonStyleAvailable, buttonStyleUnavailable,
+        {"availableMsg": "SCAN BUTTON", "unAvailableMsg": "CANCEL SCANNING"}
+    );
 
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
@@ -53,12 +56,15 @@ function main()
     let refreshButtonObj = new RefreshButton(
         refreshButtonElement, fileListObj, pathElement, 
         buttonStyleAvailable, buttonStyleUnavailable,
-        {"original": "REFRESH", "onRefresh": "REFRESHING..."}
+        {"availableMsg": "REFRESH", "unAvailableMsg": "REFRESHING..."}
     );
 
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
-    let dropDownObj = new DropDownButton(modelSelectButton, modelListElement, dropDownButtonStyle, dropDownButtonStyle);
+    let dropDownObj = new DropDownButton(
+        modelSelectButton, modelListElement, dropDownButtonStyle, dropDownButtonStyle,
+        {"availableMsg": "Select Model", "unAvailableMsg": "Select Model"}
+    );
 
     // Create result receiver object.
     let resultReceiver = new ResultReceiver();
