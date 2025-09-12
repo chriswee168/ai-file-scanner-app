@@ -13,10 +13,12 @@ export class RefreshButton extends ActionButton
      * @param {HTMLElement} htmlElement HTML element of refresh button.
      * @param {FileList} fileList FileList object.
      * @param {HTMLElement} pathElement HTML element of directory path.
+     * @param {Object<string, string>} availableStyle Styles to apply to button when available.
+     * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
      */
-    constructor(htmlElement, fileList, pathElement)
+    constructor(htmlElement, fileList, pathElement, availableStyle, unavailableStyle)
     {
-        super(htmlElement);
+        super(htmlElement, availableStyle, unavailableStyle);
 
         // Refresh button is enabled by default.
         this.setAvailability(true);
