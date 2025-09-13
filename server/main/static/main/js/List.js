@@ -7,14 +7,22 @@ export class List
      * Constructor.
      * 
      * @param {HTMLElement} listElement HTML element of div.
+     * @param {Object<string, string>} entrySelectedStyle CSS styles if model entry is selected by user.
+     * @param {Object<string, string>} entryUnselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} entryMouseOverStyle CSS styles if mouse is moved over entry.
      */
-    constructor(listElement)
+    constructor(listElement, entrySelectedStyle, entryUnselectedStyle, entryMouseOverStyle)
     {
         this.listElement = listElement;
         this.entries = []; // Contains the list of Entry objects.
 
         // Reference to the entry object selected by the user.
         this.selectedEntry = null;
+
+        // Styles of list entries.
+        this.entrySelectedStyle = entrySelectedStyle;
+        this.entryUnselectedStyle = entryUnselectedStyle;
+        this.entryMouseOverStyle = entryMouseOverStyle;
     }
 }
 
