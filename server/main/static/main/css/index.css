@@ -44,27 +44,19 @@ label
     display: none;
 }
 
-/* Name for model selection button. */
-#model-select-name
-{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-    font-size: 110%;
-    position: relative;
-    bottom: 30%;
-    color: rgb(0, 0, 0);
-}
-
 /* Add div box for model selection button. */
 #model-select-button
 {
     background-color: rgb(206, 206, 206);
     width: 15%;
     height: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 120%;
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
     text-align: center;
+    line-height: 160%;
     position: absolute;
     left: 1.5%;
     bottom: 4%;
@@ -286,7 +278,14 @@ label
     position: relative;
     border-style: solid;
     border-width: 0.25vh;
+    border-radius: 5px;
     border-color: rgb(86, 86, 86);
+}
+
+/* Class for all action buttons. */
+.action-button
+{
+    border-radius: 5px;
 }
 
 /* Div to display the name of an available AI model. */

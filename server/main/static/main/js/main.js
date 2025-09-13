@@ -32,33 +32,50 @@ function main()
 
     let dropDownButtonStyle = {
         "backgroundColor": "rgb(206, 206, 206)", 
-        "color": "rgb(255, 255, 255)", 
+        "color": "rgb(0, 0, 0)", 
         "mouseOverBackgroundColor": "rgb(132, 132, 132)"
     }
 
     // Create scan button object.
     let scanButtonElement = document.getElementById("scan-button");
-    let scanButtonObj = new ScanButton(scanButtonElement, buttonStyleAvailable, buttonStyleUnavailable);
+    let scanButtonObj = new ScanButton(
+        scanButtonElement, buttonStyleAvailable, buttonStyleUnavailable,
+        {"availableMsg": "SCAN FILE BYTES", "unAvailableMsg": "SCAN FILE BYTES"},
+        "CANCEL SCANNING"
+    );
 
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
-    let fileListObj = new FileList(fileListElement, metadataTextElement);
+    let fileListObj = new FileList(
+        fileListElement, metadataTextElement,
+        {"color": "rgb(115, 255, 21)"},
+        {"color": "rgb(0, 0, 0)"},
+        {"color": "rgb(89, 89, 89)"}
+    );
 
     // Create AI model list object.
     let modelListElement = document.getElementById("model-list");
-    let modelListObj = new ModelList(modelListElement, scanButtonObj, fileListObj);
+    let modelListObj = new ModelList(
+        modelListElement, scanButtonObj, fileListObj,
+        {"color": "white", "backgroundColor": "rgb(89, 89, 89)"},
+        {"color": "black", "backgroundColor": "rgb(206, 206, 206)"},
+        {"color": "black", "backgroundColor": "rgb(129, 129, 129)"},
+    );
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
     let refreshButtonObj = new RefreshButton(
         refreshButtonElement, fileListObj, pathElement, 
         buttonStyleAvailable, buttonStyleUnavailable,
-        {"original": "REFRESH", "onRefresh": "REFRESHING..."}
+        {"availableMsg": "REFRESH", "unAvailableMsg": "REFRESHING..."}
     );
 
     // Create drop down button object.
     let modelSelectButton = document.getElementById("model-select-button");
-    let dropDownObj = new DropDownButton(modelSelectButton, modelListElement, dropDownButtonStyle, dropDownButtonStyle);
+    let dropDownObj = new DropDownButton(
+        modelSelectButton, modelListElement, dropDownButtonStyle, dropDownButtonStyle,
+        {"availableMsg": "Select Model", "unAvailableMsg": "Select Model"}
+    );
 
     // Create result receiver object.
     let resultReceiver = new ResultReceiver();
