@@ -15,8 +15,7 @@ export class RefreshButton extends ActionButton
      * @param {HTMLElement} pathElement HTML element of directory path.
      * @param {Object<string, string>} availableStyle Styles to apply to button when available.
      * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
-     * @param {Object<string, string>} buttonTexts Button text to use when refresh button is pressed 
-     * and original text message.
+     * @param {Object<string, string>} buttonTexts Button texts to display when button is available/unavailable.
      */
     constructor(
         htmlElement, fileList, pathElement, availableStyle, unavailableStyle, buttonTexts 

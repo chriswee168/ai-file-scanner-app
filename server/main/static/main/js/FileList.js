@@ -14,10 +14,13 @@ export class FileList extends List
      * 
      * @param {HTMLElement} listElement HTML element of file list.
      * @param {HTMLElement} metadataTextElement HTML element of metadata text box.
+     * @param {Object<string, string>} entrySelectedStyle CSS styles if model entry is selected by user.
+     * @param {Object<string, string>} entryUnselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} entryMouseOverStyle CSS styles if mouse is moved over entry.
      */
-    constructor(listElement, metadataTextElement)
+    constructor(listElement, metadataTextElement, entrySelectedStyle, entryUnselectedStyle, entryMouseOverStyle)
     {
-        super(listElement);
+        super(listElement, entrySelectedStyle, entryUnselectedStyle, entryMouseOverStyle);
 
         this.metadataTextElement = metadataTextElement;
     }
@@ -87,12 +90,9 @@ export class FileList extends List
                     element,
                     metadata_list[i],
                     this.metadataTextElement,
-                    {
-                        "color": colour
-                    },
-                    {
-                        "color": "rgb(255, 255, 255)"
-                    },
+                    this.entrySelectedStyle,
+                    this.entryUnselectedStyle,
+                    this.entryMouseOverStyle,
                     this.scanButtonObj,
                     this.modelListObj
                 )
@@ -114,17 +114,18 @@ class FileEntry extends Entry
      * @param {HTMLElement} element Div element of file entry.
      * @param {Object<string, any>} metadata Metadata of the file at filepath.
      * @param {HTMLElement} metadataTextElement HTML element to metadata textbox.
-     * @param {Record<string, string>} selectedStyle CSS styles if file entry is selected by user.
-     * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} selectedStyle CSS styles if file entry is selected by user.
+     * @param {Object<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} mouseOverStyle CSS styles if mouse is moved over entry.
      * @param {ScanButton} scanButtonObj Scan button object.
      * @param {ModelList} modelListObj Model list object.
      */
     constructor(
         list, element, metadata, metadataTextElement, selectedStyle, unselectedStyle,
-        scanButtonObj, modelListObj
+        mouseOverStyle, scanButtonObj, modelListObj
     )
     {
-        super(list, element, selectedStyle, unselectedStyle);
+        super(list, element, selectedStyle, unselectedStyle, mouseOverStyle);
         this.metadata = metadata;
         this.metadataTextElement = metadataTextElement;
         this.scanButtonObj = scanButtonObj;

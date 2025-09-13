@@ -13,10 +13,21 @@ export class ModelList extends List
      * @param {HTMLElement} modelListElement HTML element of model list.
      * @param {ScanButton} scanButtonObj Scan button object.
      * @param {FileList} fileListObj File list object.
+     * @param {Object<string, string>} entrySelectedStyle CSS styles if model entry is selected by user.
+     * @param {Object<string, string>} entryUnselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} entryMouseOverStyle CSS styles if mouse is moved over entry.
      */
-    constructor(modelListElement, scanButtonObj, fileListObj)
+    constructor(
+        modelListElement, scanButtonObj, fileListObj, 
+        entrySelectedStyle, entryUnselectedStyle, entryMouseOverStyle
+    )
     {
-        super(modelListElement);
+        super(
+            modelListElement, 
+            entrySelectedStyle, 
+            entryUnselectedStyle, 
+            entryMouseOverStyle
+        );
 
         this.scanButtonObj = scanButtonObj;
         this.fileListObj = fileListObj;
@@ -38,14 +49,9 @@ export class ModelList extends List
                 new ModelEntry(
                     this,
                     element,
-                    {
-                        "color": "white",
-                        "backgroundColor": "rgb(89, 89, 89)",
-                    },
-                    {
-                        "color": "black",
-                        "backgroundColor": "rgb(206, 206, 206)"
-                    },
+                    this.entrySelectedStyle,
+                    this.entryUnselectedStyle,
+                    this.entryMouseOverStyle,
                     this.fileListObj,
                     this.scanButtonObj
                 )
@@ -65,14 +71,15 @@ class ModelEntry extends Entry
      * 
      * @param {ModelList} modelList Reference to the parent model list object. 
      * @param {HTMLElement} element Div element of model entry.
-     * @param {Record<string, string>} selectedStyle CSS styles if model entry is selected by user.
-     * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} selectedStyle CSS styles if model entry is selected by user.
+     * @param {Object<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} mouseOverStyle CSS styles if mouse is moved over entry.
      * @param {ScanButton} scanButtonObj Scan button object.
      * @param {FileList} fileListObj File list object.
      */
-    constructor(modelList, element, selectedStyle, unselectedStyle, fileListObj, scanButtonObj)
+    constructor(modelList, element, selectedStyle, unselectedStyle, mouseOverStyle, fileListObj, scanButtonObj)
     {
-        super(modelList, element, selectedStyle, unselectedStyle);
+        super(modelList, element, selectedStyle, unselectedStyle, mouseOverStyle);
 
         this.fileListObj = fileListObj;
         this.scanButtonObj = scanButtonObj;
