@@ -65,8 +65,8 @@ class ModelEntry extends Entry
      * 
      * @param {ModelList} modelList Reference to the parent model list object. 
      * @param {HTMLElement} element Div element of model entry.
-     * @param {Record<string, string>} selectedStyle CSS styles if model entry is selected by user.
-     * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} selectedStyle CSS styles if model entry is selected by user.
+     * @param {Object<string, string>} unselectedStyle CSS styles if not selected by user.
      * @param {ScanButton} scanButtonObj Scan button object.
      * @param {FileList} fileListObj File list object.
      */

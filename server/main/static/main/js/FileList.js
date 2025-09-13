@@ -114,8 +114,8 @@ class FileEntry extends Entry
      * @param {HTMLElement} element Div element of file entry.
      * @param {Object<string, any>} metadata Metadata of the file at filepath.
      * @param {HTMLElement} metadataTextElement HTML element to metadata textbox.
-     * @param {Record<string, string>} selectedStyle CSS styles if file entry is selected by user.
-     * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} selectedStyle CSS styles if file entry is selected by user.
+     * @param {Object<string, string>} unselectedStyle CSS styles if not selected by user.
      * @param {ScanButton} scanButtonObj Scan button object.
      * @param {ModelList} modelListObj Model list object.
      */

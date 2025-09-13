@@ -36,9 +36,9 @@ export class Entry
      * 
      * @param {List} list Reference to the parent list object. 
      * @param {HTMLElement} element Div element of entry.
-     * @param {Record<string, string>} selectedStyle CSS styles if entry is selected by user.
-     * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
-     * @param {Record<string, string>} mouseOverStyle CSS styles if mouse is moved over entry.
+     * @param {Object<string, string>} selectedStyle CSS styles if entry is selected by user.
+     * @param {Object<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Object<string, string>} mouseOverStyle CSS styles if mouse is moved over entry.
      */
     constructor(list, element, selectedStyle, unselectedStyle, mouseOverStyle)
     {
