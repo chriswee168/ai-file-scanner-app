@@ -93,6 +93,9 @@ export class ResultReceiver
         // Disable scan button availability.
         this.scanButton.setAvailability(false);
 
+        // Set cancel scanning message.
+        this.scanButton.htmlElement.innerText = this.scanButton.cancelScanText;
+
         // Set scan in progress.
         this.scanInProgress = true;
 

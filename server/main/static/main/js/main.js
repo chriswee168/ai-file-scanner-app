@@ -40,7 +40,8 @@ function main()
     let scanButtonElement = document.getElementById("scan-button");
     let scanButtonObj = new ScanButton(
         scanButtonElement, buttonStyleAvailable, buttonStyleUnavailable,
-        {"availableMsg": "SCAN FILE BYTES", "unAvailableMsg": "CANCEL SCANNING"}
+        {"availableMsg": "SCAN FILE BYTES", "unAvailableMsg": "SCAN FILE BYTES"},
+        "CANCEL SCANNING"
     );
 
     // Create file list object.

@@ -16,12 +16,15 @@ export class ScanButton extends ActionButton
      * @param {Object<string, string>} availableStyle Styles to apply to button when available.
      * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
      * @param {Object<string, string>} buttonTexts Button texts to display when button is available/unavailable.
+     * @param {string} cancelScanText Text to display on scan button when it can be used to cancel
+     * scanning process.
      */
-    constructor(htmlElement, availableStyle, unavailableStyle, buttonTexts)
+    constructor(htmlElement, availableStyle, unavailableStyle, buttonTexts, cancelScanText)
     {
         super(htmlElement, availableStyle, unavailableStyle, buttonTexts);
 
         this.allowCancel = false;
+        this.cancelScanText = cancelScanText;
 
         // Add event listener for mouse click.
         this.htmlElement.addEventListener("click", () => this.actionOnClick());
