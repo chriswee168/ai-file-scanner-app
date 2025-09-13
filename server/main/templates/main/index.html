@@ -27,22 +27,20 @@
             </div>
 
             <!-- Div element to act as button to display dropdown model list. -->
-            <div id="model-select-button">
-                <h3 id="model-select-name">Select Model</h3>
-            </div>
+            <div id="model-select-button" class="action-button">Select Model</div>
 
             <!-- File selection div. -->
             <div id="file-selection" class="div-box">
                 <h3 class="div-title">File Selection</h3>
 
                 <!-- Textbox to enter directory path. -->
-                <div id="path-textbox-label">Path:</div>
+                <div id="path-textbox-label">Folder Path:</div>
                 
                 <!-- CSRF Token. -->
                 {% csrf_token %}
                 
                 <div id="path-textbox" contenteditable="true"></div>
-                <div id="refresh-button"><b>REFRESH</b></div>
+                <div id="refresh-button" class="action-button"><b>REFRESH</b></div>
                 <div id="file-list"></div>
             </div>
 
@@ -50,25 +48,25 @@
             <div id="file-metadata" class="div-box">
                 <h3 class="div-title">File Metadata</h3>
                 <div id="metadata-textbox"></div>
-                <div id="scan-button"><b>SCAN FILE BYTES</b></div>
+                <div id="scan-button" class="action-button"><b>SCAN FILE BYTES</b></div>
             </div>
 
             <!-- Display scan results of selected file. -->
             <div id="scan-results" class="div-box">
                 <h3 class="div-title">Scan Results</h3>
                 <div id="chunk-prog-wrapper">
-                    <label for="chunk-prog-bar">Byte Chunks: 0/0 </label>
-                    <progress id="chunk-prog-bar" value="50" max="100"></progress>
+                    <label id="chunk-prog-bar-label" for="chunk-prog-bar">Chunk scan progress: 000% </label>
+                    <progress id="chunk-prog-bar" value="0" max="0"></progress>
                 </div>
 
                 <!-- Bars to display classification predictions. -->
                 <div id="class-prog-bars-wrapper">
-                    <label for="clean-class-bar">Clean: 000% </label>
-                    <progress id="clean-class-bar" class="class-bar" value="25" max="100"></progress><br>
-                    <label for="warning-class-bar">Warning: 000% </label>
-                    <progress id="warning-class-bar" class="class-bar" value="50" max="100"></progress><br>
-                    <label for="malicious-class-bar">Malicious: 000% </label>
-                    <progress id="malicious-class-bar" class="class-bar" value="75" max="100"></progress><br>
+                    <label class="class-bar-label" id="clean-class-bar-label" for="clean-class-bar">Clean: 000% </label>
+                    <progress id="clean-class-bar" class="class-bar" value="0" max="0"></progress><br>
+                    <label class="class-bar-label" id="warning-class-bar-label" for="warning-class-bar">Warning: 000% </label>
+                    <progress id="warning-class-bar" class="class-bar" value="0" max="0"></progress><br>
+                    <label class="class-bar-label" id="malicious-class-bar-label" for="malicious-class-bar">Malicious: 000% </label>
+                    <progress id="malicious-class-bar" class="class-bar" value="0" max="0"></progress><br>
                 </div>
             </div>
         </div>

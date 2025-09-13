@@ -44,27 +44,19 @@ label
     display: none;
 }
 
-/* Name for model selection button. */
-#model-select-name
-{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-    font-size: 110%;
-    position: relative;
-    bottom: 30%;
-    color: rgb(0, 0, 0);
-}
-
 /* Add div box for model selection button. */
 #model-select-button
 {
     background-color: rgb(206, 206, 206);
     width: 15%;
     height: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 120%;
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
     text-align: center;
+    line-height: 160%;
     position: absolute;
     left: 1.5%;
     bottom: 4%;
@@ -75,7 +67,7 @@ label
 #file-selection
 {
     width: 29%;
-    height: 30%;
+    height: 62%;
     left: 20%;
     top: 20%;
     position: absolute;
@@ -85,10 +77,10 @@ label
 #path-textbox
 {
     background-color: rgb(151, 151, 151);
-    width: 70%;
-    height: 13%;
-    left: 12%;
-    bottom: 14%;
+    width: 73.5%;
+    height: 6%;
+    left: 23.5%;
+    bottom: 8%;
     text-align: left;
     position: relative;
     border-color: black;
@@ -105,34 +97,37 @@ label
 #path-textbox-label
 {
     font-family: monospace;
-    right: 43%;
-    bottom: 6%;
-    font-size: 110%;
+    right: 37%;
+    bottom: 4.5%;
+    font-size: 100%;
     position: relative;
 }
 
 /* File list box. */
 #file-list
 {
-    bottom: 21%;
+    bottom: 5%;
     left: 3%;
     width: 94%;
-    height: 57%;
+    height: 75%;
     background-color: rgb(151, 151, 151);
     position: relative;
     overflow: scroll;
     font-family: monospace;
     text-align: left;
     white-space: nowrap;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* Button responsible for refreshing file list. */
 #refresh-button
 {
-    width: 15%;
-    height: 13%;
-    bottom: 27%;
-    left: 83%;
+    width: 30%;
+    height: 6%;
+    bottom: 6.5%;
+    left: 36%;
     position: relative;
     color: white;
     text-align: center;
@@ -167,6 +162,9 @@ label
     white-space: nowrap;
     overflow-x: scroll;
     font-family: monospace;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* File byte chunk scan button. */
@@ -189,9 +187,9 @@ label
 /* Box to display metadata of file. */
 #scan-results
 {
-    width: 39%;
+    width: 29%;
     height: 30%;
-    left: 30%;
+    left: 50%;
     top: 52%;
     position: absolute;
 }
@@ -227,9 +225,10 @@ label
 #class-prog-bars-wrapper
 {
     text-align: right;
-    right: 11%;
+    right: 6.6%;
     position: relative;
     height: 10%;
+    top: 5%;
     line-height: 170%;
 }
 
@@ -266,6 +265,7 @@ label
 {
     font-family: monospace;
     bottom: 3%;
+    left: 1%;
     position: relative;
     font-size: 120%;
 }
@@ -278,7 +278,14 @@ label
     position: relative;
     border-style: solid;
     border-width: 0.25vh;
+    border-radius: 5px;
     border-color: rgb(86, 86, 86);
+}
+
+/* Class for all action buttons. */
+.action-button
+{
+    border-radius: 5px;
 }
 
 /* Div to display the name of an available AI model. */
