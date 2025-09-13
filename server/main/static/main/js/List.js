@@ -30,14 +30,16 @@ export class Entry
      * @param {HTMLElement} element Div element of entry.
      * @param {Record<string, string>} selectedStyle CSS styles if entry is selected by user.
      * @param {Record<string, string>} unselectedStyle CSS styles if not selected by user.
+     * @param {Record<string, string>} mouseOverStyle CSS styles if mouse is moved over entry.
      */
-    constructor(list, element, selectedStyle, unselectedStyle)
+    constructor(list, element, selectedStyle, unselectedStyle, mouseOverStyle)
     {
         this.list = list;
         this.element = element;
         this.selected = false;
         this.selectedStyle = selectedStyle;
         this.unselectedStyle = unselectedStyle;
+        this.mouseOverStyle = mouseOverStyle;
 
         // File entry is not selected by default.
         this.element.style.color = this.unselectedStyle["color"];
@@ -45,6 +47,10 @@ export class Entry
 
         // Add event listener for mouse click.
         this.element.addEventListener("click", () => this.onMouseClick());
+
+        // Change entry style on mouseover/mouseleave.
+        this.element.addEventListener("mouseover", () => this.onMouseOver());
+        this.element.addEventListener("mouseleave", () => this.onMouseLeave());
     }
 
     /**
@@ -79,6 +85,32 @@ export class Entry
         else
         {
             // Pass.
+        }
+    }
+
+    /**
+     * Change entry style if user moves cursor over entry.
+     */
+    onMouseOver()
+    {
+        // Only apply if not selected.
+        if (!this.selected)
+        {
+            this.element.style.color = this.mouseOverStyle.color;
+            this.element.style.backgroundColor = this.mouseOverStyle.backgroundColor;
+        }
+    }
+
+    /**
+     * Reset entry style if user moves cursor away from entry.
+     */
+    onMouseLeave()
+    {
+        // Only apply if not selected.
+        if (!this.selected)
+        {
+            this.element.style.color = this.unselectedStyle.color;
+            this.element.style.backgroundColor = this.unselectedStyle.backgroundColor;
         }
     }
 }
