@@ -45,11 +45,21 @@ function main()
 
     // Create file list object.
     let fileListElement = document.getElementById("file-list");
-    let fileListObj = new FileList(fileListElement, metadataTextElement);
+    let fileListObj = new FileList(
+        fileListElement, metadataTextElement,
+        {"color": "rgb(115, 255, 21)"},
+        {"color": "rgb(0, 0, 0)"},
+        {"color": "rgb(89, 89, 89)"}
+    );
 
     // Create AI model list object.
     let modelListElement = document.getElementById("model-list");
-    let modelListObj = new ModelList(modelListElement, scanButtonObj, fileListObj);
+    let modelListObj = new ModelList(
+        modelListElement, scanButtonObj, fileListObj,
+        {"color": "white", "backgroundColor": "rgb(89, 89, 89)"},
+        {"color": "black", "backgroundColor": "rgb(206, 206, 206)"},
+        {"color": "black", "backgroundColor": "rgb(129, 129, 129)"},
+    );
 
     // Create refresh button object.
     let refreshButtonElement = document.getElementById("refresh-button");
