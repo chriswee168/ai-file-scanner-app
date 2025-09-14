@@ -209,16 +209,23 @@ label
     width: 40%;
     background-color: rgb(143, 143, 143);
     height: 60%;
+    border-radius: 5px;
 }
 /* For chrome. */
 #chunk-prog-bar::-webkit-progress-value
 {
     background-color: rgb(32, 32, 32);
+    border-radius: 5px;
+}
+#chunk-prog-bar::-webkit-progress-bar
+{
+    border-radius: 5px;
 }
 /* For firefox. */
 #chunk-prog-bar::-moz-progress-bar
 {
     background-color: rgb(32, 32, 32);
+    border-radius: 5px;
 }
 
 /* Wrapper div to contain all class bars. */
@@ -310,16 +317,23 @@ label
     width: 60%;
     background-color: rgb(143, 143, 143);
     height: 80%;
+    border-radius: 5px;
 }
 /* For chrome. */
 .class-bar::-webkit-progress-value
 {
     background-color: rgb(87, 87, 87);
+    border-radius: 5px;
+}
+.class-bar::-webkit-progress-bar
+{
+    border-radius: 5px;
 }
 /* For firefox. */
 .class-bar::-moz-progress-bar
 {
     background-color: rgb(87, 87, 87);
+    border-radius: 5px;
 }
 
 /* Misc */
