@@ -35,7 +35,7 @@ label
    model available for selection. */
 #model-list
 {
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(53, 53, 53);
     width: 15%;
     height: 20%;
     overflow: scroll;
@@ -303,7 +303,6 @@ label
 /* Div to display the name of an available AI model. */
 .model-entry
 {
-    background-color: rgb(206, 206, 206);
     height: 20%;
     text-align: center;
     font-family: monospace;
