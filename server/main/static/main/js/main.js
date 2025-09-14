@@ -31,9 +31,9 @@ function main()
     };
 
     let dropDownButtonStyle = {
-        "backgroundColor": "rgb(206, 206, 206)", 
-        "color": "rgb(0, 0, 0)", 
-        "mouseOverBackgroundColor": "rgb(132, 132, 132)"
+        "backgroundColor": "rgb(72, 72, 72)", 
+        "color": "rgb(255, 255, 255)", 
+        "mouseOverBackgroundColor": "rgb(53, 53, 53)"
     }
 
     // Create scan button object.
