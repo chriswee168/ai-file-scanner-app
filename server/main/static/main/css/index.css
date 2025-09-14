@@ -89,7 +89,7 @@ label
     bottom: 8%;
     text-align: left;
     position: relative;
-    border-color: black;
+    color: white;
     border-style: none;
     font-family: monospace;
     overflow-x: scroll;
