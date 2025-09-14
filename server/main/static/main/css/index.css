@@ -13,6 +13,7 @@ label
 #main-wrapper
 {
     border-style: solid;
+    border-color: rgb(55, 55, 55);
     width: 1510px;
     height: 700px;
     position: absolute;
