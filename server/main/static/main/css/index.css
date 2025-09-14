@@ -47,6 +47,7 @@ label
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
+    border-radius: 5px;
     display: none;
 }
 
