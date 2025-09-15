@@ -7,6 +7,7 @@ label
 {
     font-family: monospace;
     font-size: 110%;
+    color: white;
 }
 
 /* Main wrapper div. */
@@ -107,6 +108,7 @@ label
     bottom: 4.5%;
     font-size: 100%;
     position: relative;
+    color: white;
 }
 
 /* File list box. */
@@ -286,6 +288,7 @@ label
     left: 1%;
     position: relative;
     font-size: 120%;
+    color: white;
 }
 
 /* Class for all boxes. */
