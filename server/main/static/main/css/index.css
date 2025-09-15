@@ -162,7 +162,8 @@ label
     left: 3%;
     width: 94%;
     height: 60%;
-    background-color: rgb(151, 151, 151);
+    background-color: rgb(53, 53, 53);
+    color: rgb(175, 175, 175);
     position: relative;
     text-align: left;
     white-space: nowrap;
