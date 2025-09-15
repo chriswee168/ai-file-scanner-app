@@ -324,24 +324,25 @@ label
 .class-bar
 {
     width: 60%;
-    background-color: rgb(143, 143, 143);
+    background-color: rgb(53, 53, 53);
     height: 80%;
     border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(53, 53, 53);
 }
 /* For chrome. */
 .class-bar::-webkit-progress-value
 {
-    background-color: rgb(87, 87, 87);
     border-radius: 5px;
 }
 .class-bar::-webkit-progress-bar
 {
+    background-color: rgb(53, 53, 53);
     border-radius: 5px;
 }
 /* For firefox. */
 .class-bar::-moz-progress-bar
 {
-    background-color: rgb(87, 87, 87);
     border-radius: 5px;
 }
 
