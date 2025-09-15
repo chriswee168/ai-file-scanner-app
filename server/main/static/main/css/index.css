@@ -214,24 +214,27 @@ label
 #chunk-prog-bar
 {
     width: 40%;
-    background-color: rgb(143, 143, 143);
+    background-color: rgb(53, 53, 53);
     height: 60%;
     border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(53, 53, 53);
 }
 /* For chrome. */
 #chunk-prog-bar::-webkit-progress-value
 {
-    background-color: rgb(32, 32, 32);
+    background-color: white;
     border-radius: 5px;
 }
 #chunk-prog-bar::-webkit-progress-bar
 {
+    background-color: rgb(53, 53, 53);
     border-radius: 5px;
 }
 /* For firefox. */
 #chunk-prog-bar::-moz-progress-bar
 {
-    background-color: rgb(32, 32, 32);
+    background-color: white;
     border-radius: 5px;
 }
 
