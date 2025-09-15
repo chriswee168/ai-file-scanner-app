@@ -40,7 +40,7 @@ label
     width: 15%;
     height: 20%;
     overflow: scroll;
-    bottom: 8%;
+    bottom: 10%;
     left: 1.5%;
     position: absolute;
     scrollbar-color: rgb(92, 92, 92) transparent;
@@ -66,7 +66,7 @@ label
     line-height: 160%;
     position: absolute;
     left: 1.5%;
-    bottom: 2%;
+    bottom: 4%;
     user-select: none;
 }
 
