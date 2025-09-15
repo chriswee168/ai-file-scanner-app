@@ -31,9 +31,9 @@ function main()
     };
 
     let dropDownButtonStyle = {
-        "backgroundColor": "rgb(206, 206, 206)", 
-        "color": "rgb(0, 0, 0)", 
-        "mouseOverBackgroundColor": "rgb(132, 132, 132)"
+        "backgroundColor": "rgb(72, 72, 72)", 
+        "color": "rgb(255, 255, 255)", 
+        "mouseOverBackgroundColor": "rgb(53, 53, 53)"
     }
 
     // Create scan button object.
@@ -48,9 +48,9 @@ function main()
     let fileListElement = document.getElementById("file-list");
     let fileListObj = new FileList(
         fileListElement, metadataTextElement,
-        {"color": "rgb(115, 255, 21)"},
-        {"color": "rgb(0, 0, 0)"},
-        {"color": "rgb(89, 89, 89)"}
+        {"color": "rgb(14, 168, 0)"},
+        {"color": "rgb(175, 175, 175)"},
+        {"color": "white"}
     );
 
     // Create AI model list object.
@@ -58,8 +58,8 @@ function main()
     let modelListObj = new ModelList(
         modelListElement, scanButtonObj, fileListObj,
         {"color": "white", "backgroundColor": "rgb(89, 89, 89)"},
-        {"color": "black", "backgroundColor": "rgb(206, 206, 206)"},
-        {"color": "black", "backgroundColor": "rgb(129, 129, 129)"},
+        {"color": "white", "backgroundColor": "rgb(72, 72, 72)"},
+        {"color": "white", "backgroundColor": "rgb(53, 53, 53)"},
     );
 
     // Create refresh button object.
