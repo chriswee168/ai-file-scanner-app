@@ -40,7 +40,7 @@ label
     width: 15%;
     height: 20%;
     overflow: scroll;
-    bottom: 8%;
+    bottom: 10%;
     left: 1.5%;
     position: absolute;
     scrollbar-color: rgb(92, 92, 92) transparent;
@@ -66,7 +66,7 @@ label
     line-height: 160%;
     position: absolute;
     left: 1.5%;
-    bottom: 2%;
+    bottom: 4%;
     user-select: none;
 }
 
@@ -133,15 +133,15 @@ label
 #refresh-button
 {
     width: 30%;
-    height: 6%;
+    height: 5%;
     bottom: 6.5%;
-    left: 36%;
+    left: 35.5%;
     position: relative;
     color: white;
     text-align: center;
     font-family: monospace;
     background-color: rgb(86, 86, 86);
-    line-height: 170%;
+    line-height: 140%;
     font-size: 120%;
     user-select: none;
 }
@@ -306,7 +306,10 @@ label
 /* Class for all action buttons. */
 .action-button
 {
+    border-style: solid;
+    border-width: 2px;
     border-radius: 5px;
+    border-color: rgb(86, 86, 86);
 }
 
 /* Div to display the name of an available AI model. */
