@@ -80,6 +80,12 @@ label
     position: absolute;
 }
 
+/* File selection div title. */
+#file-selection-title
+{
+    bottom: 7px;
+}
+
 /* Textbox for entering path to directory that contains files. */
 #path-textbox
 {
