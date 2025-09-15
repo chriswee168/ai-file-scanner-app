@@ -48,9 +48,9 @@ function main()
     let fileListElement = document.getElementById("file-list");
     let fileListObj = new FileList(
         fileListElement, metadataTextElement,
-        {"color": "rgb(115, 255, 21)"},
-        {"color": "rgb(0, 0, 0)"},
-        {"color": "rgb(89, 89, 89)"}
+        {"color": "rgb(14, 168, 0)"},
+        {"color": "rgb(175, 175, 175)"},
+        {"color": "white"}
     );
 
     // Create AI model list object.
