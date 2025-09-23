@@ -21,19 +21,19 @@ function main()
     let buttonStyleAvailable = {
         "backgroundColor": "rgb(8, 98, 0)", 
         "color": "rgb(255, 255, 255)", 
-        "mouseOverBackgroundColor": "rgb(5, 60, 0)"
+        "mouseOverBackgroundColor": "rgb(11, 129, 0)"
     };
 
     let buttonStyleUnavailable = {
         "backgroundColor": "rgb(98, 0, 0)", 
         "color": "rgb(255, 255, 255)", 
-        "mouseOverBackgroundColor": "rgb(63, 0, 0)"
+        "mouseOverBackgroundColor": "rgb(128, 0, 0)"
     };
 
     let dropDownButtonStyle = {
         "backgroundColor": "rgb(72, 72, 72)", 
         "color": "rgb(255, 255, 255)", 
-        "mouseOverBackgroundColor": "rgb(53, 53, 53)"
+        "mouseOverBackgroundColor": "rgb(85, 85, 85)"
     }
 
     // Create scan button object.
@@ -58,8 +58,8 @@ function main()
     let modelListObj = new ModelList(
         modelListElement, scanButtonObj, fileListObj,
         {"color": "white", "backgroundColor": "rgb(89, 89, 89)"},
-        {"color": "white", "backgroundColor": "rgb(72, 72, 72)"},
         {"color": "white", "backgroundColor": "rgb(53, 53, 53)"},
+        {"color": "white", "backgroundColor": "rgb(72, 72, 72)"},
     );
 
     // Create refresh button object.
