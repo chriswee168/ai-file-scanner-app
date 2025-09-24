@@ -7,7 +7,7 @@ from ml_workspace.custom_layers.PositionalEncoding import LearnablePosEncoding, 
 
 # Main class for AI models.
 class Model(nn.Module):
-    def __init__(self, hyper_params_path: str, output_classes: int, dropout: float):
+    def __init__(self, hyper_params_path: str, dropout: float):
         super().__init__()
 
         # Load the hyperparameter setting parameters from JSON.

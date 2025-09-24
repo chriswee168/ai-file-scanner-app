@@ -105,9 +105,17 @@ def predict_chunks(request: HttpRequest):
     # Stride to slide chunk window across whole file byte sequence.
     stride = chunk_size
 
+    # Get thresholds to classify chunks as clean, warning or malicious.
+    # Low threshold separates clean and warning classes.
+    # High threshold separates warning and malicious classes.
+    with open("./server/server_conf.json", "r") as f:
+        server_conf = json.load(f)
+    low_threshold = server_conf["byte_scan_class_low_threshold"]
+    high_threshold = server_conf["byte_scan_class_high_threshold"]
+
     # Start server side event stream.
     response = StreamingHttpResponse(
-        stream_func(model, file_bytes, chunk_size, stride),
+        stream_func(model, file_bytes, chunk_size, stride, low_threshold, high_threshold),
         content_type="text/event-stream"
     )
 
@@ -121,7 +129,6 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     # Initialize model.
     model = Model(
         hyper_params_path=hyper_param_path,
-        output_classes=2,
         dropout=0.0
     )
 
@@ -138,7 +145,11 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     return model
 
 # Function to yield chunk prediction probability.
-def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
+def stream_func(
+        model: Model, file_bytes: bytes, chunk_size: int, stride: int, 
+        threshold1: float, threshold2: float
+    ):
+
     max_chunks = int(len(file_bytes) / chunk_size)
     chunks_scanned = 0
     for i in range(0, len(file_bytes), stride):
@@ -159,11 +170,11 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
             with torch.inference_mode():
                 prob = model(byte_chunk)[0][0]
                 
-                if prob < 0.25:
+                if prob < threshold1:
                     chunk_class = 0 # clean.
-                elif prob >= 0.25 and prob < 0.75:
+                elif prob >= threshold1 and prob < threshold2:
                     chunk_class = 1 # warning.
-                elif prob >= 0.75:
+                elif prob >= threshold2:
                     chunk_class = 2 # malicious.
 
                 chunks_scanned += 1
