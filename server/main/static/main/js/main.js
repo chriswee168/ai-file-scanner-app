@@ -4,7 +4,7 @@ import { ModelList } from "./ModelList.js";
 import { DropDownButton } from "./DropDownButton.js";
 import { ScanButton } from "./ScanButton.js";
 import { ResultReceiver } from "./ResultReceiver.js";
-import { ProgressBar } from "./ProgressBar.js";
+import { createProgressBars } from "./createProgressBars.js";
 
 /**
  * Main function to call for overall HTML page area.
@@ -21,19 +21,19 @@ function main()
     let buttonStyleAvailable = {
         "backgroundColor": "rgb(8, 98, 0)", 
         "color": "rgb(255, 255, 255)", 
-        "mouseOverBackgroundColor": "rgb(5, 60, 0)"
+        "mouseOverBackgroundColor": "rgb(11, 129, 0)"
     };
 
     let buttonStyleUnavailable = {
         "backgroundColor": "rgb(98, 0, 0)", 
         "color": "rgb(255, 255, 255)", 
-        "mouseOverBackgroundColor": "rgb(63, 0, 0)"
+        "mouseOverBackgroundColor": "rgb(128, 0, 0)"
     };
 
     let dropDownButtonStyle = {
         "backgroundColor": "rgb(72, 72, 72)", 
         "color": "rgb(255, 255, 255)", 
-        "mouseOverBackgroundColor": "rgb(53, 53, 53)"
+        "mouseOverBackgroundColor": "rgb(85, 85, 85)"
     }
 
     // Create scan button object.
@@ -58,8 +58,8 @@ function main()
     let modelListObj = new ModelList(
         modelListElement, scanButtonObj, fileListObj,
         {"color": "white", "backgroundColor": "rgb(89, 89, 89)"},
-        {"color": "white", "backgroundColor": "rgb(72, 72, 72)"},
         {"color": "white", "backgroundColor": "rgb(53, 53, 53)"},
+        {"color": "white", "backgroundColor": "rgb(72, 72, 72)"},
     );
 
     // Create refresh button object.
@@ -90,42 +90,10 @@ function main()
     scanButtonObj.linkResultReceiver(resultReceiver);
 
     // Link chunk scanning and class/category progress bars to result receiver.
-    let [chunkScanBarObj, classBarObjs] = createProgBarObjs();
+    let [chunkScanBarObj, classBarObjs] = createProgressBars();
     resultReceiver.setChunkScanBar(chunkScanBarObj);
     resultReceiver.setCategoryBars(classBarObjs);
     resultReceiver.setScanButton(scanButtonObj);
-}
-
-/**
- * Function to create the progress bars for chunk scanning and
- * the byte chunk categories.
- * 
- * @returns Progress bar objects for chunk scanning and categories.
- */
-function createProgBarObjs()
-{
-    // Get progress bar elements and create result receiver object.
-    let chunkProgBarElement = document.getElementById("chunk-prog-bar");
-    let chunkProgBarLabel = document.getElementById("chunk-prog-bar-label");
-    let classBarElements = document.querySelectorAll(".class-bar");
-    let classBarLabels = document.querySelectorAll(".class-bar-label");
-
-    // Create the chunk scanning progress bar object.
-    let chunkScanBarObj = new ProgressBar(
-        chunkProgBarLabel, chunkProgBarElement, "Chunk scan progress"
-    );
-
-    // Create progress bar object for each category.
-    let labelMsgs = ["Clean", "Warning", "Malicious"];
-    let classBarObjs = [];
-    for (let i = 0; i < classBarElements.length; i++)
-    {
-        classBarObjs.push(
-            new ProgressBar(classBarLabels[i], classBarElements[i], labelMsgs[i])
-        );
-    }
-
-    return [chunkScanBarObj, classBarObjs];
 }
 
 /**
