@@ -2,7 +2,7 @@ import os
 import torch
 from torch import Tensor
 
-def load_byte_data(
+def create_byte_dataset(
     dir_path: str, chunk_size: int, stride: int, 
     max_samples_per_class: int) -> list[tuple[Tensor, Tensor]]:
 
