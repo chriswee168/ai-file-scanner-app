@@ -1,13 +1,20 @@
+body
+{
+    background-color: rgb(55, 55, 55);
+}
+
 label
 {
     font-family: monospace;
     font-size: 110%;
+    color: white;
 }
 
 /* Main wrapper div. */
 #main-wrapper
 {
     border-style: solid;
+    border-color: rgb(55, 55, 55);
     width: 1510px;
     height: 700px;
     position: absolute;
@@ -29,7 +36,7 @@ label
    model available for selection. */
 #model-list
 {
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(53, 53, 53);
     width: 15%;
     height: 20%;
     overflow: scroll;
@@ -41,30 +48,22 @@ label
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
+    border-radius: 5px;
     display: none;
-}
-
-/* Name for model selection button. */
-#model-select-name
-{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-    font-size: 110%;
-    position: relative;
-    bottom: 30%;
-    color: rgb(0, 0, 0);
 }
 
 /* Add div box for model selection button. */
 #model-select-button
 {
-    background-color: rgb(206, 206, 206);
     width: 15%;
     height: 5%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 120%;
     border-style: solid;
     border-width: 0.25vh;
     border-color: rgb(86, 86, 86);
     text-align: center;
+    line-height: 180%;
     position: absolute;
     left: 1.5%;
     bottom: 4%;
@@ -75,23 +74,29 @@ label
 #file-selection
 {
     width: 29%;
-    height: 30%;
+    height: 62%;
     left: 20%;
     top: 20%;
     position: absolute;
 }
 
+/* File selection div title. */
+#file-selection-title
+{
+    bottom: 7px;
+}
+
 /* Textbox for entering path to directory that contains files. */
 #path-textbox
 {
-    background-color: rgb(151, 151, 151);
-    width: 70%;
-    height: 13%;
-    left: 12%;
-    bottom: 14%;
+    background-color: rgb(53, 53, 53);
+    width: 73.5%;
+    height: 6%;
+    left: 23.5%;
+    bottom: 8%;
     text-align: left;
     position: relative;
-    border-color: black;
+    color: white;
     border-style: none;
     font-family: monospace;
     overflow-x: scroll;
@@ -105,40 +110,44 @@ label
 #path-textbox-label
 {
     font-family: monospace;
-    right: 43%;
-    bottom: 6%;
-    font-size: 110%;
+    right: 37%;
+    bottom: 4.5%;
+    font-size: 100%;
     position: relative;
+    color: white;
 }
 
 /* File list box. */
 #file-list
 {
-    bottom: 21%;
+    bottom: 5%;
     left: 3%;
     width: 94%;
-    height: 57%;
-    background-color: rgb(151, 151, 151);
+    height: 75%;
+    background-color: rgb(53, 53, 53);
     position: relative;
     overflow: scroll;
     font-family: monospace;
     text-align: left;
     white-space: nowrap;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* Button responsible for refreshing file list. */
 #refresh-button
 {
-    width: 15%;
-    height: 13%;
-    bottom: 27%;
-    left: 83%;
+    width: 30%;
+    height: 5%;
+    bottom: 6.5%;
+    left: 35.5%;
     position: relative;
     color: white;
     text-align: center;
     font-family: monospace;
     background-color: rgb(86, 86, 86);
-    line-height: 170%;
+    line-height: 140%;
     font-size: 120%;
     user-select: none;
 }
@@ -161,12 +170,16 @@ label
     left: 3%;
     width: 94%;
     height: 60%;
-    background-color: rgb(151, 151, 151);
+    background-color: rgb(53, 53, 53);
+    color: rgb(175, 175, 175);
     position: relative;
     text-align: left;
     white-space: nowrap;
     overflow-x: scroll;
     font-family: monospace;
+
+    scrollbar-color: rgb(92, 92, 92) transparent;
+    scrollbar-width: thin;
 }
 
 /* File byte chunk scan button. */
@@ -178,7 +191,7 @@ label
     font-size: 120%;
     width: 94%;
     height: 15%;
-    left: 3%;
+    left: 2.6%;
     bottom: 5%;
     line-height: 200%;
     text-align: center;
@@ -189,9 +202,9 @@ label
 /* Box to display metadata of file. */
 #scan-results
 {
-    width: 39%;
+    width: 29%;
     height: 30%;
-    left: 30%;
+    left: 50%;
     top: 52%;
     position: absolute;
 }
@@ -209,27 +222,39 @@ label
 #chunk-prog-bar
 {
     width: 40%;
-    background-color: rgb(143, 143, 143);
+    background-color: rgb(53, 53, 53);
     height: 60%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(53, 53, 53);
 }
 /* For chrome. */
 #chunk-prog-bar::-webkit-progress-value
 {
-    background-color: rgb(32, 32, 32);
+    background-color: white;
+    border-radius: 5px;
+}
+#chunk-prog-bar::-webkit-progress-bar
+{
+    background-color: rgb(53, 53, 53);
+    border-radius: 5px;
 }
 /* For firefox. */
 #chunk-prog-bar::-moz-progress-bar
 {
-    background-color: rgb(32, 32, 32);
+    background-color: white;
+    border-radius: 5px;
 }
 
 /* Wrapper div to contain all class bars. */
 #class-prog-bars-wrapper
 {
     text-align: right;
-    right: 11%;
+    right: 6.6%;
     position: relative;
     height: 10%;
+    top: 5%;
     line-height: 170%;
 }
 
@@ -266,25 +291,36 @@ label
 {
     font-family: monospace;
     bottom: 3%;
+    left: 1%;
     position: relative;
     font-size: 120%;
+    color: white;
 }
 
 /* Class for all boxes. */
 .div-box
 {
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(72, 72, 72);
     text-align: center;
     position: relative;
     border-style: solid;
     border-width: 0.25vh;
+    border-radius: 5px;
+    border-color: rgb(86, 86, 86);
+}
+
+/* Class for all action buttons. */
+.action-button
+{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
     border-color: rgb(86, 86, 86);
 }
 
 /* Div to display the name of an available AI model. */
 .model-entry
 {
-    background-color: rgb(206, 206, 206);
     height: 20%;
     text-align: center;
     font-family: monospace;
@@ -301,18 +337,27 @@ label
 .class-bar
 {
     width: 60%;
-    background-color: rgb(143, 143, 143);
+    background-color: rgb(53, 53, 53);
     height: 80%;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(53, 53, 53);
 }
 /* For chrome. */
 .class-bar::-webkit-progress-value
 {
-    background-color: rgb(87, 87, 87);
+    border-radius: 5px;
+}
+.class-bar::-webkit-progress-bar
+{
+    background-color: rgb(53, 53, 53);
+    border-radius: 5px;
 }
 /* For firefox. */
 .class-bar::-moz-progress-bar
 {
-    background-color: rgb(87, 87, 87);
+    border-radius: 5px;
 }
 
 /* Misc */

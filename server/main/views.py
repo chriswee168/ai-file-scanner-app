@@ -1,13 +1,12 @@
 import os
 import json
-from time import ctime
 from django.http import HttpRequest, JsonResponse, HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
 import torch
-from torch import Tensor
 
 from ml_workspace.Model import Model
 from server.main.models import AIModelsTable
+from server.main.custom_funcs.recursive_dir_search import search_dir
 
 # Create your views here.
 
@@ -60,21 +59,9 @@ def get_filepaths(request: HttpRequest):
         filepaths: list[str] = []
         metadatas: list[dict] = []
 
-        # Search for every file in the specified path.
+        # Recursively search for every file in the specified path.
         path = json.loads(request.body)["dir_path"]
-        for root, _, files in os.walk(path):
-            for file in files:
-                filepath = os.path.join(root, file)
-                metadata = {
-                    "name": os.path.basename(filepath),
-                    "absolute_path": filepath,
-                    "size": os.path.getsize(filepath),
-                    "last_created": ctime(os.path.getctime(filepath)),
-                    "last_accessed": ctime(os.path.getatime(filepath)),
-                    "last_modified": ctime(os.path.getmtime(filepath))
-                }                    
-                filepaths.append(file)
-                metadatas.append(metadata)
+        filepaths, metadatas = search_dir(path)
         
         json_data = {"filepaths": filepaths, "metadatas": metadatas}
     
@@ -116,9 +103,17 @@ def predict_chunks(request: HttpRequest):
     # Stride to slide chunk window across whole file byte sequence.
     stride = chunk_size
 
+    # Get thresholds to classify chunks as clean, warning or malicious.
+    # Low threshold separates clean and warning classes.
+    # High threshold separates warning and malicious classes.
+    with open("./server/server_conf.json", "r") as f:
+        server_conf = json.load(f)
+    low_threshold = server_conf["byte_scan_class_low_threshold"]
+    high_threshold = server_conf["byte_scan_class_high_threshold"]
+
     # Start server side event stream.
     response = StreamingHttpResponse(
-        stream_func(model, file_bytes, chunk_size, stride),
+        stream_func(model, file_bytes, chunk_size, stride, low_threshold, high_threshold),
         content_type="text/event-stream"
     )
 
@@ -132,17 +127,29 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
     # Initialize model.
     model = Model(
         hyper_params_path=hyper_param_path,
-        output_classes=2,
         dropout=0.0
     )
 
     # Load the weights.
     model.load_state_dict(torch.load(weights_path))
 
+    # Move to CUDA if available, otherwise use CPU.
+    if torch.cuda.is_available():
+        print(f"CUDA is available, using {torch.cuda.get_device_name(0)}.")
+        model.cuda()
+    else:
+        print("CUDA is not available, using CPU.")
+
     return model
 
 # Function to yield chunk prediction probability.
-def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
+def stream_func(
+        model: Model, file_bytes: bytes, chunk_size: int, stride: int, 
+        threshold1: float, threshold2: float
+    ):
+
+    max_chunks = int(len(file_bytes) / chunk_size)
+    chunks_scanned = 0
     for i in range(0, len(file_bytes), stride):
 
         # Only consider chunks that are the same length as chunk_size.
@@ -152,19 +159,31 @@ def stream_func(model: Model, file_bytes: bytes, chunk_size: int, stride: int):
                 [bytearray(byte_chunk)], 
                 dtype=torch.long
             )
+            
+            # Move to CUDA if available, otherwise use CPU.
+            if torch.cuda.is_available():
+                byte_chunk = byte_chunk.cuda()
 
             # Obtain model prediction of byte chunk.
             with torch.inference_mode():
-                output_logits = model(byte_chunk)[0]
-                    
-                # Softmax the logits.
-                output_softmaxed = torch.softmax(output_logits, dim=0)
+                prob = model(byte_chunk)[0][0]
+                
+                if prob < threshold1:
+                    chunk_class = 0 # clean.
+                elif prob >= threshold1 and prob < threshold2:
+                    chunk_class = 1 # warning.
+                elif prob >= threshold2:
+                    chunk_class = 2 # malicious.
 
-                # Get classification of byte chunk.
-                chunk_class = torch.argmax(output_softmaxed, dim=0)
+                chunks_scanned += 1
 
                 # Send the chunk class predicted to client.
-                data = json.dumps({"chunkClass": chunk_class})
+                data = json.dumps({
+                    "chunkClass": chunk_class, 
+                    "nChunksScanned": chunks_scanned,
+                    "maxChunksScannable": max_chunks
+                })
+                
                 yield f"data: {data}\n\n"
         
         else: # Chunk is smaller than chunk_size.

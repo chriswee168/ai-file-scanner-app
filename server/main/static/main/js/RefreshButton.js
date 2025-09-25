@@ -13,10 +13,18 @@ export class RefreshButton extends ActionButton
      * @param {HTMLElement} htmlElement HTML element of refresh button.
      * @param {FileList} fileList FileList object.
      * @param {HTMLElement} pathElement HTML element of directory path.
+     * @param {Object<string, string>} availableStyle Styles to apply to button when available.
+     * @param {Object<string, string>} unavailableStyle Styles to apply to button when unavailable.
+     * @param {Object<string, string>} buttonTexts Button texts to display when button is available/unavailable.
      */
-    constructor(htmlElement, fileList, pathElement)
+    constructor(
+        htmlElement, fileList, pathElement, availableStyle, unavailableStyle, buttonTexts 
+    )
     {
-        super(htmlElement);
+        super(htmlElement, availableStyle, unavailableStyle, buttonTexts);
+
+        // Refresh button is enabled by default.
+        this.setAvailability(true);
 
         // File list element to send filepaths to.
         this.fileList = fileList;
@@ -33,34 +41,47 @@ export class RefreshButton extends ActionButton
      */
     async actionOnClick()
     {
-        // Get CSRF token.
-        let csrftoken = document.cookie.split("=")[1];
-
-        console.log(document.cookie);
-
-        // Pass directory path to server.
-        let dir_path = this.pathElement.innerText;
-        let response = await fetch(
-            "/main/file-list/",
-            {
-                body: JSON.stringify({"dir_path": dir_path}),
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'X-CSRFToken': csrftoken
-                }
-            }
-        );
-
-        if (!response.ok)
+        if (this.available)
         {
-            console.log(response.statusText, response.status);
-        }
+            // Disable refresh button.
+            this.setAvailability(false);
 
-        // Send filepaths to file list.
-        let data = await response.json();
-        let filepaths = data.filepaths;
-        let metadatas = data.metadatas;
-        this.fileList.refreshFileEntries(filepaths, metadatas);
+            // Get CSRF token.
+            let csrftoken = document.cookie.split("=")[1];
+
+            console.log(document.cookie);
+
+            // Pass directory path to server.
+            let dir_path = this.pathElement.innerText;
+            let response = await fetch(
+                "/main/file-list/",
+                {
+                    body: JSON.stringify({"dir_path": dir_path}),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRFToken': csrftoken
+                    }
+                }
+            );
+
+            if (!response.ok)
+            {
+                console.log(response.statusText, response.status);
+            }
+
+            // Send filepaths to file list.
+            let data = await response.json();
+            let filepaths = data.filepaths;
+            let metadatas = data.metadatas;
+            this.fileList.refreshFileEntries(filepaths, metadatas);
+
+            // Reset availability to true.
+            this.setAvailability(true);
+        }
+        else
+        {
+            // pass.
+        }
     }
 }
