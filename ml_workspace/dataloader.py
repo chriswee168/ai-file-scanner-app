@@ -14,9 +14,6 @@ def create_byte_dataset(
         os.makedirs(input_dir)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-
-    # Contains the number of training examples for each class.
-    dataset: list[tuple[Tensor, Tensor]] = []
     
     # The directory names in dataset.
     classes = ["clean", "malicious"]
