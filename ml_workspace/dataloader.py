@@ -22,12 +22,12 @@ def create_byte_dataset(
     classes = ["clean", "malicious"]
 
     # Get list of all file paths and their categories.
-    all_filepaths: list[tuple[str, int]] = []
+    all_file_class_tuples: list[tuple[str, int]] = []
     for c, cat in enumerate(classes):
         classpath = os.path.join(dir_path, cat)
         for root, _, files in os.walk(classpath):
             for file in files:
-                all_filepaths.append((os.path.join(root, file), c))
+                all_file_class_tuples.append((os.path.join(root, file), c))
 
     for c, cat in enumerate(classes):
         classpath = os.path.join(dir_path, cat)
