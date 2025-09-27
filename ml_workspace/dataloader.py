@@ -25,6 +25,10 @@ def create_byte_dataset(
         for root, _, files in os.walk(classpath):
             for file in files:
                 all_file_class_tuples.append((os.path.join(root, file), c))
+        
+    # Buffer to hold tensors.
+    input_shard: list[Tensor] = []
+    output_shard: list[Tensor] = []
 
     for c, cat in enumerate(classes):
         classpath = os.path.join(dir_path, cat)
