@@ -4,7 +4,7 @@ from torch import Tensor
 
 def create_byte_dataset(
     dir_path: str, chunk_size: int, stride: int, 
-    max_samples_per_class: int) -> list[tuple[Tensor, Tensor]]:
+    max_samples_per_class: int, max_shard_size: int) -> list[tuple[Tensor, Tensor]]:
 
     # Contains the number of training examples for each class.
     dataset: list[tuple[Tensor, Tensor]] = []
