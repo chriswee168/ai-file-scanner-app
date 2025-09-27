@@ -1,10 +1,19 @@
 import os
 import torch
+import random
 from torch import Tensor
 
 def create_byte_dataset(
-    dir_path: str, chunk_size: int, stride: int, 
+    dir_path: str, tensor_dataset_path: str, chunk_size: int, stride: int, 
     max_samples_per_class: int, max_shard_size: int) -> list[tuple[Tensor, Tensor]]:
+
+    # Create the tensor dataset inputs and outputs directories.
+    input_dir = os.path.join(tensor_dataset_path, "inputs")
+    output_dir = os.path.join(tensor_dataset_path, "outputs")
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
     # Contains the number of training examples for each class.
     dataset: list[tuple[Tensor, Tensor]] = []
