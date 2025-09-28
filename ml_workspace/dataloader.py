@@ -30,42 +30,61 @@ def create_byte_dataset(
     input_shard: list[Tensor] = []
     output_shard: list[Tensor] = []
 
-    for c, cat in enumerate(classes):
-        classpath = os.path.join(dir_path, cat)
+    # Counts for clean and malicious chunks.
+    class_counts = [0, 0]
 
-        class_count = 0
+    # Shard count.
+    shard_count = 0
 
-        for file in os.listdir(classpath):
-            # Get full byte sequence of file as uint8.
-            filepath = os.path.join(classpath, file)
-            with open(filepath, "rb") as f:
-                file_bytes = f.read()
-            full_byte_seq = torch.tensor(bytearray(file_bytes), dtype=torch.long)
+    # Loop until no tuples left.
+    while all_file_class_tuples:
+        # Select random filepath and remove it.
+        random_idx = random.randint(0, len(all_file_class_tuples) - 1)
+        selected_tuple = all_file_class_tuples.pop(random_idx)
+        filepath = selected_tuple[0]
+        category = selected_tuple[1]
 
-            # Slice the byte sequences and add to chunk list.
-            chunk_count = int(len(full_byte_seq) / stride)
-            chunk_counter = 1
-            for i in range(0, len(full_byte_seq), stride):
+        with open(filepath, "rb") as f:
+            file_bytes = f.read()
+        full_byte_seq = torch.tensor(bytearray(file_bytes), dtype=torch.long)
 
-                # Continue only if class count exceeds max_samples_per_class
-                if class_count < max_samples_per_class:
-                    byte_seq_chunk = full_byte_seq[i: i + chunk_size]
+        # Slice the byte sequences and add to chunk list.
+        chunk_count = int(len(full_byte_seq) / stride)
+        chunk_counter = 1
+        for i in range(0, len(full_byte_seq), stride):
 
-                    # Only add chunks that are the same length of chunk size.
-                    # (Usually the last chunk is almost always shorter.)
-                    if len(byte_seq_chunk) == chunk_size:
-                        dataset.append(
-                            (byte_seq_chunk, torch.FloatTensor([[c]]))
-                        )
+            # Continue only if class count exceeds max_samples_per_class
+            if class_counts[category] < max_samples_per_class:
+                byte_seq_chunk = full_byte_seq[i: i + chunk_size]
+
+                # Only add chunks that are the same length of chunk size.
+                # (Usually the last chunk is almost always shorter.)
+                if len(byte_seq_chunk) == chunk_size:
+
+                    # Check if shards have reached shard limit.
+                    if len(input_shard) <= max_shard_size:
+                        input_shard.append(byte_seq_chunk)
+                        output_shard.append(torch.FloatTensor([[c]]))
+                    else:
+                        # Convert shards into tensors and save.
+                        input_tensor_shard = torch.stack(input_shard, dim=0)
+                        output_tensor_shard = torch.stack(output_shard, dim=0)
+
+                        torch.save(input_tensor_shard, os.path.join(input_dir, f"{shard_count}.pt"))
+                        torch.save(output_tensor_shard, os.path.join(output_dir, f"{shard_count}.pt"))
+                        print(f"\n\033[32mSaved shard {shard_count} | {class_counts} | {len(all_file_class_tuples)}\033[0m")
+                        shard_count += 1
+
+                        # Clear shard buffers.
+                        input_shard.clear()
+                        output_shard.clear()
                         
-                        chunk_counter += 1
-                        class_count += 1
+                    chunk_counter += 1
+                    class_counts[category] += 1
 
-                        print(f"\r{file}: {chunk_counter}/{chunk_count}", end="")
+                    print(f"\r{filepath}: {chunk_counter}/{chunk_count}", end="")
             
-            if class_count < max_samples_per_class:
-                print("\n", end="")
-    
-    print(f"\nCurrent dataset size: {len(dataset)}")
+        if class_counts[category] < max_samples_per_class:
+            print("\n", end="")
 
-    return dataset
+    print(f"\nCurrent number of dataset shards: {shard_count}")
