@@ -66,10 +66,16 @@ def create_byte_dataset(
                         input_shard.append(byte_seq_chunk)
                         output_shard.append(torch.FloatTensor([[category]]))
                     else:
-                        # Convert shards into tensors and save.
+                        # Convert shards into tensors.
                         input_tensor_shard = torch.stack(input_shard, dim=0)
                         output_tensor_shard = torch.stack(output_shard, dim=0)
+                        
+                        # Randomly shuffle the tensor shards.
+                        rand_perm = torch.randperm(len(input_tensor_shard))
+                        input_tensor_shard = input_tensor_shard[rand_perm]
+                        output_tensor_shard = output_tensor_shard[rand_perm]
 
+                        # Save shards.
                         torch.save(input_tensor_shard, os.path.join(input_dir, f"{shard_count}.pt"))
                         torch.save(output_tensor_shard, os.path.join(output_dir, f"{shard_count}.pt"))
                         print(f"\n\033[32mSaved shard {shard_count} | {class_counts} | {len(all_file_class_tuples)}\033[0m")
