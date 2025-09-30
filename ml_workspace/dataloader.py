@@ -64,7 +64,7 @@ def create_byte_dataset(
                     # Check if shards have reached shard limit.
                     if len(input_shard) < max_shard_size:
                         input_shard.append(byte_seq_chunk)
-                        output_shard.append(torch.FloatTensor([[c]]))
+                        output_shard.append(torch.FloatTensor([[category]]))
                     else:
                         # Convert shards into tensors and save.
                         input_tensor_shard = torch.stack(input_shard, dim=0)
