@@ -65,6 +65,8 @@ def create_byte_dataset(
                     if len(input_shard) < max_shard_size:
                         input_shard.append(byte_seq_chunk)
                         output_shard.append(torch.FloatTensor([[category]]))
+                        class_counts[category] += 1
+                        chunk_counter += 1
                     else:
                         # Convert shards into tensors.
                         input_tensor_shard = torch.stack(input_shard, dim=0)
@@ -84,9 +86,6 @@ def create_byte_dataset(
                         # Clear shard buffers.
                         input_shard.clear()
                         output_shard.clear()
-                        
-                    chunk_counter += 1
-                    class_counts[category] += 1
 
                     print(f"\r{filepath}: {chunk_counter}/{chunk_count}", end="")
             
