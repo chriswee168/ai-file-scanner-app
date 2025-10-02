@@ -1,10 +1,8 @@
 import os
 import json
-from time import ctime
 from django.http import HttpRequest, JsonResponse, HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
 import torch
-from torch import Tensor
 
 from ml_workspace.Model import Model
 from server.main.models import AIModelsTable
