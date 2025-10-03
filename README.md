@@ -1,2 +1,3 @@
-# ai_antimalware_app
-An AI powered local web app for classifying benign and malware files.
+# AI file scanner app
+An AI powered local web app for scanning files and classifying byte chunks as either benign
+or malicious.
