@@ -19,3 +19,14 @@ in PyTorch, more details under [Model Training](#model-training).
 
 Necessary Python libraries for the backend can be installed by running:  
 `pip install -r requirements.txt`
+
+## Usage
+
+### Starting App
+
+```
+# Run the command below in the project directory to start the Django server.
+python -m server.manage runserver
+
+# Enter the URL: http://127.0.0.1:8000/main in browser to display the web page.
+```
