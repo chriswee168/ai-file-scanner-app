@@ -1,6 +1,6 @@
 # AI file scanner app
-An AI powered local web app for scanning files and classifying byte chunks as either benign
-or malicious.
+An AI powered local web app for scanning byte chunks of portable executable files and  
+classifying them as either benign or malicious.
 
 List of Contents:
 1. [Dependencies](#dependencies)
