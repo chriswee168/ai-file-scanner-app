@@ -12,8 +12,8 @@ class FeedForward(nn.Module):
         super().__init__()
 
         self.linear0 = nn.Linear(embedding_dim, hidden_dim)
-        self.relu = nn.ReLU()
         self.dropout0 = nn.Dropout(dropout)
+        self.act = nn.GELU()
         self.linear1 = nn.Linear(hidden_dim, embedding_dim)
         self.dropout1 = nn.Dropout(dropout)
         self.output_norm = nn.LayerNorm(embedding_dim)
@@ -25,7 +25,7 @@ class FeedForward(nn.Module):
         embeddings1 = self.dropout0(embeddings1)
 
         # Apply activation.
-        embeddings1 = self.relu(embeddings1)
+        embeddings1 = self.act(embeddings1)
 
         # Project back to original embedding len.
         embeddings1 = self.linear1(embeddings1)
