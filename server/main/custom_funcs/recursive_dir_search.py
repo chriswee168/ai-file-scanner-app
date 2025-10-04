@@ -39,6 +39,9 @@ def search_dir(root_path: str) -> tuple[list[str], list[dict]]:
     filepaths: list[str] = []
     metadatas: list[dict] = []
 
+    # Remove all single/double quotation marks from path.
+    root_path = root_path.replace("\"", "").replace("'", "")
+
     # Check if the path is a valid directory.
     if os.path.isdir(root_path):
         # Recursively search directory.
