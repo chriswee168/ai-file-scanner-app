@@ -66,7 +66,8 @@ class Model(nn.Module):
 
             feedforward_layer = FeedForward(
                 embedding_dim=embedding_len,
-                hidden_dim=embedding_len * 4
+                hidden_dim=embedding_len * 4,
+                dropout=dropout
             )
 
             # Append attention and feedforward layer.
