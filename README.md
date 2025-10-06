@@ -59,3 +59,9 @@ python remove_exe.py
 PyTorch files. This avoids having to load the entire tensor dataset which can easily exceed memory if dataset is too large.  
 (This step is performed by the training script in `ml_workspace/train.py`)
 
+#### Training
+
+AI models were created and trained using the `ml_workspace/train.py` script which can be executed from the project directory using the following command:  
+```
+python -m ml_workspace.train
+```
