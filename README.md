@@ -7,6 +7,9 @@ List of Contents:
 2. [Usage](#usage)
     - [Starting App](#starting-app)
     - [Model Training](#model-training)
+        - [Portable executable dataset](#portable-executable-dataset)
+        - [Data preparation](#data-preparation)
+        - [Training](#training)
 3. [Acknowledgements](#acknowledgements)
 
 ## Dependencies
