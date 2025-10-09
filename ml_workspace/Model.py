@@ -53,33 +53,35 @@ class Model(nn.Module):
                     f"not available (only \"sinusoidal\" or \"learnable\")."))
             raise SystemExit()
         
-        # Module list to contain the transformer blocks.
+        # Module list to contain layer blocks.
         self.blocks = nn.ModuleList()
 
         # Module list for final dense classifier.
         self.mlp = nn.ModuleList()
 
-        # Initialize transformer blocks.
-        # Each transformer block consists of attention -> feedforward.
+        # Initialize blocks.
         for _ in range(blocks):
-            attention_layer = LinearAttention(
-                heads=heads,
-                embedding_len=embedding_len,
-                attn_len=attn_embedding_len,
-                proj_len=low_rank_proj,
-                context_len=context_len,
-                dropout=dropout
-            )
+            if block_type == "attention":
+                block = LinearAttention(
+                    heads=heads,
+                    embedding_len=embedding_len,
+                    attn_len=attn_embedding_len,
+                    proj_len=low_rank_proj,
+                    context_len=context_len,
+                    dropout=dropout
+                )
+            elif block_type == "global_conv":
+                block = MultiHeadGlobalConv(
+                    heads=heads,
+                    embedding_len=embedding_len,
+                    latent_len=attn_embedding_len,
+                    kernels_per_head=kernels_per_head,
+                    dropout=dropout
+                )
 
-            feedforward_layer = FeedForward(
-                embedding_dim=embedding_len,
-                hidden_dim=embedding_len * 4,
-                dropout=dropout
-            )
+            # Append the linear attention/multi headed global convolutional block.
+            self.blocks.append(block)
 
-            # Append attention and feedforward layer.
-            self.blocks.append(attention_layer)
-            self.blocks.append(feedforward_layer)
         
         # Initialize the dense classification layers.
         current_dim = embedding_len
