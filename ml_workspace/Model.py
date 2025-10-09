@@ -22,6 +22,12 @@ class Model(nn.Module):
         attn_embedding_len: int = hyper_params["attn_embedding_len"]
         low_rank_proj: int = hyper_params["low_rank_proj"]
         pos_encoding_type: str = hyper_params["pos_encoding_type"]
+
+        # Block types: "attention" or "global_conv".
+        block_type: str = hyper_params["block_type"]
+
+        include_ff_blocks: bool = hyper_params["include_ff_blocks"]
+        kernels_per_head: int = hyper_params["kernels_per_head"]
         sinusoidal_n: int = hyper_params["sinusoidal_n"]
 
         mlp_dense_layer_dims: list[int] = hyper_params["mlp_dense_layer_dims"]
