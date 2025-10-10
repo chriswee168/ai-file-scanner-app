@@ -132,6 +132,7 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
 
     # Load the weights.
     model.load_state_dict(torch.load(weights_path))
+    print(model)
 
     # Move to CUDA if available, otherwise use CPU.
     if torch.cuda.is_available():
