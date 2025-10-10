@@ -121,7 +121,12 @@ class Model(nn.Module):
 
         # Pass embeddings through blocks.
         for layer in self.blocks:
-            embeddings = layer(embeddings)
+            # Multi headed global convoluutional block requires positional
+            # encodings for dynamic global kernel generation.
+            if isinstance(layer, MultiHeadGlobalConv):
+                embeddings = layer(embeddings, pos_encodings)
+            else:
+                embeddings = layer(embeddings)
         
         # Get CLS embedding vector for classification, first
         # token is assumed to be CLS.
