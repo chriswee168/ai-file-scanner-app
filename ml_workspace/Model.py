@@ -82,6 +82,15 @@ class Model(nn.Module):
             # Append the linear attention/multi headed global convolutional block.
             self.blocks.append(block)
 
+            # Append feedforward layer.
+            if include_ff_blocks:
+                feedforward_layer = FeedForward(
+                    embedding_dim=embedding_len,
+                    hidden_dim=embedding_len * 4,
+                    dropout=dropout
+                )
+
+                self.blocks.append(feedforward_layer)
         
         # Initialize the dense classification layers.
         current_dim = embedding_len
