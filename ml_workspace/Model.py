@@ -116,7 +116,10 @@ class Model(nn.Module):
         # Apply positional encodings.
         embeddings = self.pos_encoding(embeddings)
 
-        # Pass embeddings through transformer blocks.
+        # Obtain the positional encoding vectors.
+        pos_encodings = self.pos_encoding.encoding_vectors.detach()
+
+        # Pass embeddings through blocks.
         for layer in self.blocks:
             embeddings = layer(embeddings)
         
