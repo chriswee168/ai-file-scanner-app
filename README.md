@@ -33,6 +33,9 @@ python -m server.manage runserver
 
 # Enter the URL: http://127.0.0.1:8000/main in browser to display the web page.
 ```
+
+### Model Training
+
 #### Data preparation
 
 Below are the steps used to create the byte chunk dataset using the portable executable files:
