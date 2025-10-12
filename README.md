@@ -33,6 +33,13 @@ python -m server.manage runserver
 
 # Enter the URL: http://127.0.0.1:8000/main in browser to display the web page.
 ```
+
+### Model Training
+
+#### Portable executable dataset
+
+
+
 #### Data preparation
 
 Below are the steps used to create the byte chunk dataset using the portable executable files:
@@ -65,3 +72,13 @@ AI models were created and trained using the `ml_workspace/train.py` script whic
 ```
 python -m ml_workspace.train
 ```
+
+## Acknowledgements
+
+Python libraries used:
+- [Django](https://www.djangoproject.com/) — Python web framework used to implement the backend server.
+    - License type: BSD 3-Clause
+    - Link: https://github.com/django/django/blob/main/LICENSE
+- [PyTorch](https://pytorch.org/) — Python machine learning library used to develop the AI models.
+    - License type: BSD 3-Clause
+    - Link: https://github.com/pytorch/pytorch/blob/main/LICENSE
