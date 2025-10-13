@@ -71,17 +71,6 @@ export class FileList extends List
 
             // Add file element to file list element.
             this.listElement.appendChild(element);
-
-            // Set colour to use when entry is selected based on type.
-            let colour;
-            if (metadata_list[i].type == "folder")
-            {
-                colour = "rgb(255, 255, 255)";
-            }
-            else if (metadata_list[i].type == "file")
-            {
-                colour = "rgb(115, 255, 21)";
-            }
             
             // Add entry to file list.
             this.entries.push(
