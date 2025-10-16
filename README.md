@@ -46,7 +46,7 @@ https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_
 #### Data preparation
 
 Below are the steps used to create the byte chunk dataset using the portable executable files:
-1. All benign and virus files are organized in the following directory structure:
+1. All benign and virus files were organized in the following directory structure:
 ```
 ml_workspace/
     dataset/
@@ -59,13 +59,12 @@ ml_workspace/
             example_virus2.exe
             ...
 ```
-2. All names of benign and virus files are renamed to remove the ".exe" file to avoid accidental executation using the following commands:
+2. All names of benign and virus files were renamed to remove the ".exe" file to avoid accidental executation using the following command in the project root directory:
 ```
-cd ml_workspace/dataset
-python remove_exe.py
+python -m ml_workspace.remove_exe_ext
 ```
 
-3. Byte chunks of every file in `ml_workspace/dataset` are obtained as tensors and saved in separate
+3. Byte chunks of every file in `ml_workspace/dataset` were obtained as tensors and saved in separate
 PyTorch files. This avoids having to load the entire tensor dataset which can easily exceed memory if dataset is too large.  
 (This step is performed by the training script in `ml_workspace/train.py`)
 
