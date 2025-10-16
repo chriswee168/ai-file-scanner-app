@@ -20,16 +20,16 @@ label
     position: absolute;
 }
 
-/* Main title of page. */
-#page-title
+/* User instructions div box. */
+#instruction-box
 {
-    color: rgb(37, 37, 37);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 400%;
-    font-weight: 100;
-    text-align: center;
-    top: -1%;
-    position: relative;
+    top: 1%;
+    left: 0.7%;
+    width: 17%;
+    color: white;
+    font-family: monospace;
+    text-align: left;
+    padding-left: 0.5%;
 }
 
 /* Contains sub divs each displaying the name of an AI
