@@ -59,10 +59,9 @@ ml_workspace/
             example_virus2.exe
             ...
 ```
-2. All names of benign and virus files were renamed to remove the ".exe" file to avoid accidental executation using the following commands:
+2. All names of benign and virus files were renamed to remove the ".exe" file to avoid accidental executation using the following command in the project root directory:
 ```
-cd ml_workspace/dataset
-python remove_exe.py
+python -m ml_workspace.remove_exe_ext
 ```
 
 3. Byte chunks of every file in `ml_workspace/dataset` were obtained as tensors and saved in separate
