@@ -89,3 +89,6 @@ Python libraries used:
 Model architecture/s:
 - This project includes implementations of linear attention to reduce memory usage from the paper "Linformer: Self-Attention with Linear Complexity", reference below:  
 Wang, S., Li, B. Z., Khabsa, M., Fang, H., & Ma, H. (2020). *Linformer: Self-Attention with Linear Complexity.* ArXiv.org. https://arxiv.org/abs/2006.04768
+
+Dataset reference:
+- Tuan, A. P., Tran, A., Thanh, N. V., & Van, T. N. (2018). Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset. Figshare. https://doi.org/10.6084/m9.figshare.6635642.v1
