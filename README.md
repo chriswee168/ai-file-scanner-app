@@ -38,7 +38,10 @@ python -m server.manage runserver
 
 #### Portable executable dataset
 
-
+- This project uses the dataset from "Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset" by Tuan et al. (2018), licensed under CC BY 4.0 ([https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/)). More details can be found under [Acknowledgements](#acknowledgements).
+- Dataset contains benign and malicious executable files. 
+- ***Dataset is not included in this project and can be found at:***  
+https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_Deep_Learning_Algorithm_Dataset/6635642
 
 #### Data preparation
 
