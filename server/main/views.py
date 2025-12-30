@@ -1,0 +1,194 @@
+import os
+import json
+from django.http import HttpRequest, JsonResponse, HttpResponse, StreamingHttpResponse
+from django.shortcuts import render
+import torch
+
+from ml_workspace.Model import Model
+from server.main.models import AIModelsTable
+from server.main.custom_funcs.recursive_dir_search import search_dir
+
+# Create your views here.
+
+# Index view to display the main page.
+def index(request: HttpRequest):
+
+    # Directory containing AI models.
+    base_path = "./ml_workspace/models"
+
+    # Used for checking which database entries to remove.
+    existing_model_dirs: list[str] = []
+
+    # Add new entries to the AI model database.
+    for model_dir in os.listdir(base_path):
+        existing_model_dirs.append(model_dir)
+        model_path = os.path.join(base_path, model_dir)
+        
+        # Create AI model entry if it doesn't exist for the directory.
+        entry_exists = AIModelsTable.objects.filter(model_name=model_dir).exists()
+        if not entry_exists:
+            AIModelsTable.objects.create(
+                model_name=model_dir, 
+                model_path=model_path
+            )
+            print(f"Created database entry {model_dir} -> {model_path}")
+    
+    # Remove entries associated with nonexistent AI model directories.
+    for entry in AIModelsTable.objects.values("model_name", "model_path"):
+        model_name = entry["model_name"]
+        model_path = entry["model_path"]
+
+        # If model directory in entry does not exist, remove entry.
+        if model_name not in existing_model_dirs:
+            AIModelsTable.objects.get(model_name=model_name).delete()
+            print(f"Removed database entry {model_name} -> {model_path}")
+            
+    return render(
+        request=request, 
+        template_name="index.html", 
+        context={"model_db": AIModelsTable.objects.all()}
+    )
+
+# View to return a list of filepaths for each file
+# in a local path directory.
+def get_filepaths(request: HttpRequest):
+
+    if request.method == "POST":
+
+        # List of filepaths to return.
+        filepaths: list[str] = []
+        metadatas: list[dict] = []
+
+        # Recursively search for every file in the specified path.
+        path = json.loads(request.body)["dir_path"]
+        filepaths, metadatas = search_dir(path)
+        
+        json_data = {"filepaths": filepaths, "metadatas": metadatas}
+    
+        return JsonResponse(json_data)
+
+# View to set the path of file and name of AI model selected
+# by user before starting the byte chunk prediction process.
+def prediction_conf(request: HttpRequest):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        request.session["file_path"] = data["filePath"]
+        request.session["model_name"] = data["modelName"]
+
+        return HttpResponse(status=200)
+
+# View to predict the class that each byte chunk belongs
+# to (clean, warning, malicious) and continuously send them
+# to client.
+def predict_chunks(request: HttpRequest):
+    # Get selected file path and model name.
+    file_path: str = request.session["file_path"]
+    model_name: str = request.session["model_name"]
+
+    # Query AI model database to get the path to model's weights.
+    model_path = AIModelsTable.objects.get(model_name=model_name).model_path
+
+    # Load the AI model.
+    hyper_param_path = os.path.join(model_path, "hparams.json")
+    weights_path = os.path.join(model_path, "weights.pt")
+    model = load_model(hyper_param_path, weights_path)
+
+    # Load file byte sequence.
+    with open(file_path, "rb") as f:
+        file_bytes = f.read()
+    
+    # Get chunk size (context length of model).
+    chunk_size = int(model_name.split("_")[-1])
+
+    # Stride to slide chunk window across whole file byte sequence.
+    stride = chunk_size
+
+    # Get thresholds to classify chunks as clean, warning or malicious.
+    # Low threshold separates clean and warning classes.
+    # High threshold separates warning and malicious classes.
+    with open("./server/server_conf.json", "r") as f:
+        server_conf = json.load(f)
+    low_threshold = server_conf["byte_scan_class_low_threshold"]
+    high_threshold = server_conf["byte_scan_class_high_threshold"]
+
+    # Start server side event stream.
+    response = StreamingHttpResponse(
+        stream_func(model, file_bytes, chunk_size, stride, low_threshold, high_threshold),
+        content_type="text/event-stream"
+    )
+
+    response["Cache-Control"] = "no-cache"
+    return response
+
+
+# Function to load PyTorch model.
+def load_model(hyper_param_path: str, weights_path: str) -> Model:
+    
+    # Initialize model.
+    model = Model(
+        hyper_params_path=hyper_param_path,
+        dropout=0.0
+    )
+
+    # Load the weights.
+    model.load_state_dict(torch.load(weights_path))
+    print(model)
+
+    # Move to CUDA if available, otherwise use CPU.
+    if torch.cuda.is_available():
+        print(f"CUDA is available, using {torch.cuda.get_device_name(0)}.")
+        model.cuda()
+    else:
+        print("CUDA is not available, using CPU.")
+
+    return model
+
+# Function to yield chunk prediction probability.
+def stream_func(
+        model: Model, file_bytes: bytes, chunk_size: int, stride: int, 
+        threshold1: float, threshold2: float
+    ):
+
+    max_chunks = int(len(file_bytes) / chunk_size)
+    chunks_scanned = 0
+    for i in range(0, len(file_bytes), stride):
+
+        # Only consider chunks that are the same length as chunk_size.
+        byte_chunk = file_bytes[i: i + chunk_size]
+        if len(byte_chunk) == chunk_size:
+            byte_chunk = torch.tensor(
+                [bytearray(byte_chunk)], 
+                dtype=torch.long
+            )
+            
+            # Move to CUDA if available, otherwise use CPU.
+            if torch.cuda.is_available():
+                byte_chunk = byte_chunk.cuda()
+
+            # Obtain model prediction of byte chunk.
+            with torch.inference_mode():
+                prob = model(byte_chunk)[0][0]
+                
+                if prob < threshold1:
+                    chunk_class = 0 # clean.
+                elif prob >= threshold1 and prob < threshold2:
+                    chunk_class = 1 # warning.
+                elif prob >= threshold2:
+                    chunk_class = 2 # malicious.
+
+                chunks_scanned += 1
+
+                # Send the chunk class predicted to client.
+                data = json.dumps({
+                    "chunkClass": chunk_class, 
+                    "nChunksScanned": chunks_scanned,
+                    "maxChunksScannable": max_chunks
+                })
+                
+                yield f"data: {data}\n\n"
+        
+        else: # Chunk is smaller than chunk_size.
+            pass
+            
+    # Finished scanning.
+    print("Byte chunk scanning completed.")
