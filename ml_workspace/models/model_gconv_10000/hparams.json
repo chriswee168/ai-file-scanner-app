@@ -1,0 +1,15 @@
+{
+    "heads": 8,
+    "blocks": 3,
+    "embedding_len": 32,
+    "context_len": 10000,
+    "attn_embedding_len": 16,
+    "low_rank_proj": 16,
+    "pos_encoding_type": "learnable",
+    "block_type": "global_conv",
+    "include_ff_blocks": false,
+    "kernels_per_head": 3,
+    "sinusoidal_n": 100,
+    
+    "mlp_dense_layer_dims": [128]
+}
