@@ -85,6 +85,8 @@ Python libraries used:
     - License type: BSD 3-Clause
     - Link: https://github.com/pytorch/pytorch/blob/main/LICENSE
 
+- License files for third party Python libraries are included in `./third_party_licenses` directory.
+
 Model architecture/s:
 - This project includes implementations of linear attention to reduce memory usage from the paper "Linformer: Self-Attention with Linear Complexity", reference below:  
 Wang, S., Li, B. Z., Khabsa, M., Fang, H., & Ma, H. (2020). *Linformer: Self-Attention with Linear Complexity.* ArXiv.org. https://arxiv.org/abs/2006.04768
