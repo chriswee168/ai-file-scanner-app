@@ -64,13 +64,13 @@ ml_workspace/
 python -m ml_workspace.remove_exe_ext
 ```
 
-3. Byte chunks of every file in `ml_workspace/dataset` were obtained as tensors and saved in separate
+3. Byte chunks of every file in `./ml_workspace/dataset` were obtained as tensors and saved in separate
 PyTorch files. This avoids having to load the entire tensor dataset which can easily exceed memory if dataset is too large.  
-(This step is performed by the training script in `ml_workspace/train.py`)
+(This step is performed by the training script in `./ml_workspace/train.py`)
 
 #### Training
 
-AI models were created and trained using the `ml_workspace/train.py` script which can be executed from the project directory using the following command:  
+AI models were created and trained using the `./ml_workspace/train.py` script which can be executed from the project directory using the following command:  
 ```
 python -m ml_workspace.train
 ```
