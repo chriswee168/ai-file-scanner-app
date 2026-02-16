@@ -38,10 +38,8 @@ python -m server.manage runserver
 
 #### Portable executable dataset
 
-- This project uses the dataset from "Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset" by Tuan et al. (2018), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). More details can be found under [Acknowledgements](#acknowledgements).
-- Dataset contains benign and malicious executable files. 
-- ***Dataset is not included in this project and can be found at:***  
-https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_Deep_Learning_Algorithm_Dataset/6635642
+- This project uses the *Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset* which contains a set of benign and malicious executable files used to train AI models for malware classification. Dataset is **not** included in this project and can be downloaded from: https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_Deep_Learning_Algorithm_Dataset/6635642. 
+- Credits for this dataset can be found under [Acknowledgements](#acknowledgements).
 
 #### Data preparation
 
@@ -64,13 +62,13 @@ ml_workspace/
 python -m ml_workspace.remove_exe_ext
 ```
 
-3. Byte chunks of every file in `ml_workspace/dataset` were obtained as tensors and saved in separate
+3. Byte chunks of every file in `./ml_workspace/dataset` were obtained as tensors and saved in separate
 PyTorch files. This avoids having to load the entire tensor dataset which can easily exceed memory if dataset is too large.  
-(This step is performed by the training script in `ml_workspace/train.py`)
+(This step is performed by the training script in `./ml_workspace/train.py`)
 
 #### Training
 
-AI models were created and trained using the `ml_workspace/train.py` script which can be executed from the project directory using the following command:  
+AI models were created and trained using the `./ml_workspace/train.py` script which can be executed from the project directory using the following command:  
 ```
 python -m ml_workspace.train
 ```
@@ -91,5 +89,9 @@ Model architecture/s:
 - This project includes implementations of linear attention to reduce memory usage from the paper "Linformer: Self-Attention with Linear Complexity", reference below:  
 Wang, S., Li, B. Z., Khabsa, M., Fang, H., & Ma, H. (2020). *Linformer: Self-Attention with Linear Complexity.* ArXiv.org. https://arxiv.org/abs/2006.04768
 
-Dataset reference:
-- Tuan, A. P., Tran, A., Thanh, N. V., & Van, T. N. (2018). Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset. Figshare. https://doi.org/10.6084/m9.figshare.6635642.v1
+Machine learning dataset:
+- Name: “Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset”  
+- Authors: Anh Pham Tuan, An Tran Hung Phuong, Nguyen Vu Thanh, Toan Nguyen Van
+- Dataset date: 22/6/2018
+- DOI: https://doi.org/10.6084/m9.figshare.6635642
+- License: Creative Commons Attribution 4.0 International (CC BY 4.0)  
