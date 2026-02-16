@@ -94,4 +94,5 @@ Machine learning dataset:
 - Authors: Anh Pham Tuan, An Tran Hung Phuong, Nguyen Vu Thanh, Toan Nguyen Van
 - Dataset date: 22/6/2018
 - DOI: https://doi.org/10.6084/m9.figshare.6635642
-- License: Creative Commons Attribution 4.0 International (CC BY 4.0)  
+- License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    - License link: https://creativecommons.org/licenses/by/4.0/
