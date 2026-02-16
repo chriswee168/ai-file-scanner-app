@@ -38,10 +38,8 @@ python -m server.manage runserver
 
 #### Portable executable dataset
 
-- This project uses the dataset from "Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset" by Tuan et al. (2018), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). More details can be found under [Acknowledgements](#acknowledgements).
-- Dataset contains benign and malicious executable files. 
-- ***Dataset is not included in this project and can be found at:***  
-https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_Deep_Learning_Algorithm_Dataset/6635642
+- This project uses the *Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset* which contains a set of benign and malicious executable files used to train AI models for malware classification. Dataset is **not** included in this project and can be downloaded from: https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_Deep_Learning_Algorithm_Dataset/6635642. 
+- Credits for this dataset can be found under [Acknowledgements](#acknowledgements).
 
 #### Data preparation
 
@@ -91,5 +89,9 @@ Model architecture/s:
 - This project includes implementations of linear attention to reduce memory usage from the paper "Linformer: Self-Attention with Linear Complexity", reference below:  
 Wang, S., Li, B. Z., Khabsa, M., Fang, H., & Ma, H. (2020). *Linformer: Self-Attention with Linear Complexity.* ArXiv.org. https://arxiv.org/abs/2006.04768
 
-Dataset reference:
-- Tuan, A. P., Tran, A., Thanh, N. V., & Van, T. N. (2018). Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset. Figshare. https://doi.org/10.6084/m9.figshare.6635642.v1
+Machine learning dataset:
+- Name: “Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset”  
+- Authors: Anh Pham Tuan, An Tran Hung Phuong, Nguyen Vu Thanh, Toan Nguyen Van
+- Dataset date: 22/6/2018
+- DOI: https://doi.org/10.6084/m9.figshare.6635642
+- License: Creative Commons Attribution 4.0 International (CC BY 4.0)  
