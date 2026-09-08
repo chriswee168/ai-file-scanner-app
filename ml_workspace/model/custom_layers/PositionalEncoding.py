@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 import numpy as np
-from ml_workspace.custom_torch_funcs.gen_rand_tensor_param import gen_rand_tensor_param
+from ml_workspace.model.custom_torch_funcs.gen_rand_tensor_param import gen_rand_tensor_param
 
 class SinusoidalPosEncoding(nn.Module):
     """
