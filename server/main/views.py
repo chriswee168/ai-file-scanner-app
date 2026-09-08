@@ -4,7 +4,7 @@ from django.http import HttpRequest, JsonResponse, HttpResponse, StreamingHttpRe
 from django.shortcuts import render
 import torch
 
-from ml_workspace.Model import Model
+from ml_workspace.model.Model import Model
 from server.main.models import AIModelsTable
 from server.main.custom_funcs.recursive_dir_search import search_dir
 
@@ -14,7 +14,7 @@ from server.main.custom_funcs.recursive_dir_search import search_dir
 def index(request: HttpRequest):
 
     # Directory containing AI models.
-    base_path = "./ml_workspace/models"
+    base_path = "./ml_workspace/model/models"
 
     # Used for checking which database entries to remove.
     existing_model_dirs: list[str] = []

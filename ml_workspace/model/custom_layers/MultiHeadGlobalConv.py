@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
-from ml_workspace.custom_torch_funcs.head_ops import head_partition, head_concat
+from ml_workspace.model.custom_torch_funcs.head_ops import head_partition, head_concat
 
 class MultiHeadGlobalConv(nn.Module):
     """
