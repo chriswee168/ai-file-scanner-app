@@ -14,14 +14,12 @@ List of Contents:
 
 ## Dependencies
 
-Python version required: 3.11.0
-- Frontend UI is implemented using HTML, CSS and Javascript.
-- Backend server is implemented using Django.
-- Machine learning models for next token prediction are implemented  
-in PyTorch, more details under [Model Training](#model-training).
-
-Necessary Python libraries for the backend can be installed by running:  
-`pip install -r requirements.txt`
+- Python version required: *v3.11.0*
+- Python libraries and frameworks required:
+    - **Django** *(v5.2.5)*: Web framework for frontend UI and backend server.
+    - **torch** *(v2.7.1+cu128)*: Machine learning library for developing and training models with different architectures.
+    - **numpy** *(v1.24.3)*: Library for conducting scientific computing on multidimensional arrays.
+    - **matplotlib** *(v3.7.1)*: Plotting library for displaying ML model benchmarking graphs.
 
 ## Usage
 
