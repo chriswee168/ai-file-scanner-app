@@ -1,10 +1,10 @@
 import torch.nn as nn
 import json
 from torch import Tensor
-from ml_workspace.custom_layers.FeedForward import FeedForward
-from ml_workspace.custom_layers.LinearAttention import LinearAttention
-from ml_workspace.custom_layers.PositionalEncoding import LearnablePosEncoding, SinusoidalPosEncoding
-from ml_workspace.custom_layers.MultiHeadGlobalConv import MultiHeadGlobalConv
+from ml_workspace.model.custom_layers.FeedForward import FeedForward
+from ml_workspace.model.custom_layers.LinearAttention import LinearAttention
+from ml_workspace.model.custom_layers.PositionalEncoding import LearnablePosEncoding, SinusoidalPosEncoding
+from ml_workspace.model.custom_layers.MultiHeadGlobalConv import MultiHeadGlobalConv
 
 # Main class for AI models.
 class Model(nn.Module):
