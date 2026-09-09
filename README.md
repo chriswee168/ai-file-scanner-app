@@ -71,12 +71,25 @@ Below are the steps used to create the byte chunk dataset using the portable exe
 3. All files in `./ml_workspace/dataset/file_dataset` were read as raw byte strings and segmented into fixed length tensor arrays of integers ranging from 0 to 255. 
 4. Tensor arrays are stored in separate tensor files located in `./ml_workspace/dataset/tensor_dataset` which avoids having to load the entire dataset during training which can risk out of memory errors.
 
-#### Training
+### Training
 
-AI models were created and trained using the `./ml_workspace/train.py` script which can be executed from the project directory using the following command:  
+AI models were created and trained using the `./ml_workspace/train.py` script which contains hardcoded training hyperparameters. This script was run from the root directory using the following command:
 ```
 python -m ml_workspace.train
 ```
+Model weights and hyperparameters are stored in the `./ml_workspace/model/models` which has the follow directory structure:
+```
+./ml_workspace/
+    model/
+        models/
+            example_model_1/
+                hparams.json
+                weights.pt
+            example_model_2/
+                hparams.json
+                weights.pt
+```
+
 
 ## Acknowledgements
 
