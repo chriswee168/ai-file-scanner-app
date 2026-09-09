@@ -43,35 +43,33 @@ python -m server.manage runserver
 
 Enter the URL: http://127.0.0.1:8000/main in browser to display the main web page.
 
-#### Portable executable dataset
+## Model Training
+
+### Portable executable dataset
 
 - This project uses the *Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset* which contains a set of benign and malicious executable files used to train AI models for malware classification. Dataset is **not** included in this project and can be downloaded from: https://figshare.com/articles/dataset/Malware_Detection_PE-Based_Analysis_Using_Deep_Learning_Algorithm_Dataset/6635642. 
 - Credits for this dataset can be found under [Acknowledgements](#acknowledgements).
 
-#### Data preparation
+### Data preparation
 
 Below are the steps used to create the byte chunk dataset using the portable executable files:
-1. All benign and virus files were organized in the following directory structure:
+1. All benign and malicious files were organized in the following directory structure:
 ```
-ml_workspace/
+./ml_workspace/
     dataset/
-        clean/
-            example_file1.exe
-            example_file2.exe
-            ...
-        malicious/
-            example_virus1.exe
-            example_virus2.exe
-            ...
+        file_dataset/
+            clean/
+                example_benign1.exe
+                example_benign2.exe
+                ...
+            malicious/
+                example_malicious1.exe
+                example_malicious2.exe
+                ...
 ```
-2. All names of benign and virus files were renamed to remove the ".exe" file to avoid accidental executation using the following command in the project root directory:
-```
-python -m ml_workspace.remove_exe_ext
-```
-
-3. Byte chunks of every file in `./ml_workspace/dataset` were obtained as tensors and saved in separate
-PyTorch files. This avoids having to load the entire tensor dataset which can easily exceed memory if dataset is too large.  
-(This step is performed by the training script in `./ml_workspace/train.py`)
+2. All names of benign and malicious files were renamed to remove the ".exe" file using the `./ml_workspace/utils/remove_exe_ext.py` script to avoid accidental executation of malware on Windows Operating System.
+3. All files in `./ml_workspace/dataset/file_dataset` were read as raw byte strings and segmented into fixed length tensor arrays of integers ranging from 0 to 255. 
+4. Tensor arrays are stored in separate tensor files located in `./ml_workspace/dataset/tensor_dataset` which avoids having to load the entire dataset during training which can risk out of memory errors.
 
 #### Training
 
