@@ -7,6 +7,7 @@ import torch
 import json
 import os
 import math
+import matplotlib.pyplot as plt
 from ml_workspace.model.Model import Model
 
 # Default JSON configuration all models will use.
@@ -71,3 +72,18 @@ for block_type in block_types:
         plot_data[block_type]["infer_ms"].append(infer_time)
 
 os.remove("temp_config.json")
+
+# Graph plot data and save to PNG.
+fig, (ax1) = plt.subplots(1, 1)
+ax1.plot(context_lens, plot_data["attention"]["memory_mb"], label="Linear Attention", marker='o', color="red")
+ax1.plot(context_lens, plot_data["global_conv"]["memory_mb"], label="Multi Head Global Conv", marker='o', color="blue")
+ax1.set_xlabel("Context Length (N Bytes)")
+ax1.set_ylabel("GPU Memory (MB)")
+ax1.set_title("Context Length vs GPU Memory")
+ax1.tick_params("x", rotation=45)
+ax1.legend()
+
+plt.tight_layout()
+plt.show()
+
+fig.savefig("ml_workspace/arch_benchmark/assets/benchmark_memory_graph.png")
