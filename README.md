@@ -21,18 +21,27 @@ List of Contents:
     - **numpy** *(v1.24.3)*: Library for conducting scientific computing on multidimensional arrays.
     - **matplotlib** *(v3.7.1)*: Plotting library for displaying ML model benchmarking graphs.
 
-## Usage
+## Starting Django Server & App Usage
 
-### Starting App
+Start the Django server by running the following set of commands below in the root directory.
 
-```
-# Run the command below in the project directory to start the Django server.
+For Windows OS 11:
+```powershell
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
 python -m server.manage runserver
-
-# Enter the URL: http://127.0.0.1:8000/main in browser to display the web page.
 ```
 
-### Model Training
+For Linux and mac OS:
+```bash
+python -m venv venv
+./venv/Scripts/activate
+pip install -r requirements.txt
+python -m server.manage runserver
+```
+
+Enter the URL: http://127.0.0.1:8000/main in browser to display the main web page.
 
 #### Portable executable dataset
 
