@@ -1,12 +1,10 @@
 import os
 import json
-from time import ctime
 from django.http import HttpRequest, JsonResponse, HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
 import torch
-from torch import Tensor
 
-from ml_workspace.Model import Model
+from ml_workspace.model.Model import Model
 from server.main.models import AIModelsTable
 from server.main.custom_funcs.recursive_dir_search import search_dir
 
@@ -16,7 +14,7 @@ from server.main.custom_funcs.recursive_dir_search import search_dir
 def index(request: HttpRequest):
 
     # Directory containing AI models.
-    base_path = "./ml_workspace/models"
+    base_path = "./ml_workspace/model/models"
 
     # Used for checking which database entries to remove.
     existing_model_dirs: list[str] = []
@@ -134,6 +132,7 @@ def load_model(hyper_param_path: str, weights_path: str) -> Model:
 
     # Load the weights.
     model.load_state_dict(torch.load(weights_path))
+    print(model)
 
     # Move to CUDA if available, otherwise use CPU.
     if torch.cuda.is_available():

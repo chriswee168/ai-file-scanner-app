@@ -4,11 +4,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Main HTML page for AI antimalware.">
+        <meta name="description" content="Main HTML page for AI file scanner.">
     </head>
 
     <!-- Tab title. -->
-    <title>AI Antimalware</title>
+    <title>File scanner</title>
 
     <!-- Link to CSS. -->
     <header>
@@ -17,7 +17,17 @@
 
     <body>
         <div id="main-wrapper">
-            <h1 id="page-title">AI AntiMalware</h1>
+
+            <!-- Displays the instructions for using the app. -->
+            <div id="instruction-box" class="div-box">
+                <h3 class="div-title">Usage Steps</h3>
+                <p id="instruction-text">
+                   1. Select an AI model to use for file scanning.<br>
+                   2. Enter the path to a local directory containing files to scan.<br>
+                   3. Select a file and press the scan button to obtain byte
+                      chunk classifications.
+                </p>
+            </div>
             
             <!-- Create the list of AI models selectable from the Django AIModelsTable. -->
             <div id="model-list">

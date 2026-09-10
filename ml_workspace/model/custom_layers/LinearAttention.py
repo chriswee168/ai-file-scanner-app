@@ -2,8 +2,7 @@ import torch
 import torch.nn as nn
 from torch import Tensor
 from torch.nn.functional import scaled_dot_product_attention
-from ml_workspace.custom_torch_funcs.gen_rand_tensor_param import gen_rand_tensor_param
-from ml_workspace.custom_torch_funcs.head_ops import head_concat, head_partition
+from ml_workspace.model.custom_torch_funcs.head_ops import head_concat, head_partition
 
 class LinearAttention(nn.Module):
     """
