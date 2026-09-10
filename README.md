@@ -1,16 +1,19 @@
-# AI file scanner app
+# AI Malware Detection App
 An AI powered local web app for scanning byte chunks of portable executable files and  
 classifying them as either benign or malicious.
 
 List of Contents:
 1. [Dependencies](#dependencies)
-2. [Usage](#usage)
-    - [Starting App](#starting-app)
-    - [Model Training](#model-training)
-        - [Portable executable dataset](#portable-executable-dataset)
-        - [Data preparation](#data-preparation)
-        - [Training](#training)
-3. [Acknowledgements](#acknowledgements)
+2. [Starting Django Server & App Usage](#starting-django-server--app-usage)
+3. [Model Training](#model-training)
+    - [Portable executable dataset](#portable-executable-dataset)
+    - [Data preparation](#data-preparation)
+    - [Training](#training)
+4. [Benchmarking & Empirical Findings](#benchmarking--empirical-findings)
+    - [Developing Custom Architectures](#developing-custom-architectures)
+    - [Key Observations During Training](#key-observations-during-training)
+    - [GPU Memory Benchmarking](#gpu-memory-benchmarking)
+5. [Acknowledgements](#acknowledgements)
 
 ## Dependencies
 
