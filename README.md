@@ -144,19 +144,12 @@ A graph was generated using matplotlib that shows models using MHGC layers utili
 
 ## Acknowledgements
 
-Python libraries used:
-- [Django](https://www.djangoproject.com/) — Python web framework used to implement the backend server.
-    - License type: BSD 3-Clause
-    - Link: https://github.com/django/django/blob/main/LICENSE
-- [PyTorch](https://pytorch.org/) — Python machine learning library used to develop the AI models.
-    - License type: BSD 3-Clause
-    - Link: https://github.com/pytorch/pytorch/blob/main/LICENSE
-
-- License files for third party Python libraries are included in `./third_party_licenses` directory.
-
 Model architecture/s:
 - This project includes implementations of linear attention to reduce memory usage from the paper "Linformer: Self-Attention with Linear Complexity", reference below:  
 Wang, S., Li, B. Z., Khabsa, M., Fang, H., & Ma, H. (2020). *Linformer: Self-Attention with Linear Complexity.* ArXiv.org. https://arxiv.org/abs/2006.04768
+
+- Reference for the paper "Attention Is All You Need" featuring the original transformer architecture and self-attention mechanism:  
+Vaswani, A., Noam Shazeer, Parmar, N., Jakob Uszkoreit, Jones, L., Gomez, A. N., Kaiser, L., & Illia Polosukhin. (2017, June 12). Attention Is All You Need (1706.03762v7). arXiv. https://arxiv.org/abs/1706.03762v7
 
 Machine learning dataset:
 - Name: “Malware Detection PE-Based Analysis Using Deep Learning Algorithm Dataset”  
