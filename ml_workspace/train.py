@@ -1,25 +1,22 @@
-from ml_workspace.dataloader import create_byte_dataset
-from ml_workspace.ByteChunkDataset import ByteChunkDataset
-from ml_workspace.Model import Model
+from ml_workspace.data_preprocessing.create_byte_dataset import create_byte_dataset
+from ml_workspace.model.Model import Model
 import torch
-from torch.utils.data import DataLoader
-from torch.utils.data import random_split
 import os
 import time
 import random
 
 # Define paths for model weight files and dictionaries.
 model_name = "model_attn_2048"
-dataset_path = "ml_workspace/dataset/"
-tensor_dataset_path = "ml_workspace/tensor_dataset/"
+dataset_path = "ml_workspace/dataset/file_dataset/"
+tensor_dataset_path = "ml_workspace/dataset/tensor_dataset/"
 input_shard_paths = os.path.join(tensor_dataset_path, "inputs")
 output_shard_paths = os.path.join(tensor_dataset_path, "outputs")
-hyper_params_path = f"ml_workspace/models/{model_name}/hparams.json"
-model_path = f"ml_workspace/models/{model_name}/weights.pt"
+hyper_params_path = f"ml_workspace/model/models/{model_name}/hparams.json"
+model_path = f"ml_workspace/model/models/{model_name}/weights.pt"
 
 # Create the model directory if they doesn't exist already.
-if not os.path.exists(os.path.join("ml_workspace/models", model_name)):
-    os.makedirs(os.path.join("ml_workspace/models", model_name))
+if not os.path.exists(os.path.join("ml_workspace/model/models", model_name)):
+    os.makedirs(os.path.join("ml_workspace/model/models", model_name))
 
 # Create the tensor dataset if it doesn't exist.
 if not os.path.exists(tensor_dataset_path):
