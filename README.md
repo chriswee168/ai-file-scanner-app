@@ -33,6 +33,7 @@ For Windows OS 11:
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
+python -m server.manage migrate
 python -m server.manage runserver
 ```
 
@@ -41,6 +42,7 @@ For Linux and mac OS:
 python -m venv venv
 ./venv/Scripts/activate
 pip install -r requirements.txt
+python -m server.manage migrate
 python -m server.manage runserver
 ```
 
