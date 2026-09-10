@@ -90,6 +90,54 @@ Model weights and hyperparameters are stored in the `./ml_workspace/model/models
                 weights.pt
 ```
 
+## Benchmarking & Empirical Findings
+
+### Developing Custom Architectures
+
+Early project development ran into memory and computing bottlenecks when training standard self-attention models on large byte chunks due to local hardware limitations (single NVIDIA GeForce RTX 4050). Mitigating these bottlenecks involved developing two custom architectures that were extensively tested to reduce time and space complexity.
+- **Linear/Low rank attention**: Based off the Linformer architecture which uses low rank projections to reduce O(n^2) attention matrix to O(n).
+- **Multi Head Global Convolutions (MHGC)**: Custom architecture inspired by state-of-the-art transformers that uses multiple heads of dynamically generated global convolutional kernels instead of attention matrices to extract different global features from byte embeddings. The outputs of MHGC layers are added back to input embeddings to ensure gradient stability.
+
+### Key Observations During Training
+
+Below were important details that were noted during empirical and qualitative observation while training models that used MHGC, standard self-attention and linear/low rank attention:
+
+**Training Duration**
+- Models that used MHGC layers had significantly faster training duration than linear and standard self attention model with differences in training duration that grew exponentially when processing longer byte chunks.
+- Linear/Low rank attention models were able to process byte chunks significantly faster than standard self-attention models due to reduced time complexity of the attention matrix.
+
+**GPU Memory Usage**
+- MHGC models are able to maintain significantly lower GPU memory usage than attention models by generating kernels dynamically using a trainable projection matrix instead of storing global kernels that directly scale to context window size.
+- Linear/Low rank attention models consumed more GPU memory than MHGC models as K and V projection matrices must directly scale with the size of the context window and thus more susceptible to Out-Of-Memory (OOM) errors than MHGC.
+
+**Loss Convergence & Generalisation**
+- MHGC and linear/low rank attention models shared the same performance when it came to loss convergence.
+- All models underperformed when classifying byte chunks of unseen executable files as a result of insufficient compute and training data.
+
+***IMPORTANT NOTE***: Quantitative training analysis was not a priority at the time of training existing models in `./ml_workspace/model/models/`. Obtaining quantitative results was deemed unviable as the training process on large enough byte datasets for a single model was significantly memory intensive and time consuming spanning hours to days.
+
+### GPU Memory Benchmarking
+
+The MHGC and linear attention architectures were benchmarked for their GPU memory usage on power-of-two context lengths starting from 512 to 131,072 bytes using the following command. 
+```
+python -m ml_workspace.arch_benchmark.benchmark
+```
+All test models used the same JSON hyperparameter configuration below to keep results as unbiased as possible.
+```python
+default_json_config = {
+    "heads": 16, # Number of heads in each linear attention/MHGC layer.
+    "blocks": 3, # Number of linear attention/MHGC layers.
+    "embedding_len": 32, # Byte token embedding dim.
+    "attn_embedding_len": 16, # Dimension of Q and K vectors in linear attention, or kernel dimension in MHGC.
+    "low_rank_proj": 256, # Low rank projection dimension for linear attention.
+    "pos_encoding_type": "sinusoidal", # Inject positional information into embeddings.
+    "kernels_per_head": 3, # Number of kernels in each MHGC head.
+    "sinusoidal_n": 10000, # Constant value for generating sinusoidal positional encodings.
+    "mlp_dense_layer_dims": [128] # Dimensions for final dense layers to process single contextualised embedding.
+}
+```
+A graph was generated using matplotlib that shows models using MHGC layers utilized significantly less GPU memory than linear attention as context window size increased.  
+![Context Len vs GPU Memory](ml_workspace/arch_benchmark/assets/benchmark_memory_graph.png)
 
 ## Acknowledgements
 
