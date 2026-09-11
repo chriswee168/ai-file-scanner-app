@@ -39,11 +39,11 @@ python -m server.manage runserver
 
 For Linux and mac OS:
 ```bash
-python -m venv venv
+python3 -m venv venv
 ./venv/Scripts/activate
-pip install -r requirements.txt
-python -m server.manage migrate
-python -m server.manage runserver
+pip3 install -r requirements.txt
+python3 -m server.manage migrate
+python3 -m server.manage runserver
 ```
 
 Enter the URL: http://127.0.0.1:8000/main in browser to display the main web page.
